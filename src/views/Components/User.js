@@ -41,7 +41,7 @@ function ImageAvatars(props) {
 
     <div className={classes.columns}>
     <br />
-      <Avatar alt="Pekaroo" src= {pek} className={classNames(classes.avatar, classes.bigAvatar)}/>
+      <Avatar alt="Pek" src= {pek} className={classNames(classes.avatar, classes.bigAvatar)}/>
       <Divider />
       <Avatar alt="indiana" src= {indiana} className={classNames(classes.avatar, classes.bigAvatar)} />
       <Divider />

@@ -3,14 +3,15 @@ import { Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
 import pek from './pictures/pek.jpg';
-import jesus from './pictures/jesus.jpg';
-import buddha from './pictures/Budha.jpg';
 import indiana from './pictures/indiana.jpg';
 import elon from './pictures/elon.jpg';
 import yoshi from './pictures/yoshi.jpg';
-import Divider from '@material-ui/core/Divider';
+import UserGrid from './UserGrid.js';
+
 
 const styles = {
   row: {
@@ -30,32 +31,21 @@ const styles = {
 
 
 const style = {
-  paper: { marginRight: 1, marginTop: 0,  height:'85vh' }
+  paper: { marginRight: 1, marginTop:0,  height:'100vh', alignContent: 'center' }
 };
 
 function ImageAvatars(props) {
   const { classes } = props;
   return (
 
-    <Paper style={style.paper} >
 
-    <div className={classes.columns}>
-    <br />
-      <Avatar alt="Pek" src= {pek} className={classNames(classes.avatar, classes.bigAvatar)}/>
-      <Divider />
-      <Avatar alt="indiana" src= {indiana} className={classNames(classes.avatar, classes.bigAvatar)} />
-      <Divider />
-      <Avatar alt="indiana" src= {elon} className={classNames(classes.avatar, classes.bigAvatar)} />
-      <Divider />
-      <Avatar alt="yoshi" src= {yoshi} className={classNames(classes.avatar, classes.bigAvatar)} />
-      <Divider />
-      <Avatar alt="jesus" src= {jesus} className={classNames(classes.avatar, classes.bigAvatar)} />
-      <Divider />
-      <Avatar alt="buddha" src= {buddha} className={classNames(classes.avatar, classes.bigAvatar)} />
+    <Grid container spacing={16}>
 
-    </div>
+      <UserGrid />
 
-    </Paper>
+      </Grid>
+
+
   );
 }
 

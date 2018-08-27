@@ -22,7 +22,7 @@ const drawerWidth = 220;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100vh',
+    height: '1000vh',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -123,7 +123,7 @@ class MiniDrawer extends React.Component {
             <Typography variant="title" color="inherit" noWrap>
               Chit Chapp
             </Typography>
-            <Button className={classes.loginButton}> login</Button>
+            <Button className={classes.loginButton}> logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer

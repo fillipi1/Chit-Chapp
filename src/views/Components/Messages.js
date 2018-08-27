@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
     },
 
     message2:{
-      background: '#00BCD4',
+      background: '#0024d4e3',
     padding: '0.5em 0.9em 0.5em 0.9em',
     borderRadius: '20px',
     fontSize: '0.8em',
@@ -53,6 +53,6 @@ export default props =>
     </div>
 
     <div style={style.block2} >
-    <Typography variant= 'body1' style={style.message2} color='primary'>NAH UH!</Typography>
+    <Typography variant= 'body1' style={style.message2} >NAH UH!</Typography>
     </div>
   </Paper>;

@@ -30,7 +30,7 @@ const styles = theme => ({
 
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 0,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -45,8 +45,8 @@ const styles = theme => ({
     }),
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
+    marginLeft: 60,
+    marginRight: 10,
   },
   hide: {
     display: 'none',
@@ -123,7 +123,7 @@ class MiniDrawer extends React.Component {
             <Typography variant="title" color="inherit" noWrap>
               Chit Chapp
             </Typography>
-            <Button className={classes.loginButton}> logout</Button>
+            <Button className={classes.loginButton}> Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer

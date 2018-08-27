@@ -28,6 +28,7 @@ import Typography from '@material-ui/core/Typography';
     marginLeft: '1.1em',
     lineHeight: '1.5em',
     fontFamily: 'Roboto, sans-serif',
+    color: '#ffffff',
 
     },
 
@@ -38,9 +39,16 @@ import Typography from '@material-ui/core/Typography';
 
     block2: {
       padding: 20,
-      marginLeft: 420,
-      maxWidth: 100,
+      marginLeft: 350,
+      maxWidth: 150,
     },
+    caption1: {
+      marginLeft: 30,
+    },
+    division: {
+      padding:10,
+      maxWidth:250,
+    }
 
   };
 
@@ -50,9 +58,19 @@ export default props =>
 
     <div style={style.block} >
     <Typography variant= 'body1' style={style.message1}>I found the Crystal Skulls!</Typography>
+    <Typography variant= 'caption' style={style.caption1}>Read: 12:31 AM</Typography>
     </div>
 
     <div style={style.block2} >
-    <Typography variant= 'body1' style={style.message2} >NAH UH!</Typography>
+    <Typography variant= 'body1' style={style.message2}>Did you find chewbaca though?</Typography>
+    <Typography variant= 'caption' style={style.caption1}>Sent: 12:40 AM</Typography>
     </div>
+
+    <div>
+    <div style={style.division}>
+  <Divider />
+  </div>
+
+  </div>
+
   </Paper>;

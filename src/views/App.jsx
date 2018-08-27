@@ -5,10 +5,7 @@ import Body from './Body/Body';
 
 
 const App = () => (
-  <div className={appStyles.main}>
     <Header />
-    
-  </div>
 );
 
 export default App;

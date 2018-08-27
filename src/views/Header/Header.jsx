@@ -7,20 +7,9 @@ import Drawer from '../Components/Drawer.js'
 
 class Header extends Component {
 
-
   render() {
-
-    return (
-      <div>
-      
-        <Drawer />
-
-      </div>
-    );
+    return <Drawer />
   }
-
-
-
 }
 
 

@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
     borderRadius: '20px',
     fontSize: '0.8em',
     marginBottom: '1.1em',
-    marginLeft: '1.1em',
+    marginLeft: '1 em',
     lineHeight: '1.5em',
     fontFamily: 'Roboto, sans-serif',
 
@@ -69,7 +69,7 @@ export default () =>
     <Typography variant= 'caption' style={style.caption2}>Yesterday 8:30 PM</Typography>
 
     <div style={style.block2} >
-    <Typography variant= 'body1' style={style.message2}>Did you find chewbaca though?</Typography>
+    <Typography variant= 'body1' style={style.message2}>Did you find chewbaca tho?</Typography>
     <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
     </div>
 

@@ -111,10 +111,12 @@ import fillipi from './pictures/fillipi.jpg';
 
     handleDrawerOpen = () => {
       this.setState({ open: true });
+
     };
 
     handleDrawerClose = () => {
       this.setState({ open: false });
+
     };
 
     render() {
@@ -137,8 +139,10 @@ import fillipi from './pictures/fillipi.jpg';
               <Typography variant="title" color="inherit" noWrap>
                 Chit Chapp
               </Typography>
-              <Button className={classes.loginButton}> Logout</Button>
-              <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />
+              <Button className={classes.loginButton} > {this.state.open ? 'login':'logout'}</Button>
+              <div>
+              {this.state.open ? <Avatar className={classes.bigAvatar}> L</Avatar> : <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  }
+              </div>
             </Toolbar>
           </AppBar>
           <Drawer

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import app from 'views/appReducer';
-import header from 'views/Header/headerReducer';
+import app from '../views/appReducer';
+import header from '../views/Header/headerReducer';
 
 export default combineReducers({
   app,

@@ -39,11 +39,18 @@ import Typography from '@material-ui/core/Typography';
 
     block2: {
       padding: 20,
-      marginLeft: 350,
+      marginLeft: '70%',
       maxWidth: 150,
+
     },
     caption1: {
       marginLeft: 30,
+    },
+    caption2: {
+      marginLeft: 230,
+    },
+    caption3: {
+      marginLeft: 90,
     },
     division: {
       padding:10,
@@ -52,25 +59,35 @@ import Typography from '@material-ui/core/Typography';
 
   };
 
-export default props =>
+export default () =>
 
   <Paper style={style.paper} >
 
     <div style={style.block} >
     <Typography variant= 'body1' style={style.message1}>I found the Crystal Skulls!</Typography>
-    <Typography variant= 'caption' style={style.caption1}>Read: 12:31 AM</Typography>
     </div>
+    <Typography variant= 'caption' style={style.caption2}>Yesterday 8:30 PM</Typography>
 
     <div style={style.block2} >
     <Typography variant= 'body1' style={style.message2}>Did you find chewbaca though?</Typography>
-    <Typography variant= 'caption' style={style.caption1}>Sent: 12:40 AM</Typography>
+    <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
     </div>
 
-    <div>
-    <div style={style.division}>
-  <Divider />
-  </div>
+    <div style={style.block} >
+    <Typography variant= 'body1' style={style.message1}>No dude!!! Wrong Harisson ford, this is Indiana Jones!</Typography>
+    </div>
 
-  </div>
+    <Typography variant= 'caption' style={style.caption2}>Today 11:05 AM</Typography>
+
+    <div style={style.block2} >
+    <Typography variant= 'body1' style={style.message2}>O right, my bad.</Typography>
+    <Typography variant= 'body1' style={style.message2}>Tell Luke, hes a terrible actor.</Typography>
+    <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
+    </div>
+
+
+
+
+
 
   </Paper>;

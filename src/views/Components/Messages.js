@@ -1,11 +1,11 @@
 import React from 'react';
 import { Paper } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
   const style = {
     paper: {
-      padding:0, height:'100vh'
+      padding:0, height:'100vh',
+      overflow: 'hidden',
     },
     message1:{
     background: '#4b49521f',

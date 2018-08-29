@@ -2,189 +2,102 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import ListItem from '@material-ui/core/ListItem';
 import elon from './pictures/elon.jpg';
 import pek from './pictures/pek.jpg';
 import indiana from './pictures/indiana.jpg';
 import yoshi from './pictures/yoshi.jpg';
 import satan from './pictures/satan.jpg';
 import jesus from './pictures/jesus.jpg';
+import userList from './userList';
+import { selectUser} from '../actions/index';
 
-  const styles = theme => ({
-    root: {
-      overflow: 'hidden',
-      padding: `0 ${theme.spacing.unit * 0}px`,
-    },
-    paper: {
-      margin: 0,
-      padding: theme.spacing.unit * 0,
-      minHeight:635,
-    },
-    wrapper: {
-      maxWidth: 400,
-    },
-    image: {
-      width: 128,
-      height: 80,
-    },
-    img: {
-      margin: 'auto',
-      display: 'block',
-      maxWidth: '100%',
-      maxHeight: '100%',
-    },
-    button: {
-      margin: theme.spacing.unit,
-    },
-    hover: {
-      backgroundColor: "rgba(0,100)",
 
-      textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)"
-    },
-    row: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    avatar: {
-      margin: 0,
-      padding: 5,
-    },
-
-    bigAvatar: {
-      width: 50,
-      height: 50,
-
-    },
-
-  });
+// const styles = theme => ({
+//   root: {
+//     overflow: 'hidden',
+//   },
+//   root1: {
+//
+//   width: '100%',
+//   maxWidth: 360,
+//   backgroundColor: theme.palette.background,
+//   },
+//   row: {
+//     display: 'flex',
+//     justifyContent: 'center',
+//   },
+//   avatar: {
+//   padding: 5,
+//   },
+//   bigAvatar: {
+//     width: 50,
+//     height: 50,
+//     margin:5,
+//
+//   },
+//
+// });
 
 
 
-  function ComplexGrid(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-    <Paper className={classes.paper}>
-    <br/>
-    <Grid container wrap="nowrap" spacing={16}>
-        <Grid item >
-          <Grid item  lg className={classes.avatar}>
-              <Avatar alt="indiana" src= {indiana} className={classes.bigAvatar} />
-          </Grid>
-        </Grid>
-        <Grid item xs>
-          <Typography>Indian jones</Typography>
-          <Typography variant= 'caption'>I have the crystal skull!!!</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="caption" className={classes.avatar}>2:40 AM</Typography>
-        </Grid>
-    </Grid>
-    <br/>
-      <Divider />
+function ComplexGrid() {
 
-      <br/>
-      <Grid container spacing={16} wrap="nowrap">
+
+        return (
+        <div >
+
+          {userList.map(renderList)}
+
+        </div>
+      );
+
+      function renderList(user) {
+
+        return (
+          <ListItem
+          button disableGutters divider
+          key={user.name}
+          onClick = {() => this.props.selectUser(user)}
+          >
           <Grid item >
-            <Grid item  lg className={classes.avatar}>
-                <Avatar alt="pek" src= {pek} className={classes.bigAvatar} />
-            </Grid>
-          </Grid>
-          <Grid item xs>
-            <Typography>Pek Pongpaet</Typography>
-            <Typography variant= 'caption'> Never buy Lemon bubbly again</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption" className={classes.avatar}> 4:13 PM</Typography>
-          </Grid>
-      </Grid>
-      <br/>
-      <Divider />
+                 <Avatar alt={user.avatar} src= {user.avatar} />
+               </Grid>
+               <Grid item xs>
+                 <Typography>{user.name}</Typography>
+                 <Typography variant= 'caption'>{user.message}</Typography>
+               </Grid>
+               <Grid item>
+                 <Typography variant="caption" >{user.time}</Typography>
+               </Grid>
+           </ListItem>
+         );
 
-      <br/>
-      <Grid container wrap="nowrap" spacing={16}>
-          <Grid item >
-            <Grid item  lg className={classes.avatar}>
-                <Avatar alt="Elon" src= {elon} className={classes.bigAvatar} />
-            </Grid>
-          </Grid>
-          <Grid item xs>
-            <Typography>Elon Musk</Typography>
-            <Typography variant= 'caption'>Hey wana go to Mars?!</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption" className={classes.avatar}>9:29 AM</Typography>
-          </Grid>
-      </Grid>
-      <br/>
-        <Divider />
+      }
 
-        <br/>
-        <Grid container wrap="nowrap" spacing={16}>
-            <Grid item >
-              <Grid item  lg className={classes.avatar}>
-                  <Avatar alt="Yoshi" src= {yoshi} className={classes.bigAvatar} />
-              </Grid>
-            </Grid>
-            <Grid item xs>
-              <Typography>Yoshi</Typography>
-              <Typography variant= 'caption'> My back hurts, Mario has gotten so fat...</Typography>
-            </Grid>
-            <Grid item >
-              <Typography variant="caption" className={classes.avatar}>11:15 AM</Typography>
-            </Grid>
-        </Grid>
-        <br/>
-          <Divider />
-
-          <br/>
-          <Grid container wrap="nowrap" spacing={16}>
-              <Grid item >
-                <Grid item  lg className={classes.avatar}>
-                    <Avatar alt="satan" src= {satan} className={classes.bigAvatar} />
-                </Grid>
-              </Grid>
-              <Grid item xs>
-                <Typography>Lucifer</Typography>
-                <Typography variant= 'caption'>Ill give you $100 mil for your soul. thats my final offer</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption" className={classes.avatar}>6:66 AM</Typography>
-              </Grid>
-          </Grid>
-          <br/>
-          <Divider />
-
-          <br/>
-          <Grid container wrap="nowrap" spacing={16}>
-              <Grid item >
-                <Grid item  lg className={classes.avatar}>
-                    <Avatar alt="jesus" src= {jesus} className={classes.bigAvatar} />
-                </Grid>
-              </Grid>
-              <Grid item xs>
-                <Typography>Jesus Cristo</Typography>
-                <Typography variant= 'caption'> Is he texting you again? dont listen to him! Save your soul!</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption" className={classes.avatar}> 11:11 PM</Typography>
-              </Grid>
-          </Grid>
-          <br/>
+    };
 
 
+  function mapStateToProps(state) {
 
+    return {
+      users: state.users,
+    };
 
-          </Paper>
-    </div>
-  );
   }
 
-ComplexGrid.propTypes = {
-classes: PropTypes.object.isRequired,
-};
+  function mapDispatchToProps(dispatch) {
+  return bindActionCreators({selectUser}, dispatch);
+  }
 
-export default withStyles(styles)(ComplexGrid);
+// ComplexGrid.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComplexGrid);

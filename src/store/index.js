@@ -2,7 +2,6 @@ import { applyMiddleware, createStore } from 'redux';
 import { enableBatching } from 'redux-batched-actions';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-
 import reducer from './reducers.js';
 
 const middleware = [ thunk ];

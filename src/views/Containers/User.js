@@ -51,29 +51,28 @@ class UserList extends Component {
   }
 };
   
-
-  const styles = theme => ({
-    root: {
-      overflow: 'hidden',
-    },
-    root1: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background,
-    },
-    row: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    avatar: {
-      padding: 5,
-    },
-    bigAvatar: {
-      width: 50,
-      height: 50,
-      margin:5,
-    },
-  });
+const styles = theme => ({
+  root: {
+    overflow: 'hidden',
+  },
+  root1: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background,
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  avatar: {
+    padding: 5,
+  },
+  bigAvatar: {
+    width: 50,
+    height: 50,
+    margin:5,
+  },
+});
 
 
 // ComplexGrid.propTypes = {

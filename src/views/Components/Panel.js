@@ -1,8 +1,8 @@
 import React  from 'react';
 import { Grid } from '@material-ui/core';
-import Users from './User';
-import Messages from './Messages';
-import Notes from './Notes';
+import Users from '../Containers/User';
+import Messages from '../Containers/Messages';
+import Notes from '../Containers/Notes';
 
 export default () => (
   <div>

@@ -4,7 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import indiana from './pictures/indiana.jpg';
+import indiana from '../Components/pictures/indiana.jpg';
 
 
 class Notes extends Component {

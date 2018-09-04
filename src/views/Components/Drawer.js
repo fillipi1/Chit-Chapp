@@ -19,6 +19,79 @@ import Panel from './Panel';
 import fillipi from './pictures/fillipi.jpg';
 
 
+
+  class MiniDrawer extends React.Component {
+    state = {
+      open: false,
+    };
+
+    handleDrawerOpen = () => {
+      this.setState({ open: true });
+
+    };
+
+    handleDrawerClose = () => {
+      this.setState({ open: false });
+
+    };
+
+    render() {
+      const { classes, theme } = this.props;
+
+      return (
+        <div className={classes.root}>
+          <AppBar
+            position="absolute"
+            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
+            <Toolbar disableGutters={!this.state.open}>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, this.state.open && classes.hide)}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" noWrap>
+                Chit Chapp
+              </Typography>
+              <Button className={classes.loginButton} > {this.state.open ? 'login':'logout'}</Button>
+              <div>
+              {this.state.open ? <Avatar className={classes.bigAvatar}> L</Avatar> : <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  }
+              </div>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbar}>
+              <IconButton onClick={this.handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </div>
+
+            <List>{mailFolderListItems}</List>
+            <Divider />
+            <List>{otherMailFolderListItems}</List>
+          </Drawer>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Panel />
+          </main>
+        </div>
+      );
+    }
+  }
+
+  MiniDrawer.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+  };
+
   const drawerWidth = 220;
 
   const styles = theme => ({
@@ -103,77 +176,5 @@ import fillipi from './pictures/fillipi.jpg';
     },
 
   });
-
-  class MiniDrawer extends React.Component {
-    state = {
-      open: false,
-    };
-
-    handleDrawerOpen = () => {
-      this.setState({ open: true });
-
-    };
-
-    handleDrawerClose = () => {
-      this.setState({ open: false });
-
-    };
-
-    render() {
-      const { classes, theme } = this.props;
-
-      return (
-        <div className={classes.root}>
-          <AppBar
-            position="absolute"
-            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-            <Toolbar disableGutters={!this.state.open}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, this.state.open && classes.hide)}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
-                Chit Chapp
-              </Typography>
-              <Button className={classes.loginButton} > {this.state.open ? 'login':'logout'}</Button>
-              <div>
-              {this.state.open ? <Avatar className={classes.bigAvatar}> L</Avatar> : <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  }
-              </div>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-            }}
-            open={this.state.open}
-          >
-            <div className={classes.toolbar}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-              </IconButton>
-            </div>
-
-            <List>{mailFolderListItems}</List>
-            <Divider />
-            <List>{otherMailFolderListItems}</List>
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Panel />
-          </main>
-        </div>
-      );
-    }
-  }
-
-  MiniDrawer.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-  };
 
 export default withStyles(styles, { withTheme: true })(MiniDrawer);

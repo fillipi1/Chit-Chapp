@@ -1,10 +1,10 @@
 import React from 'react';
-import elon from './pictures/elon.jpg';
-import pek from './pictures/pek.jpg';
-import indiana from './pictures/indiana.jpg';
-import yoshi from './pictures/yoshi.jpg';
-import satan from './pictures/satan.jpg';
-import jesus from './pictures/jesus.jpg';
+import elon from '../Components/pictures/elon.jpg';
+import pek from '../Components/pictures/pek.jpg';
+import indiana from '../Components/pictures/indiana.jpg';
+import yoshi from '../Components/pictures/yoshi.jpg';
+//import satan from '../Components/pictures/satan.jpg';
+import jesus from '../Components/pictures/jesus.jpg';
 
 export default [
 
@@ -41,6 +41,14 @@ export default [
   message: 'Wana come over to my place for supper?',
   time: '11:11 AM',
   active: '2 centuries ago'
+
+},
+{
+  avatar: yoshi ,
+  name: 'Yoshi' ,
+  message: 'Can I get a treatment, my back hurts. Mario has gotten so fat!',
+  time: '5:30 PM',
+  active: '1 hour ago'
 
 },
 

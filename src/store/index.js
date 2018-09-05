@@ -15,3 +15,5 @@ export default createStore(
   enableBatching(reducer),
   applyMiddleware(...middleware)
 );
+
+

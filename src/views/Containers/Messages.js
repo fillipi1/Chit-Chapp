@@ -1,7 +1,8 @@
 import React from 'react';
 import { Paper } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+// import leftPanel from '../fillipi-reduc/reducers/leftPanel';
 
   const style = {
     paper: {
@@ -64,7 +65,7 @@ export default () =>
   <Paper style={style.paper} >
 
     <div style={style.block} >
-    <Typography variant= 'body1' style={style.message1}>I found the Crystal Skulls!</Typography>
+    <Typography variant= 'body1' style={style.message1}>hi</Typography>
     </div>
     <Typography variant= 'caption' style={style.caption2}>Yesterday 8:30 PM</Typography>
 

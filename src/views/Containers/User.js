@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import userList from '../reducers/userList';
-import { compose } from 'redux';
+import { selectUser } from '../../fillipi-redux/actions/selectUser';
+import { compose, bindActionCreators } from 'redux';
 
 
 // function ComplexGrid(props) {
@@ -25,7 +25,8 @@ class UserList extends Component {
   renderList(){
     const maplist = (user) => {
       return (
-      <ListItem button disableGutters divider key={user.name}>
+      <ListItem button disableGutters divider key={user.name}
+      onClick={() => this.props.selectUser(user)}>
         <Grid item>
           <Avatar alt={user.avatar} src= {user.avatar} />
         </Grid>
@@ -39,7 +40,7 @@ class UserList extends Component {
       </ListItem>
       );
     }
-    return userList.map(maplist)
+      return this.props.users.map(maplist)
   }
 
   render() {
@@ -79,6 +80,15 @@ const styles = theme => ({
 //   classes: PropTypes.object.isRequired,
 // };
 
+function mapStateToProps(state) {
+  
+  return {
+    users: state.users,
+  };
+} 
 
+function mapDispachToProps (dispatch) {
+  return bindActionCreators({selectUser}, dispatch);
+}
 
-export default UserList;
+export default connect(mapStateToProps, mapDispachToProps)(UserList);

@@ -53,6 +53,10 @@ function profileReducer(state = profileState, action){
     }
     return state
 }
+funcion sidePanelReducer(state = [{name:'meek'}], action){   
+    return state;
+}
+
 
 
 
@@ -61,7 +65,8 @@ import { createStore, combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
     post: postReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    sidePanel: sidePanelReducer,
 });
 
 export default createStore(rootReducer);

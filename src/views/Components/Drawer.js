@@ -150,7 +150,7 @@ import fillipi from './pictures/fillipi.jpg';
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      padding: '0 2px',
+      padding: '0 8px',
       ...theme.mixins.toolbar,
     },
     content: {

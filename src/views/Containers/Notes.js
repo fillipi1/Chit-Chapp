@@ -30,6 +30,9 @@ class Notes extends Component {
     </Grid>
     <br/>
       <Divider />
+      <Typography caption>
+      options
+      </Typography>
     </Paper>
   );
 

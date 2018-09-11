@@ -18,28 +18,31 @@ import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import Panel from './Panel';
 import fillipi from './pictures/fillipi.jpg';
 import Grid from '@material-ui/core/Grid';
+import { Paper } from '@material-ui/core';
+import {compose} from 'redux';
+import { connect} from 'react-redux';
 
 
 
-  class MiniDrawer extends React.Component {
-    state = {
-      open: false,
-    };
+class MiniDrawer extends React.Component {
+  state = {
+    open: false,
+  };
 
-    handleDrawerOpen = () => {
-      this.setState({ open: true });
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
 
-    };
+  };
 
-    handleDrawerClose = () => {
-      this.setState({ open: false });
+  handleDrawerClose = () => {
+    this.setState({ open: false });
 
-    };
+  };
 
-    render() {
-      const { classes, theme } = this.props;
+  render() {
+    const { classes, theme } = this.props;
 
-      return (
+    return (
         <div className={classes.root}>
           <AppBar
             position="absolute"
@@ -50,13 +53,15 @@ import Grid from '@material-ui/core/Grid';
                 aria-label="Open drawer"
                 onClick={this.handleDrawerOpen}
                 className={classNames(classes.menuButton, this.state.open && classes.hide)}
-              >
+                >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
-                Chit Chapp
+              <Typography variant="title" color="inherit" >
+                Impekable
               </Typography>
+              <div style={{marginLeft: '70%'}}>
               <Button className={classes.loginButton} > {this.state.open ? 'login':'logout'}</Button>
+              </div>
               <div>
               {this.state.open ? <Avatar className={classes.bigAvatar}> L</Avatar> : <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  }
               </div>
@@ -80,18 +85,33 @@ import Grid from '@material-ui/core/Grid';
             <List>{otherMailFolderListItems}</List>
           </Drawer>
           <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <br />
-<Grid containter spacing ={3}>
-<Divider />
-</Grid>
-<br/>
+            <div className={classes.toolbar} />   
+            <div style={{flexGrow: 1}}>        
+              <Grid container>
+                <Grid item sm={3}>
+                  <Paper style= {{textAlign: 'center'}}> 
+                    <br/>
+                    messenger
+                    <br/>
+                    <br/>
+                  </Paper>
+                </Grid>
+                <Grid item sm={9}>
+                  <Paper style= {{textAlign: 'center'}} > 
+                    <br/>
+                    {this.props.activeUser.name}
+                    <br/>
+                    <br/>
+                  </Paper>
+                </Grid>                
+              </Grid>
+            </div> 
             <Panel />
           </main>
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 
   MiniDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
@@ -105,7 +125,7 @@ import Grid from '@material-ui/core/Grid';
       flexGrow: 1,
       height: '100vh',
       zIndex: 1,
-      overflow: 'hidden',
+     
       position: 'relative',
       display: 'flex',
 
@@ -165,9 +185,10 @@ import Grid from '@material-ui/core/Grid';
       padding: theme.spacing.unit * 0,
     },
     loginButton: {
-      flexGrow: 1,
-      marginLeft: 800,
-      color: 'white'
+      marginLeft: 0,
+      alignContent: 'flex-start',
+      color: 'white',
+      flexDirection: 'row-reverse',
     },
     avatar: {
       margin: 0,
@@ -183,4 +204,12 @@ import Grid from '@material-ui/core/Grid';
 
   });
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+  function mapStateToProps(state) {
+  
+    return {
+      users: state.users,
+      activeUser: state.activeUser 
+    };
+  } 
+
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps))(MiniDrawer);

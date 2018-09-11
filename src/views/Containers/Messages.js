@@ -54,7 +54,9 @@ class Messages extends Component {
 
 const style = {
   paper: {
-    padding:0, height:'100vh'
+    padding:0, 
+    height:'100vh',
+    overflow: 'hidden',
   },
   messageListStyle: {
     position: 'relative',
@@ -122,6 +124,7 @@ const style = {
   textField: {
     marginRight: 10,
     width: 200,
+    padding:10
   },
 
 };

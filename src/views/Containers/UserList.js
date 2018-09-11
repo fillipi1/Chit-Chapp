@@ -8,6 +8,7 @@ import { selectUser } from '../../fillipi-redux/actions/selectUser';
 import { bindActionCreators } from 'redux';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import { Paper } from '@material-ui/core';
 
 
 
@@ -19,19 +20,19 @@ class UserList extends Component {
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name
       return (
-      <ListItem button disableGutters divider key={user.id}
-      onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
-        <Grid item>
-          <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
-        </Grid>
-        <Grid item xs>
-          <Typography>{user.name}</Typography>
-          <Typography variant= 'caption' style={styles.avatar}>{user.message}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="caption" style={styles.avatar}>{user.time}</Typography>
-        </Grid>
-      </ListItem>
+        <ListItem button disableGutters divider key={user.id}
+        onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
+          <Grid item>
+            <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
+          </Grid>
+          <Grid item xs>
+            <Typography>{user.name}</Typography>
+            <Typography variant= 'caption' style={styles.avatar}>{user.message}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="caption" style={styles.avatar}>{user.time}</Typography>
+          </Grid>
+        </ListItem>
       );
     }
       return this.props.users.map(maplist)
@@ -40,23 +41,9 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <div>
-          
-          {/* <TextField
-        defaultValue="react-bootstrap"
-        label="Search Chit Chapp"
-        id="bootstrap-input"
-        InputProps={{
-          disableUnderline: true,
-        }}
-        style={styles.bootstrapInput}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-          <Divider /> */}
-          </div>
+        <Paper style={styles.paper}>
         {this.renderList()}
+        </Paper>
       </div>
     );
   }
@@ -78,31 +65,11 @@ const styles = {
     height: 50,
     margin:5,
   },
-//   bootstrapInput: {
-//     borderRadius: 4,
-//     backgroundColor: theme.palette.common.white,
-//     border: '1px solid #ced4da',
-//     fontSize: 16,
-//     padding: '10px 12px',
-//     width: 'calc(100% - 24px)',
-//     transition: theme.transitions.create(['border-color', 'box-shadow']),
-//     fontFamily: [
-//       '-apple-system',
-//       'BlinkMacSystemFont',
-//       '"Segoe UI"',
-//       'Roboto',
-//       '"Helvetica Neue"',
-//       'Arial',
-//       'sans-serif',
-//       '"Apple Color Emoji"',
-//       '"Segoe UI Emoji"',
-//       '"Segoe UI Symbol"',
-//     ].join(','),
-//     '&:focus': {
-//       borderColor: '#80bdff',
-//       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-//     },
-// },
+  paper: {
+    padding:0, 
+    height:'100vh',
+    overflow: 'hidden',
+  },
 };
 
 

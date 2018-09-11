@@ -3,7 +3,7 @@ import pek from './pictures/pek.jpg';
 import indiana from './pictures/indiana.jpg';
 import yoshi from './pictures/yoshi.jpg';
 import jesus from './pictures/jesus.jpg';
-import budha from './pictures/Budha.jpg'
+import buddha from './pictures/Budha.jpg'
 
  const users = [
 
@@ -82,8 +82,8 @@ import budha from './pictures/Budha.jpg'
             },
         {
         id:6,
-        avatar: budha ,
-        name: 'Budha' ,
+        avatar: buddha ,
+        name: 'Buddha' ,
         message: 'OMMMMMMM',
         time: '1:30 PM',
         active: ' 3 thousand years ago',
@@ -94,6 +94,7 @@ import budha from './pictures/Budha.jpg'
         chat5: "I can't ommm over text",
 
             },
+            
     
     ];
 

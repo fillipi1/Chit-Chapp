@@ -1,14 +1,14 @@
 import React  from 'react';
 import { Grid } from '@material-ui/core';
-import Users from './User';
-import Messages from './Messages';
-import Notes from './Notes';
+import UserList from '../Containers/User';
+import Messages from '../Containers/Messages';
+import Notes from '../Containers/Notes';
 
 export default () => (
   <div>
     <Grid container>
       <Grid item sm={3}>
-        <Users />
+        <UserList />
       </Grid>
       <Grid item sm={6}>
         <Messages />

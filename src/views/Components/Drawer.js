@@ -17,6 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import Panel from './Panel';
 import fillipi from './pictures/fillipi.jpg';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -80,6 +81,11 @@ import fillipi from './pictures/fillipi.jpg';
           </Drawer>
           <main className={classes.content}>
             <div className={classes.toolbar} />
+            <br />
+<Grid containter spacing ={3}>
+<Divider />
+</Grid>
+<br/>
             <Panel />
           </main>
         </div>

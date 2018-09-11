@@ -13,25 +13,7 @@ import Button from '@material-ui/core/Button';
 
 class Notes extends Component {
 
- 
-
-  render() {
-    
-    if (!this.props.user){
-      return  (
-        <Paper style={style.paper}>
-      <div align='center' style={style.welcome2}>
-      <Button variant = 'contained' disabled>
-      <Typography variant = 'body1' >      
-      Select user
-      </Typography>
-      </Button>
-      </div>
-      </Paper>
-      )
-    }
-
-
+  render() {    
   return (
 
     <Paper style={style.paper} >

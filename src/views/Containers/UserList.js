@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import { connect} from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { selectUser } from '../../fillipi-redux/actions/selectUser';
-import { compose, bindActionCreators } from 'redux';
-
+import { bindActionCreators } from 'redux';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 
 
 
 class UserList extends Component {
+  componentWillMount(){
+    this.props.selectUser(this.props.users[0])
+  }
   renderList(){
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name
       return (
-      <ListItem button disableGutters divider key={user.name}
+      <ListItem button disableGutters divider key={user.id}
       onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
         <Grid item>
           <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
@@ -27,7 +30,6 @@ class UserList extends Component {
         </Grid>
         <Grid item>
           <Typography variant="caption" style={styles.avatar}>{user.time}</Typography>
-          <Typography variant="caption" style={styles.avatar}>{ active ? 'true': 'false'}</Typography>
         </Grid>
       </ListItem>
       );
@@ -38,6 +40,22 @@ class UserList extends Component {
   render() {
     return (
       <div>
+        <div>
+          
+          {/* <TextField
+        defaultValue="react-bootstrap"
+        label="Search Chit Chapp"
+        id="bootstrap-input"
+        InputProps={{
+          disableUnderline: true,
+        }}
+        style={styles.bootstrapInput}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+          <Divider /> */}
+          </div>
         {this.renderList()}
       </div>
     );
@@ -60,7 +78,33 @@ const styles = {
     height: 50,
     margin:5,
   },
+//   bootstrapInput: {
+//     borderRadius: 4,
+//     backgroundColor: theme.palette.common.white,
+//     border: '1px solid #ced4da',
+//     fontSize: 16,
+//     padding: '10px 12px',
+//     width: 'calc(100% - 24px)',
+//     transition: theme.transitions.create(['border-color', 'box-shadow']),
+//     fontFamily: [
+//       '-apple-system',
+//       'BlinkMacSystemFont',
+//       '"Segoe UI"',
+//       'Roboto',
+//       '"Helvetica Neue"',
+//       'Arial',
+//       'sans-serif',
+//       '"Apple Color Emoji"',
+//       '"Segoe UI Emoji"',
+//       '"Segoe UI Symbol"',
+//     ].join(','),
+//     '&:focus': {
+//       borderColor: '#80bdff',
+//       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+//     },
+// },
 };
+
 
 function mapStateToProps(state) {
   
@@ -76,8 +120,3 @@ function mapDispachToProps (dispatch) {
 
 
 export default connect(mapStateToProps, mapDispachToProps)(UserList);
-
-// Reducer
-// {
-//   activeUserName: "Indiana Jones"
-// }

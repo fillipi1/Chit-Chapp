@@ -5,24 +5,13 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {compose} from 'redux';
-
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 
 class Messages extends Component {
-render () {
-  if (!this.props.user){
-    return  (
-      <Paper style={style.paper}>
-        <div align='center'>
-          <Button variant = 'contained' style={style.button} color= 'primary'>
-            <Typography style={style.welcome}>
-              WELCOME TO CHIT CHAPP,
-              click on a user to open messages
-            </Typography>
-          </Button>
-        </div>
-       </Paper>
-    )
-  }
+
+  render () {
+  
   return (
     <Paper style={style.paper} >
       <div style ={style.messageListStyle}>
@@ -46,6 +35,14 @@ render () {
         <div style={style.block2}>
         <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
         </div>
+        <Divider />
+      <TextField
+          id="textarea"
+          placeholder="Type a message..." 
+          style={style.textField}
+          margin="normal"
+          InputProps ={{disableUnderline:true}}
+        />
       </div>
     </Paper>
 
@@ -121,6 +118,10 @@ const style = {
   },
   button: {
     marginTop:50,
+  },
+  textField: {
+    marginRight: 10,
+    width: 200,
   },
 
 };

@@ -3,15 +3,17 @@ import pek from './pictures/pek.jpg';
 import indiana from './pictures/indiana.jpg';
 import yoshi from './pictures/yoshi.jpg';
 import jesus from './pictures/jesus.jpg';
+import budha from './pictures/Budha.jpg'
 
  const users = [
 
         {
+        id: 1,
         avatar: indiana ,
-        name: 'Indian jones' ,
+        name: 'Indiana jones' ,
         message: "No dude! wrong Harsion Ford! this is Indiana Jones",
         time: '2:40 AM',
-        active: '1 hour ago',
+        active: '1h ago',
         chat1: "have the crystal skull!!!",
         chat2: "Nah uh! Did you find chewbaca too?!",
         chat3: "No dude! wrong Harsion Ford! this is Indiana Jones",
@@ -21,11 +23,12 @@ import jesus from './pictures/jesus.jpg';
         },
 
         {
+        id: 2,
         avatar: pek,
         name: 'Pek Pongpaet' ,
         message: "It taste like lemon grass",
         time: '12:19 PM',
-        active: '4 hour ago',
+        active: '5m ago',
         chat1: 'Never buy lemon bubly again',
         chat2: "Why not?",
         chat3: "It taste like lemon grass",
@@ -35,11 +38,12 @@ import jesus from './pictures/jesus.jpg';
         },
 
         {
+        id: 3,    
         avatar: elon,
         name:'Elon Musk' ,
         message: 'THE ROBOTS ARE COMING!!',
         time: '6:30 PM',
-        active: '2 hour ago',
+        active: '2h ago',
         chat1: "1001101010101",
         chat2: "what...?",
         chat3: 'THE ROBOTS ARE COMING!!',
@@ -49,6 +53,7 @@ import jesus from './pictures/jesus.jpg';
         },
 
         {
+        id: 4, 
         avatar: jesus,
         name: 'Jesus Christ' ,
         message: 'Wana come over to my place for supper?',
@@ -62,11 +67,12 @@ import jesus from './pictures/jesus.jpg';
 
         },
         {
+        id: 5,
         avatar: yoshi ,
         name: 'Yoshi' ,
         message: 'Can I get a treatment, my back hurts. Mario has gotten so fat!',
         time: '5:30 PM',
-        active: '1 hour ago',
+        active: '1h ago',
         chat1: "Yo whats up Luigi",
         chat2: "Sup Dino",
         chat3: "Can I get a treatment, my back hurts. Mario has gotten so fat!",
@@ -75,16 +81,17 @@ import jesus from './pictures/jesus.jpg';
 
             },
         {
-        avatar: yoshi ,
-        name: 'Yoshi' ,
-        message: 'Can I get a treatment, my back hurts. Mario has gotten so fat!',
-        time: '5:30 PM',
-        active: '1 hour ago',
-        chat1: "Yo whats up Luigi",
-        chat2: "Sup Dino",
-        chat3: "Can I get a treatment, my back hurts. Mario has gotten so fat!",
-        chat4: "Sure come by around 5",
-        chat5: "Must be all those mushrooms he's eating",
+        id:6,
+        avatar: budha ,
+        name: 'Budha' ,
+        message: 'OMMMMMMM',
+        time: '1:30 PM',
+        active: ' 3 thousand years ago',
+        chat1: "Have you meditated today?",
+        chat2: 'No not yet',
+        chat3: "OMMMMM!",
+        chat4: "O jeez...",
+        chat5: "I can't ommm over text",
 
             },
     

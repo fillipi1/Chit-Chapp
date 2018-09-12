@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import activeUser from './active_user';
-import leftPanelReducer from './leftPanel';
+import leftPanelReducer from './userReducer';
 
 
 const rootReducer = combineReducers({

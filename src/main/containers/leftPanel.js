@@ -4,10 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import { selectUser } from '../../fillipi-redux/actions/selectUser';
+import { selectUser } from '../../redux/actions/selectUser';
 import { bindActionCreators } from 'redux';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import { Paper } from '@material-ui/core';
 
 

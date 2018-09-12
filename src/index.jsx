@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import App from './main/app';
-import store from './redux/store';
+import store from './main/redux/store';
 
 ReactDOM.render(
   <Provider store={store}>

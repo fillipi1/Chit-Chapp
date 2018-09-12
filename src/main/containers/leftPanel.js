@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import { selectUser } from '../../redux/actions/selectUser';
+import { selectUser } from '../redux/actions/selectUser';
 import { bindActionCreators } from 'redux';
 import { Paper } from '@material-ui/core';
 

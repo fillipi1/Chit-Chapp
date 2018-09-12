@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import Panels from './panels';
-import fillipi from '../redux/reducers/pictures/fillipi.jpg';
+import fillipi from './pictures/fillipi.jpg';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import {compose} from 'redux';
@@ -54,14 +54,14 @@ class MiniDrawer extends React.Component {
                 >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" >
+              <Typography variant="title" color="inherit" noWrap>
                 Impekable
               </Typography>
-              <div style={{marginLeft: '70%'}}>
-              <Button className={classes.loginButton} > {this.state.open ? 'login':'logout'}</Button>
+              <div>
+              <Button className={classes.loginButton} > logout</Button>
               </div>
               <div>
-              {this.state.open ? <Avatar className={classes.bigAvatar}> L</Avatar> : <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  }
+               <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  
               </div>
             </Toolbar>
           </AppBar>
@@ -77,7 +77,6 @@ class MiniDrawer extends React.Component {
                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
               </IconButton>
             </div>
-
             <List>{mailFolderListItems}</List>
             <Divider />
             <List>{otherMailFolderListItems}</List>
@@ -174,7 +173,7 @@ class MiniDrawer extends React.Component {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      padding: '0 8px',
+      padding: '0 4px',
       ...theme.mixins.toolbar,
     },
     content: {
@@ -182,11 +181,10 @@ class MiniDrawer extends React.Component {
       backgroundColor: theme.palette.background.primary,
       padding: theme.spacing.unit * 0,
     },
-    loginButton: {
-      marginLeft: 0,
-      alignContent: 'flex-start',
-      color: 'white',
-      flexDirection: 'row-reverse',
+      loginButton: {
+      flexGrow: 1,
+      marginLeft: 800,
+      color: 'white'
     },
     avatar: {
       margin: 0,

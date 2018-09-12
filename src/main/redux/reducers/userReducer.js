@@ -1,9 +1,9 @@
-import elon from './pictures/elon.jpg';
-import pek from './pictures/pek.jpg';
-import indiana from './pictures/indiana.jpg';
-import yoshi from './pictures/yoshi.jpg';
-import jesus from './pictures/jesus.jpg';
-import buddha from './pictures/Budha.jpg'
+import elon from '../../components/pictures/elon.jpg';
+import pek from '../../components/pictures/pek.jpg';
+import indiana from '../../components/pictures/indiana.jpg';
+import yoshi from '../../components/pictures/yoshi.jpg';
+import jesus from '../../components/pictures/jesus.jpg';
+import buddha from '../../components/pictures/Budha.jpg'
 
  const users = [
 

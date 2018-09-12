@@ -18,7 +18,7 @@ import buddha from './pictures/Budha.jpg'
         chat2: "Nah uh! Did you find chewbaca too?!",
         chat3: "No dude! wrong Harsion Ford! this is Indiana Jones",
         chat4: "O right my bad...may the force be with you",
-        chat5: "By the way Luke is a terrible actor.",
+        chat5: "By the way Luke is a terrible actor lol!",
 
         },
 

@@ -13,7 +13,7 @@ class Notes extends Component {
 
     <Paper style={style.paper} >
     <Grid container wrap="nowrap" spacing={16}>
-        <Grid item >
+        <Grid item style = {{padding: 10}}>
           <Grid item  lg >
               <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
           </Grid>
@@ -25,7 +25,7 @@ class Notes extends Component {
     </Grid>
     <br/>
       <Divider />
-      <Typography  variant='caption' style={{padding:15}}>
+      <Typography  variant='caption' style={{padding:5}}>
       options
       </Typography>
     </Paper>

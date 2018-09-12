@@ -21,6 +21,7 @@ import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import {compose} from 'redux';
 import { connect} from 'react-redux';
+import Icon from '@material-ui/core/Icon';
 
 class MiniDrawer extends React.Component {
   state = {
@@ -88,12 +89,15 @@ class MiniDrawer extends React.Component {
             <div style={{flexGrow: 1}}>        
               <Grid container>
                 <Grid item sm={3}>
-                  <Paper style= {{textAlign: 'center'}} > 
-                    <br/>
+                  <Paper style= {{textAlign: 'left', padding: 17.3}} > 
+                    <Grid item>
                     <Typography variant = 'headline'>
                     Conversation
+                    <Icon style={{marginLeft: 80}} color = 'primary'>
+                      add
+                    </Icon>
                     </Typography>
-                    <br/>
+                    </Grid>
                   </Paper>
                 </Grid>
                 <Grid item sm={9}>
@@ -102,8 +106,7 @@ class MiniDrawer extends React.Component {
                     <Typography  variant = 'body2' gutterBottom>
                     {this.props.activeUser.name + ' ' + ' '  + this.props.activeUser.phone}
                     </Typography>
-                    <br/>
-                    
+                    <br/>                 
                   </Paper>
                 </Grid>                
               </Grid>

@@ -44,9 +44,9 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <Paper style={styles.paper}>
+        
         {this.renderList()}
-        </Paper>
+        
       </div>
     );
   }

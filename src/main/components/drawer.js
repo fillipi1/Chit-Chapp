@@ -77,28 +77,33 @@ class MiniDrawer extends React.Component {
                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
               </IconButton>
             </div>
+            <div style={{alignItems: 'center'}}>
             <List>{mailFolderListItems}</List>
             <Divider />
             <List>{otherMailFolderListItems}</List>
+            </div>
           </Drawer>
           <main className={classes.content}>
             <div className={classes.toolbar} />   
             <div style={{flexGrow: 1}}>        
               <Grid container>
                 <Grid item sm={3}>
-                  <Paper style= {{textAlign: 'center'}}> 
+                  <Paper style= {{textAlign: 'center'}} > 
                     <br/>
-                    messenger
-                    <br/>
+                    <Typography variant = 'headline'>
+                    Conversation
+                    </Typography>
                     <br/>
                   </Paper>
                 </Grid>
                 <Grid item sm={9}>
                   <Paper style= {{textAlign: 'center'}} > 
                     <br/>
-                    {this.props.activeUser.name}
+                    <Typography  variant = 'body2' gutterBottom>
+                    {this.props.activeUser.name + ' ' + ' '  + this.props.activeUser.phone}
+                    </Typography>
                     <br/>
-                    <br/>
+                    
                   </Paper>
                 </Grid>                
               </Grid>
@@ -122,13 +127,13 @@ class MiniDrawer extends React.Component {
       flexGrow: 1,
       height: '100vh',
       zIndex: 1,
-     
+      overflowX: 'hidden',
       position: 'relative',
       display: 'flex',
 
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 0,
+      zIndex: theme.zIndex.drawer + 1 ,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -143,8 +148,7 @@ class MiniDrawer extends React.Component {
       }),
     },
     menuButton: {
-      marginLeft: 60,
-      marginRight: 10,
+      marginLeft: 12,
     },
     hide: {
       display: 'none',
@@ -166,7 +170,7 @@ class MiniDrawer extends React.Component {
       }),
       width: theme.spacing.unit * 7,
       [theme.breakpoints.up('sm')]: {
-        width: theme.spacing.unit * 7,
+        width: theme.spacing.unit * 9,
       },
     },
     toolbar: {
@@ -183,8 +187,9 @@ class MiniDrawer extends React.Component {
     },
       loginButton: {
       flexGrow: 1,
-      marginLeft: 800,
-      color: 'white'
+      marginLeft: 825,
+      color: 'white',
+     
     },
     avatar: {
       margin: 0,

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import App from './views/App';
+import App from './main/app';
 import store from './fillipi-redux/store';
 
 ReactDOM.render(

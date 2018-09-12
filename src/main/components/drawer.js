@@ -15,14 +15,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
-import Panel from './Panel';
+import Panels from './panels';
 import fillipi from './pictures/fillipi.jpg';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import {compose} from 'redux';
 import { connect} from 'react-redux';
-
-
 
 class MiniDrawer extends React.Component {
   state = {
@@ -106,7 +104,7 @@ class MiniDrawer extends React.Component {
                 </Grid>                
               </Grid>
             </div> 
-            <Panel />
+            <Panels />
           </main>
       </div>
     );

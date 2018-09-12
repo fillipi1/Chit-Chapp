@@ -30,7 +30,7 @@ class Notes extends Component {
     </Grid>
     <br/>
       <Divider />
-      <Typography caption>
+      <Typography  variant='caption' style={{padding:15}}>
       options
       </Typography>
     </Paper>

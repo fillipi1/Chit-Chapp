@@ -1,21 +1,20 @@
 import React  from 'react';
 import { Grid } from '@material-ui/core';
-import UserList from '../Containers/UserList';
-import Messages from '../Containers/Messages';
-import Notes from '../Containers/Notes';
-import Divider from '@material-ui/core/Divider';
+import LeftPanel from '../containers/leftPanel';
+import MiddlePanel from '../containers/middlePanel';
+import RightPanel from '../containers/rightPanel';
 
 export default () => (
   <div>
     <Grid container>
       <Grid item sm={3}>
-        <UserList />
+        <LeftPanel />
       </Grid>
       <Grid item sm={6}>
-        <Messages />
+        <MiddlePanel />
       </Grid>
       <Grid item sm={3}>
-        <Notes />
+        <RightPanel />
       </Grid>
     </Grid>
   </div>

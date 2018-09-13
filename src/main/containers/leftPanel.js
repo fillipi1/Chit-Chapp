@@ -18,6 +18,34 @@ class UserList extends Component {
   componentWillMount(){
     this.props.selectUser(this.props.users[0])
   }
+  renderSubHeader(){
+    return (
+      <div>
+        <Grid item>
+          <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 20}}>
+            <Typography variant = 'headline'>
+              Conversation
+            </Typography>
+            <Icon style={{marginLeft: 100}} color = 'primary'>
+              add
+            </Icon>
+          </div>
+        </Grid>
+          <Divider/>
+          <div style = {{display: 'flex', alignItems: 'center', padding: 10}}>
+            <Icon color= 'disabled'>search</Icon>
+            <TextField
+                id="textarea"
+                placeholder="Search Conversation"
+                InputProps ={{disableUnderline:true}}
+                style= {{marginLeft:5}}
+              />
+            </div>
+            <Divider/>
+      </div>
+    )
+  }
+
   renderList(){
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name;
@@ -46,28 +74,7 @@ class UserList extends Component {
   render() {
     return (
       <Paper style={{height:'100vh', overflow: 'hidden',}}>
-          <Grid item>
-          <br/>
-          <div>
-            <Typography style = {{marginLeft: 20}}variant = 'headline'>
-              Conversation
-            </Typography>
-            <Icon style={{marginLeft: 100}} color = 'primary'>
-              add
-            </Icon>
-          </div>
-          </Grid>
-          <br/>
-          <Divider/>
-          <Icon style ={{marginLeft: 15,}} color= 'disabled'>search</Icon>
-          <TextField
-              id="textarea"
-              placeholder="Search Conversation" 
-              margin="normal"
-              InputProps ={{disableUnderline:true}}
-              style= {{marginLeft:15}}
-            />
-            <Divider/>
+        {this.renderSubHeader()}
         {this.renderList()}        
       </Paper>
     );

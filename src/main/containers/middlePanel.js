@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import {compose} from 'redux';
 import Divider from '@material-ui/core/Divider';
+import {compose} from 'redux';
 import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
 
 class Messages extends Component {
 
@@ -14,6 +14,13 @@ class Messages extends Component {
   
   return (
     <Paper style={style.paper} >
+    <Grid container style = {{padding : 0}}>
+    <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
+      <Typography style ={{marginTop: 15}} variant = 'body2' gutterBottom>
+      {this.props.user.name + ' ' + this.props.user.phone}
+      </Typography>
+      </Grid>
+      <Divider/>
       <div style ={style.messageListStyle}>
         <div style={style.block} >
           <Typography variant= 'body1' style={style.message1}>{this.props.user.chat1}</Typography>
@@ -126,7 +133,13 @@ const style = {
     width: 200,
     padding:10
   },
+  bigAvatar: {
+    width: 50,
+    height: 50,
+    marginTop: 19.5,
+    marginLeft:5,
 
+  },
 };
 
 function mapStateToProps(state){

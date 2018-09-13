@@ -8,7 +8,9 @@ import { selectUser } from '../redux/actions/selectUser';
 import { bindActionCreators } from 'redux';
 import { Paper } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
 
 
 class UserList extends Component {
@@ -43,11 +45,31 @@ class UserList extends Component {
 
   render() {
     return (
-      <div>
-        
-        {this.renderList()}
-        
-      </div>
+      <Paper style={{height:'100vh', overflow: 'hidden',}}>
+          <Grid item>
+          <br/>
+          <div>
+            <Typography style = {{marginLeft: 20}}variant = 'headline'>
+              Conversation
+            </Typography>
+            <Icon style={{marginLeft: 100}} color = 'primary'>
+              add
+            </Icon>
+          </div>
+          </Grid>
+          <br/>
+          <Divider/>
+          <Icon style ={{marginLeft: 15,}} color= 'disabled'>search</Icon>
+          <TextField
+              id="textarea"
+              placeholder="Search Conversation" 
+              margin="normal"
+              InputProps ={{disableUnderline:true}}
+              style= {{marginLeft:15}}
+            />
+            <Divider/>
+        {this.renderList()}        
+      </Paper>
     );
   }
 };

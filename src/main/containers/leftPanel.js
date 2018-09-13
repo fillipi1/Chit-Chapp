@@ -33,7 +33,7 @@ class UserList extends Component {
         </Grid>
           <Divider/>
           <div style = {{display: 'flex', alignItems: 'center', padding: 10}}>
-            <Icon color= 'disabled'>search</Icon>
+            <Icon  color= 'disabled'>search</Icon>
             <TextField
                 id="textarea"
                 placeholder="Search Conversation"
@@ -100,7 +100,7 @@ const styles = {
   paper: {
     padding:0, 
     height:'100vh',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   margin: {
     marginTop: 5,

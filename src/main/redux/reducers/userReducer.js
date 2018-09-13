@@ -20,7 +20,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "O right my bad...may the force be with you",
         chat5: "By the way Luke is a terrible actor lol!",
         badge: 1,
-        phone: '(1 510 334 5683)'
+        phone: '(+12 510 334 5683)'
 
         },
 
@@ -37,7 +37,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "I Love lemon grass",
         chat5: "It's like my favorite flavor",
         badge: 3,
-        phone: '(1 228 101 1343)'
+        phone: '(+12 228 101 1343)'
 
         },
 
@@ -54,7 +54,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "was that suppose to be morse code or seomthing?",
         chat5: "You've been soking too much weed now that you're friends with joe rogan",
         badge: 0,
-        phone: '(1 787 222 9943)'
+        phone: '(+12 787 222 9943)'
 
         },
 
@@ -71,7 +71,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "Sure!",
         chat5: "As long as Judas doesn't go, that guy is such a douche, idk why you let him hang out with you",
         badge: 6,
-        phone: '(1 510 334 6789)'
+        phone: '(+12 510 334 6789)'
 
         },
         {
@@ -87,7 +87,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "Sure come by around 5",
         chat5: "Must be all those mushrooms he's eating",
         badge: 0,
-        phone: '(1 202 777 1123)'
+        phone: '(+12 202 777 1123)'
 
             },
         {
@@ -103,7 +103,7 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "O jeez...",
         chat5: "I can't ommm over text",
         badge: 1,
-        phone: '(1 202 555 9098)'
+        phone: '(+12 202 555 9098)'
 
             },
             

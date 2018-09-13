@@ -7,6 +7,10 @@ import Divider from '@material-ui/core/Divider';
 import {compose} from 'redux';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
+import Icon from '@material-ui/core/Icon';
+import SendIcon from '@material-ui/icons/Send';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Messages extends Component {
 
@@ -14,11 +18,18 @@ class Messages extends Component {
   
   return (
     <Paper style={style.paper} >
-    <Grid container style = {{padding : 0}}>
-    <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
-      <Typography style ={{marginTop: 15}} variant = 'body2' gutterBottom>
-      {this.props.user.name + ' ' + this.props.user.phone}
-      </Typography>
+      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: 13.5}}>
+        <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
+        <Typography variant = 'body2' gutterBottom style = {{marginLeft: 15}}>
+        {this.props.user.name}
+        </Typography>
+        <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
+        {this.props.user.phone}
+        </Typography>
+        <Icon  color = 'primary' style = {{marginLeft: 200}}>search</Icon>
+        <SendIcon color = 'primary'/>
+        <InboxIcon color = 'primary'/>
+        <DeleteIcon color = 'secondary' />
       </Grid>
       <Divider/>
       <div style ={style.messageListStyle}>
@@ -43,13 +54,13 @@ class Messages extends Component {
         <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
         </div>
         <Divider />
-      <TextField
-          id="textarea"
-          placeholder="Type a message..." 
-          style={style.textField}
-          margin="normal"
-          InputProps ={{disableUnderline:true}}
-        />
+        <TextField
+            id="textarea"
+            placeholder="Type a message..." 
+            style={style.textField}
+            margin="normal"
+            InputProps ={{disableUnderline:true}}
+          />
       </div>
     </Paper>
 
@@ -134,9 +145,8 @@ const style = {
     padding:10
   },
   bigAvatar: {
-    width: 50,
-    height: 50,
-    marginTop: 19.5,
+    width: 45,
+    height: 45,
     marginLeft:5,
 
   },

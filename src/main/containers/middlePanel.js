@@ -18,7 +18,7 @@ class Messages extends Component {
   
   return (
     <Paper style={style.paper} >
-      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: 13.5}}>
+      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: 13.5, wrap: 'noWrap'}}>
         <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
         <Typography variant = 'body2' gutterBottom style = {{marginLeft: 15}}>
         {this.props.user.name}
@@ -26,7 +26,7 @@ class Messages extends Component {
         <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
         {this.props.user.phone}
         </Typography>
-        <Icon  color = 'primary' style = {{marginLeft: 200}}>search</Icon>
+        <Icon  color = 'primary' style = {{marginLeft: 180}}>search</Icon>
         <SendIcon color = 'primary'/>
         <InboxIcon color = 'primary'/>
         <DeleteIcon color = 'secondary' />

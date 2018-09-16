@@ -46,7 +46,8 @@ class MiniDrawer extends React.Component {
           <AppBar
             position="absolute"
             className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-            <Toolbar disableGutters={!this.state.open}>
+            <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+            <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
               <IconButton
                 color="inherit"
                 aria-label="Open drawer"
@@ -56,16 +57,16 @@ class MiniDrawer extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-                Impekable
+                Im•pek•a•ble
               </Typography>
-              <div>
-              <Button className={classes.loginButton} > logout</Button>
               </div>
-              <div>
+              <div style = {{display: 'flex', marginRight: 20}}>
+              <Button className={classes.loginButton} > logout</Button>
                <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  
               </div>
             </Toolbar>
           </AppBar>
+          
           <Drawer
             variant="permanent"
             classes={{
@@ -115,6 +116,7 @@ class MiniDrawer extends React.Component {
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
+        
       }),
     },
     appBarShift: {
@@ -129,7 +131,7 @@ class MiniDrawer extends React.Component {
       marginLeft: 12,
     },
     hide: {
-      display: 'none',
+      display: 'flex',
     },
     drawerPaper: {
       position: 'relative',
@@ -154,9 +156,10 @@ class MiniDrawer extends React.Component {
     toolbar: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       padding: '0 4px',
       ...theme.mixins.toolbar,
+      
     },
     content: {
       flexGrow: 1,
@@ -164,20 +167,13 @@ class MiniDrawer extends React.Component {
       padding: theme.spacing.unit * 0,
     },
       loginButton: {
-      flexGrow: 1,
-      marginLeft: 825,
       color: 'white',
      
-    },
-    avatar: {
-      margin: 0,
-      padding: 5,
     },
 
     bigAvatar: {
       width: 50,
       height: 50,
-      marginRight: 30,
 
     },
 

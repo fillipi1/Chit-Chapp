@@ -3,7 +3,25 @@ import pek from '../../components/pictures/pek.jpg';
 import indiana from '../../components/pictures/indiana.jpg';
 import yoshi from '../../components/pictures/yoshi.jpg';
 import jesus from '../../components/pictures/jesus.jpg';
-import buddha from '../../components/pictures/Budha.jpg'
+import buddha from '../../components/pictures/Budha.jpg';
+import yoshiworld from '../../components/pictures/yoshiworld.png';
+import marioland from '../../components/pictures/marioland.jpg';
+import artifact1 from '../../components/pictures/artifact1.jpg';
+import yoshi1 from '../../components/pictures/yoshi2.jpg';
+import yoshi2 from '../../components/pictures/yoshi.jpg';
+import artifact2 from '../../components/pictures/artifact2.jpg';
+import artifact3 from '../../components/pictures/artifact3.jpg';
+import artifact4 from '../../components/pictures/artifact4.jpg';
+import pek1 from '../../components/pictures/pek1.jpg';
+import pek2 from '../../components/pictures/pek2.jpg';
+import jesus1 from '../../components/pictures/jesus1.jpg';
+import jesus2 from '../../components/pictures/jesus2.jpg';
+import buddha1 from '../../components/pictures/buddha1.jpg';
+import buddha2 from '../../components/pictures/buddha2.jpg';
+import buddha3 from '../../components/pictures/buddha3.jpg';
+import elon1 from '../../components/pictures/elon1.jpg';
+import elon2 from '../../components/pictures/elon2.jpg';
+import elon3 from '../../components/pictures/elon3.jpg';
 
  const users = [
 
@@ -20,10 +38,9 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "O right my bad...may the force be with you",
         chat5: "By the way Luke is a terrible actor lol!",
         badge: 1,
-        phone: '(+12 510 334 5683)'
-
+        phone: '(+12 510 334 5683)',
+        img: [{img:artifact1},{img:artifact2}, {img:artifact3},{img:artifact4}]
         },
-
         {
         id: 2,
         avatar: pek,
@@ -37,10 +54,9 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "I Love lemon grass",
         chat5: "It's like my favorite flavor",
         badge: 3,
-        phone: '(+12 228 101 1343)'
-
+        phone: '(+12 228 101 1343)',
+        img: [{img:pek1},{img:pek2}]
         },
-
         {
         id: 3,    
         avatar: elon,
@@ -54,10 +70,9 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "was that suppose to be morse code or seomthing?",
         chat5: "You've been soking too much weed now that you're friends with joe rogan",
         badge: 0,
-        phone: '(+12 787 222 9943)'
-
+        phone: '(+12 787 222 9943)',
+        img: [{img:elon1},{img:elon2}, {img:elon3}]
         },
-
         {
         id: 4, 
         avatar: jesus,
@@ -71,7 +86,8 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "Sure!",
         chat5: "As long as Judas doesn't go, that guy is such a douche, idk why you let him hang out with you",
         badge: 6,
-        phone: '(+12 510 334 6789)'
+        phone: '(+12 510 334 6789)',
+        img: [{img:jesus1},{img:jesus2}]
 
         },
         {
@@ -87,9 +103,10 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "Sure come by around 5",
         chat5: "Must be all those mushrooms he's eating",
         badge: 0,
-        phone: '(+12 202 777 1123)'
+        phone: '(+12 202 777 1123)',
+        img: [{img:yoshiworld},{img:marioland},{img:yoshi1}, {img:yoshi2}]
 
-            },
+        },
         {
         id:6,
         avatar: buddha ,
@@ -103,11 +120,10 @@ import buddha from '../../components/pictures/Budha.jpg'
         chat4: "O jeez...",
         chat5: "I can't ommm over text",
         badge: 1,
-        phone: '(+12 202 555 9098)'
+        phone: '(+12 202 555 9098)',
+        img: [{img:buddha1},{img:buddha2}, {img:buddha3}]
 
-            },
-            
-    
+        },
     ];
 
     export default function leftPanelReducer(state = users, action){

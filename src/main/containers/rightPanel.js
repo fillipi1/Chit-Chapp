@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Paper, Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 class Notes extends Component {
 
@@ -22,23 +25,37 @@ class Notes extends Component {
         </Icon>
       </IconButton>
       </Grid>
-    <Divider/>
-    <Grid container wrap="nowrap" spacing={16}>
-        <Grid item style = {{padding: 10}}>
-          <Grid item  lg >
-              <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
-          </Grid>
-          <Grid item  lg >
-                <Typography >{this.props.user.name}</Typography>
-                <Typography variant='caption'>active {this.props.user.active}</Typography>
-          </Grid>
-        </Grid>
-    </Grid>
-    <br/>
-      <Divider />
-      <Typography  variant='caption' style={{padding:5}}>
-      options
-      </Typography>
+      <Divider/> 
+      <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
+        <TextField
+            id="textarea"
+            label = "Type a note here"
+            multiline
+            InputProps ={{disableUnderline:true}}
+            style= {{marginLeft:5, marginBottom: 15}}
+          />
+      </div>
+      <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
+        <Button>
+            <Typography>add note</Typography>
+        <Icon color = 'primary'>
+          add
+        </Icon>
+        </Button>
+        </div>
+        <Divider />
+          <Typography  variant='caption' style={{padding:5}}>
+          Shared Photos
+          </Typography>
+          <div style ={style.root}>
+      <GridList cellHeight={120} style ={style.gridList} cols={3}>
+        {this.props.activeUser.img.map(tile => (
+          <GridListTile key={tile.img} cols={tile.cols || 1}>
+            <img src={tile.img} alt={tile.name} />
+          </GridListTile>
+        ))}
+      </GridList>
+    </div>
     </Paper>
   );
 
@@ -73,18 +90,25 @@ const style = {
     padding:20,
     maxWidth: 150,
   },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    padding: 5
+  },
+  gridList: {
+    width: 300,
+    height: 250,
+  },
 
 };
 
 function mapStateToProps(state){
   return {
-    user: state.activeUser
+    users: state.users,
+    activeUser: state.activeUser, 
   }
 };
-
-// const enhance = compose(
-//   withStyles(styles),
-//   connect(mapStateToProps)
-// );
 
 export default connect(mapStateToProps)(Notes);

@@ -11,7 +11,7 @@ import Badge from '@material-ui/core/Badge';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
-
+import IconButton from '@material-ui/core/IconButton';
 
 class UserList extends Component {
   
@@ -22,17 +22,19 @@ class UserList extends Component {
     return (
       <div>
         <Grid item>
-          <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 20}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 12}}>
             <Typography variant = 'headline'>
               Conversation
             </Typography>
-            <Icon style={{marginLeft: 100}} color = 'primary'>
+            <IconButton>
+            <Icon color = 'primary'>
               add
             </Icon>
+            </IconButton>
           </div>
         </Grid>
           <Divider/>
-          <div style = {{display: 'flex', alignItems: 'center', padding: 10}}>
+          <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
             <Icon  color= 'disabled'>search</Icon>
             <TextField
                 id="textarea"

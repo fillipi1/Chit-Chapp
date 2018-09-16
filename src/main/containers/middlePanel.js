@@ -17,6 +17,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 class Messages extends Component {
+  state = {
+    value: 0,
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   render () {
   
@@ -48,6 +55,18 @@ class Messages extends Component {
         </div>
       </Grid>
       <Divider/>
+      <Tabs
+          value={this.state.value}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          style = {{backgroundColor : '#f3f3f3c2', display: 'flex'}}
+        >
+          <Tab label="SMS" color="default"/>
+          <Tab label="Messenger" />
+          <Tab label="Whats app" />
+        </Tabs>
       <div style ={style.messageListStyle}>
         <div style={style.block} >
           <Typography variant= 'body1' style={style.message1}>{this.props.user.chat1}</Typography>

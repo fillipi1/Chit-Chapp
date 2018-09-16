@@ -5,21 +5,23 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 
 class Notes extends Component {
 
   render() {    
   return (
-
     <Paper style={style.paper} >
-    <Grid container style = {{diplsay: 'flex' }}>
-    <Typography variant = 'headline' style = {{padding : 20}}> 
-      Note
-    </Typography>
-    <Icon style={{marginLeft: 120, alignSelf: 'center'}} color = 'primary'>
-              x
-            </Icon>
-    </Grid>
+      <Grid container style = {{diplsay: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Typography variant = 'headline' style = {{padding : 20}}> 
+          Note
+        </Typography>
+      <IconButton>
+        <Icon style={{ alignSelf: 'center'}} color = 'primary'>
+                  delete
+        </Icon>
+      </IconButton>
+      </Grid>
     <Divider/>
     <Grid container wrap="nowrap" spacing={16}>
         <Grid item style = {{padding: 10}}>

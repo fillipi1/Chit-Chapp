@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
+import Icon from '@material-ui/core/Icon';
 
 class Notes extends Component {
 
@@ -12,6 +12,15 @@ class Notes extends Component {
   return (
 
     <Paper style={style.paper} >
+    <Grid container style = {{diplsay: 'flex' }}>
+    <Typography variant = 'headline' style = {{padding : 20}}> 
+      Note
+    </Typography>
+    <Icon style={{marginLeft: 120, alignSelf: 'center'}} color = 'primary'>
+              x
+            </Icon>
+    </Grid>
+    <Divider/>
     <Grid container wrap="nowrap" spacing={16}>
         <Grid item style = {{padding: 10}}>
           <Grid item  lg >

@@ -11,6 +11,10 @@ import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DeleteIcon from '@material-ui/icons/Delete';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 class Messages extends Component {
 
@@ -18,7 +22,8 @@ class Messages extends Component {
   
   return (
     <Paper style={style.paper} >
-      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: 13.5, wrap: 'noWrap'}}>
+      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap'}}>
+      <div style ={{display:'flex', alignItems: 'center'}}>
         <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
         <Typography variant = 'body2' gutterBottom style = {{marginLeft: 15}}>
         {this.props.user.name}
@@ -26,10 +31,21 @@ class Messages extends Component {
         <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
         {this.props.user.phone}
         </Typography>
-        <Icon  color = 'primary' style = {{marginLeft: 180}}>search</Icon>
-        <SendIcon color = 'primary'/>
+        </div>
+        <div style = {{justifyContent:'flex-end'}}>
+        <IconButton color="primary" style = {{margin: -7}}>
+        <Icon  color = 'primary'>search</Icon>
+        </IconButton>
+        <IconButton color="primary" style = {{margin: -7}}>
+          <PhotoCamera />
+        </IconButton>
+        <IconButton color="primary" style = {{margin: -7}}>
         <InboxIcon color = 'primary'/>
-        <DeleteIcon color = 'secondary' />
+        </IconButton>
+        <IconButton color="primary" style = {{margin: -7}}>
+        <DeleteIcon color = 'secondary'/>
+        </IconButton>
+        </div>
       </Grid>
       <Divider/>
       <div style ={style.messageListStyle}>

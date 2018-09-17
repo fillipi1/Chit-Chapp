@@ -122,8 +122,23 @@ import elon3 from '../../components/pictures/elon3.jpg';
         badge: 1,
         phone: '(+12 202 555 9098)',
         img: [{img:buddha1},{img:buddha2}, {img:buddha3}]
-
         },
+        {
+            id: 3,    
+            avatar: elon,
+            name:'Elon Musk' ,
+            message: 'THE ROBOTS ARE COMING!!',
+            time: '6:30 PM',
+            active: '2h ago',
+            chat1: "1001101010101",
+            chat2: "what...?",
+            chat3: 'THE ROBOTS ARE COMING!!',
+            chat4: "was that suppose to be morse code or seomthing?",
+            chat5: "You've been soking too much weed now that you're friends with joe rogan",
+            badge: 0,
+            phone: '(+12 787 222 9943)',
+            img: [{img:elon1},{img:elon2}, {img:elon3}]
+            },
     ];
 
     export default function leftPanelReducer(state = users, action){

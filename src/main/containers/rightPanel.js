@@ -65,7 +65,6 @@ const style = {
   paper: {
     padding:0,
     marginRight: 1,
-    height:'100vh',
     overflow: 'hidden',
   },
   welcome: {

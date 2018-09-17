@@ -17,8 +17,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import Panels from './panels';
 import fillipi from './pictures/fillipi.jpg';
-import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
 import {compose} from 'redux';
 import { connect} from 'react-redux';
 

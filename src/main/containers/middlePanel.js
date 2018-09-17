@@ -107,15 +107,13 @@ class Messages extends Component {
 
 const style = {
   paper: {
-    padding:0, 
-    height:'100vh',
     overflow: 'hidden',
+    overflowY: 'scroll',
   },
   messageListStyle: {
     position: 'relative',
-    height: '100vh',
     overflowY: 'scroll',
-    paddingBottom: '150px',
+    height: '450px'
   },
   welcome:{
     padding: 30,
@@ -162,7 +160,8 @@ const style = {
     marginLeft: 30,
   },
   caption2: {
-    marginLeft: '50%',
+    display: 'flex',
+    justifyContent: 'center'
   },
   caption3: {
     marginLeft: 90,

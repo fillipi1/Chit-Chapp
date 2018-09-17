@@ -75,9 +75,11 @@ class UserList extends Component {
 
   render() {
     return (
-      <Paper style={{height:'100vh', overflow: 'hidden',}}>
+      <Paper style={{ overflow: 'hidden'}}>
         {this.renderSubHeader()}
-        {this.renderList()}        
+        <div style = {{position: 'relative', height: '450px', overflowY: 'scroll'}}>
+          {this.renderList()}   
+        </div>     
       </Paper>
     );
   }

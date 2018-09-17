@@ -5,7 +5,7 @@ import MiddlePanel from '../containers/middlePanel';
 import RightPanel from '../containers/rightPanel';
 
 export default () => (
-  <div style = {{display: 'flex', flexWrap: 'wrap', overflow: 'hidden', height: 'calc(100vh - 64px)'}}>
+  <div style = {{display: 'flex', flexWrap: 'wrap', overflow: 'hidden', height: '100vh'}}>
      <Grid container>
         <Grid item sm={3}>
           <LeftPanel />

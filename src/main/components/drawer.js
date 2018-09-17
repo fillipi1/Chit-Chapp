@@ -42,7 +42,7 @@ class MiniDrawer extends React.Component {
     return (
         <div className={classes.root}>
           <AppBar
-            position="absolute"
+            position="fixed"
             className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
             <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
             <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
@@ -102,10 +102,9 @@ class MiniDrawer extends React.Component {
   const styles = theme => ({
     root: {
       flexGrow: 1,
-      height: '100vh',
       zIndex: 1,
       overflowX: 'hidden',
-      position: 'relative',
+      position: 'fixed',
       display: 'flex',
 
     },

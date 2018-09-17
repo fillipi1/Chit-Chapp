@@ -66,6 +66,7 @@ const style = {
     padding:0,
     marginRight: 1,
     overflow: 'hidden',
+    height: 'calc(100vh - 64px)'
   },
   welcome: {
     padding:5,

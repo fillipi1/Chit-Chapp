@@ -88,6 +88,7 @@ class Messages extends Component {
         <div style={style.block2}>
         <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
         </div>
+        </div>
         <Divider />
         <TextField
             id="textarea"
@@ -96,7 +97,6 @@ class Messages extends Component {
             margin="normal"
             InputProps ={{disableUnderline:true}}
           />
-      </div>
     </Paper>
 
   )
@@ -109,11 +109,12 @@ const style = {
   paper: {
     overflow: 'hidden',
     overflowY: 'scroll',
+    height: 'calc(100vh - 64px)'
   },
   messageListStyle: {
     position: 'relative',
     overflowY: 'scroll',
-    height: '450px'
+    height: 'calc(100vh - 265px)'
   },
   welcome:{
     padding: 30,
@@ -176,7 +177,6 @@ const style = {
   textField: {
     marginRight: 10,
     width: 200,
-    padding:10
   },
   bigAvatar: {
     width: 45,

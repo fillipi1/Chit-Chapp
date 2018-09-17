@@ -9,27 +9,46 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import noteReducer from '../components/notesReducer'
 
 class Notes extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      value: 'test'
+      noteText: '',
+      notes: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.addNote = this.addNote.bind(this);
   }
-  handleChange(e) {
-    console.log( e );
+  handleChange(noteText) {
+    this.setState({ noteText: noteText.target.value })
+    console.log( 'changed' );
   }
   
   addNote(note) {
-    console.log('note', note)
+    if (this.state.noteTest === '') {return}
+    let notesArr = this.state.notes;
+    notesArr.push(this.state.noteText);
+    this.setState({ noteText: ''});
+    this.textInput.focus();
+      console.log('note', this.state)
+    
   }
 
-  render() {    
+    deleteNote(index) {
+      let notesArr = this.state.notes;
+      notesArr.splice(index, 1);
+      this.setState({ notes: notesArr})
+    }
+  render() {  
+    let notes = this.state.notes.map((val, key) => {
+      return <notesReducer key ={key} text ={val}
+              deleteMethod = { () => this.deleteNote(key)} />
+    })  
+
   return (
     <Paper style={style.paper} >
       <Grid container style = {{diplsay: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -47,14 +66,18 @@ class Notes extends Component {
         <TextField
             id="textarea"
             label = "Type a note here"
+            ref ={((input) => {this.textInput = input})}
+            className = 'textInput'
             multiline
+            value = {this.state.value}
             InputProps ={{disableUnderline:true}}
             onChange ={this.handleChange}
+            onKeyPress = {this.addNote}
             style= {{marginLeft:5, marginBottom: 15}}
           />
       </div>
       <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button onClick = {this.addNote(this.state.value)}>
+        <Button onClick = {() =>this.addNote(this.state.value)}>
           <Typography>add note</Typography>
           <Icon color = 'primary'>
             add

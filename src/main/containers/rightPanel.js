@@ -15,9 +15,20 @@ class Notes extends Component {
     super(props);
 
     this.state = {
-      todos: [],
-    }
+      value: 'test'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.addNote = this.addNote.bind(this);
   }
+  handleChange(e) {
+    console.log( e );
+  }
+  
+  addNote(note) {
+    console.log('note', note)
+  }
+
   render() {    
   return (
     <Paper style={style.paper} >
@@ -38,12 +49,12 @@ class Notes extends Component {
             label = "Type a note here"
             multiline
             InputProps ={{disableUnderline:true}}
+            onChange ={this.handleChange}
             style= {{marginLeft:5, marginBottom: 15}}
-            onSubmit = {() => this.addNote(this.state.value)}
           />
       </div>
       <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button>
+        <Button onClick = {this.addNote(this.state.value)}>
           <Typography>add note</Typography>
           <Icon color = 'primary'>
             add

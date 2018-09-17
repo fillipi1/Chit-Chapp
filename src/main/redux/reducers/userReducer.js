@@ -124,9 +124,9 @@ import elon3 from '../../components/pictures/elon3.jpg';
         img: [{img:buddha1},{img:buddha2}, {img:buddha3}]
         },
         {
-            id: 3,    
-            avatar: elon,
-            name:'Elon Musk' ,
+            id: 7,    
+            avatar: elon3,
+            name:'A.I' ,
             message: 'THE ROBOTS ARE COMING!!',
             time: '6:30 PM',
             active: '2h ago',

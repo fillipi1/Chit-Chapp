@@ -59,8 +59,9 @@ class MiniDrawer extends React.Component {
               </Typography>
               </div>
               <div style = {{display: 'flex', marginRight: 20}}>
-              <Button className={classes.loginButton} > logout</Button>
-               <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} />  
+              <Button className={classes.loginButton} > 
+                <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
+              </Button> 
               </div>
             </Toolbar>
           </AppBar>

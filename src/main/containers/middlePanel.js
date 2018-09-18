@@ -219,7 +219,8 @@ const style = {
     justifyContent: 'center'
   },
   caption3: {
-    marginLeft: 90,
+    marginRight: 10,
+    marginTop: -10
   },
   division: {
     padding:10,

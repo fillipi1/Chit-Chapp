@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import noteReducer from '../components/notesReducer'
+import Note from '../components/note'
 
 class Notes extends Component {
   constructor(props){
@@ -25,7 +25,6 @@ class Notes extends Component {
   }
   handleChange(noteText) {
     this.setState({ noteText: noteText.target.value })
-    console.log( 'changed' );
   }
   
   addNote(note) {
@@ -33,7 +32,6 @@ class Notes extends Component {
     let notesArr = this.state.notes;
     notesArr.push(this.state.noteText);
     this.setState({ noteText: ''});
-    this.textInput.focus();
       console.log('note', this.state)
     
   }
@@ -45,7 +43,7 @@ class Notes extends Component {
     }
   render() {  
     let notes = this.state.notes.map((val, key) => {
-      return <notesReducer key ={key} text ={val}
+      return <Note key ={key} text ={val}
               deleteMethod = { () => this.deleteNote(key)} />
     })  
 
@@ -69,20 +67,22 @@ class Notes extends Component {
             ref ={((input) => {this.textInput = input})}
             className = 'textInput'
             multiline
-            value = {this.state.value}
+            value = {this.state.noteText}
             InputProps ={{disableUnderline:true}}
-            onChange ={this.handleChange}
-            onKeyPress = {this.addNote}
+            onChange ={noteText => this.handleChange(noteText)}
             style= {{marginLeft:5, marginBottom: 15}}
           />
       </div>
       <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button onClick = {() =>this.addNote(this.state.value)}>
+        <Button onClick = {this.addNote.bind(this)}>
           <Typography>add note</Typography>
           <Icon color = 'primary'>
             add
           </Icon>
         </Button>
+      </div>
+      <div>
+        {notes}
       </div>
       <Divider />
       <Typography  variant='caption' style={{padding:5}}>

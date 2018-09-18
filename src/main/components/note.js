@@ -8,11 +8,9 @@ class Note extends Component {
   
     render() {    
         return (
-            <div style = {{backgroundColor : '#f3f3f3c2'}}>
-                <Divider />
-                <div style = {{display: 'flex', justifyContent: 'space-between', padding:15}}>
-                    <div className = 'note' style={{ display: 'flex', alignSelf: 'center'}}>
-                    
+            <div style = {{backgroundColor : '#f3f3f3c2'}}>              
+                <div style = {{display: 'flex', justifyContent: 'space-between', padding:5, }}>
+                    <div className = 'note' style={{ display: 'flex', alignSelf: 'center'}}>            
                         {this.props.text}
                     </div>
                     <div style={{ display: 'flex', alignSelf: 'center'}}>
@@ -23,6 +21,7 @@ class Note extends Component {
                         </IconButton>
                     </div>
                 </div>
+                <Divider />
             </div>
         )
   

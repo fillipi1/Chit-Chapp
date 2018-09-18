@@ -54,6 +54,9 @@ class Messages extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
+  messageDisplay(){
+
+  }
 
   render () {
     const { classes } = this.props;
@@ -122,8 +125,12 @@ class Messages extends Component {
             <div style={style.block2}>
             <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
             </div>
-            <div style={style.block2} >
-              <Typography variant= 'body1' style={style.message2}>{this.props.user.newMessage}</Typography>
+            <div style={{display: 'flex', flexDirection: 'column',alignItems: 'flex-end', padding: 10}} >
+              {this.props.user.newMessage.map(text =>(
+              <Typography variant= 'body1' style={style.message2}>
+              {text}
+              </Typography>
+              ))}
             </div>
           </div>
           <Divider />

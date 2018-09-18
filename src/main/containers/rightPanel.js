@@ -51,8 +51,10 @@ class Notes extends Component {
 
     const imageClick = () => {
       let selectImage = this.props.activeUser.img.map(photo => photo.img);
-      this.setState({image : selectImage})
-      console.log(this.state.image)
+      this.setState({image : selectImage}, () => {
+        console.log(this.state.image)
+      })
+      
     } 
   return (
     <Paper style={style.paper} >
@@ -67,31 +69,34 @@ class Notes extends Component {
         </IconButton>
       </Grid>
       <Divider/> 
-      <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
-        <TextField
-            id="textarea"
-            label = "Type a note here"            
-            className = 'textInput'
-            multiline
-            value = {this.state.noteText}
-            InputProps = {{disableUnderline:true}}
-            onChange = {noteText => this.handleChange(noteText)}
-            style = {{marginLeft:5, marginBottom: 15}}
-           //onKeyPress = {this.handleKeyPress.bind(this)}
-          />
+        <div style = {{display: 'flex', alignItems: 'center', padding: 4}}>
+          <TextField
+              id="textarea"
+              label = "Type a note here"            
+              className = 'textInput'
+              multiline
+              value = {this.state.noteText}
+              InputProps = {{disableUnderline:true}}
+              onChange = {noteText => this.handleChange(noteText)}
+              style = {{marginLeft:5, marginBottom: 15}}
+            //onKeyPress = {this.handleKeyPress.bind(this)}
+            />
+        </div>
+        <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button onClick = {this.addNote.bind(this)}>
+            <Typography>add note</Typography>
+            <Icon color = 'primary'>
+              add
+            </Icon>
+          </Button>       
+        </div>
+        <Divider />
+        <div style = {{ height: 200,overflowY: 'scroll'}}>
+        <Typography variant = 'body2' style = {{display: 'flex', flexDirection: 'column-reverse'}}>
+          {notes}
+        </Typography>
       </div>
-      <div style = {{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button onClick = {this.addNote.bind(this)}>
-          <Typography>add note</Typography>
-          <Icon color = 'primary'>
-            add
-          </Icon>
-        </Button>
-      </div>
-      <div>
-        {notes}
-      </div>
-      <Divider />
+      <Divider/>
       <Typography  variant='caption' style={{padding:5}}>
       Shared Photos
       </Typography>

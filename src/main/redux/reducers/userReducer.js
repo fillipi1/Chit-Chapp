@@ -24,7 +24,6 @@ import elon2 from '../../components/pictures/elon2.jpg';
 import elon3 from '../../components/pictures/elon3.jpg';
 
  const users = [
-
         {
         id: 1,
         avatar: indiana ,

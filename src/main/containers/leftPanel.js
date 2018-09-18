@@ -94,7 +94,7 @@ const styles = {
     justifyContent: 'center',
   },
   avatar: {
-    padding: 5,
+    padding: 10,
   },
   bigAvatar: {
     width: 50,
@@ -108,7 +108,7 @@ const styles = {
   },
   margin: {
     marginTop: 5,
-    marginRight: 15,
+    marginRight: 25,
     display: 'flex',
     flexDirection: 'row-reverse',
   },

@@ -30,14 +30,30 @@ TabContainer.propTypes = {
 };
 
 class Messages extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+     message: '',
+     value: 0
+    };
+  }
   state = {
     value: 0,
   };
 
-  addMessage = (message) => {
-    this.props.user.newMessage
+  addMessage () {
+    if (this.state.message === '') {return}
+    let messageArr = this.props.user.newMessage;
+    messageArr.push(this.state.message);
+    this.setState({ message: ''});
   }
-  
+  handleInput(message) {
+    this.setState({ message: message.target.value })
+  }
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   render () {
     const { classes } = this.props;
@@ -116,6 +132,8 @@ class Messages extends Component {
               id="textarea"
               placeholder="Type a message..." 
               style={style.textField}
+              value = {this.state.message}
+              onChange = {message => this.handleInput(message)}
               margin="normal"
               InputProps ={{disableUnderline:true}}
             />

@@ -105,7 +105,7 @@ class MiniDrawer extends React.Component {
       flexGrow: 1,
       zIndex: 1,
       overflowX: 'hidden',
-      position: 'fixed',
+      position: 'relative',
       display: 'flex',
 
     },

@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 function TabContainer(props) {
   return (
@@ -33,9 +34,10 @@ class Messages extends Component {
     value: 0,
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+  addMessage = (message) => {
+    this.props.user.newMessage
+  }
+  
 
   render () {
     const { classes } = this.props;
@@ -104,8 +106,12 @@ class Messages extends Component {
             <div style={style.block2}>
             <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
             </div>
+            <div style={style.block2} >
+              <Typography variant= 'body1' style={style.message2}>{this.props.user.newMessage}</Typography>
+            </div>
           </div>
           <Divider />
+          <div style = {{display: 'flex', justifyContent: 'space-between'}}>
           <TextField
               id="textarea"
               placeholder="Type a message..." 
@@ -113,6 +119,10 @@ class Messages extends Component {
               margin="normal"
               InputProps ={{disableUnderline:true}}
             />
+            <Button variant="contained" color="primary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.addMessage.bind(this)}>
+             Send
+            </Button>
+            </div>
         </TabContainer>}
         {value === 1 && <TabContainer>Messenger</TabContainer>}
         {value === 2 && <TabContainer> Whats App</TabContainer>}
@@ -195,7 +205,7 @@ const style = {
   },
   textField: {
     marginRight: 10,
-    width: 200,
+    width: 450,
     marginLeft:5
   },
   bigAvatar: {

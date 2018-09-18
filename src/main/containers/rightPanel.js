@@ -18,6 +18,7 @@ class Notes extends Component {
     this.state = {
       noteText: '',
       notes: [],
+      image: {},
     };
   
   }
@@ -48,6 +49,11 @@ class Notes extends Component {
               deleteMethod = { () => this.deleteNote(key)} />
     })  
 
+    const imageClick = () => {
+      let selectImage = this.props.activeUser.img.map(photo => photo.img);
+      this.setState({image : selectImage})
+      console.log(this.state.image)
+    } 
   return (
     <Paper style={style.paper} >
       <Grid container style = {{diplsay: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -95,7 +101,7 @@ class Notes extends Component {
         <GridList cellHeight={120} style ={style.gridList} cols={3}>
           {this.props.activeUser.img.map(tile => (
            <GridListTile key={tile.img} cols={tile.cols || 1}>
-            <img src={tile.img} alt={tile.name} />
+            <img src={tile.img} alt={tile.name} onClick = {() => imageClick()} />
            </GridListTile>
          ))}
         </GridList>

@@ -19,23 +19,24 @@ class Notes extends Component {
       noteText: '',
       notes: [],
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.addNote = this.addNote.bind(this);
+  
   }
   handleChange(noteText) {
     this.setState({ noteText: noteText.target.value })
   }
-  
-  addNote(note) {
-    if (this.state.noteTest === '') {return}
+  addNote() {
+    if (this.state.noteText === '') {return}
     let notesArr = this.state.notes;
     notesArr.push(this.state.noteText);
     this.setState({ noteText: ''});
-      console.log('note', this.state)
-    
   }
-
+  // handleKeyPress = (event) => {
+  //   if (event.key === 'Enter'){
+  //   let notesArr = this.state.notes;
+  //   notesArr.push(this.state.noteText);
+  //   this.setState({ noteText: ''});
+  //   }
+ //}
     deleteNote(index) {
       let notesArr = this.state.notes;
       notesArr.splice(index, 1);
@@ -63,14 +64,14 @@ class Notes extends Component {
       <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
         <TextField
             id="textarea"
-            label = "Type a note here"
-            ref ={((input) => {this.textInput = input})}
+            label = "Type a note here"            
             className = 'textInput'
             multiline
             value = {this.state.noteText}
-            InputProps ={{disableUnderline:true}}
-            onChange ={noteText => this.handleChange(noteText)}
-            style= {{marginLeft:5, marginBottom: 15}}
+            InputProps = {{disableUnderline:true}}
+            onChange = {noteText => this.handleChange(noteText)}
+            style = {{marginLeft:5, marginBottom: 15}}
+           //onKeyPress = {this.handleKeyPress.bind(this)}
           />
       </div>
       <div style = {{display: 'flex', justifyContent: 'flex-end'}}>

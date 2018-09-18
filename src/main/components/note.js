@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
+import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
-class Notes extends Component {
+class Note extends Component {
   
     render() {    
         return (
-            <div className = 'note' onClick={this.props.deleteMethod}>
-                {this.props.text}
+            <div style = {{backgroundColor : '#f3f3f3c2'}}>
+                <Divider />
+                <div style = {{display: 'flex', justifyContent: 'space-between', padding:15}}>
+                    <div className = 'note' style={{ display: 'flex', alignSelf: 'center'}}>
+                    
+                        {this.props.text}
+                    </div>
+                    <div style={{ display: 'flex', alignSelf: 'center'}}>
+                        <IconButton onClick={this.props.deleteMethod}>
+                            <Icon color = 'primary'>
+                            delete
+                            </Icon>
+                        </IconButton>
+                    </div>
+                </div>
             </div>
         )
   
     }
   }
 
-  export default Notes;
+  export default Note;

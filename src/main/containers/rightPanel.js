@@ -54,8 +54,8 @@ class Notes extends Component {
       this.setState({image : selectImage}, () => {
         console.log(this.state.image)
       })
-      
     } 
+
   return (
     <Paper style={style.paper} >
       <Grid container style = {{diplsay: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -92,9 +92,9 @@ class Notes extends Component {
         </div>
         <Divider />
       <div style = {{ height: 200,overflowY: 'scroll'}}>
-        <Typography variant = 'body2' style = {{display: 'flex', flexDirection: 'column-reverse'}}>
+        <div variant = 'body2' style = {{display: 'flex', flexDirection: 'column-reverse'}}>
           {notes} 
-        </Typography>
+        </div>
       </div>
       <Divider/>
       <div>

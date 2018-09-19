@@ -91,25 +91,25 @@ class Notes extends Component {
           </Button>       
         </div>
         <Divider />
-        <div style = {{ height: 200,overflowY: 'scroll'}}>
+      <div style = {{ height: 200,overflowY: 'scroll'}}>
         <Typography variant = 'body2' style = {{display: 'flex', flexDirection: 'column-reverse'}}>
-          {notes}
+          {notes} 
         </Typography>
       </div>
       <Divider/>
-      <Typography  variant='caption' style={{padding:5}}>
-      Shared Photos
-      </Typography>
       <div>
-      </div>
-      <div style = {{padding: 3}}>
-        <GridList cellHeight={120} style ={style.gridList} cols={3}>
-          {this.props.activeUser.img.map(tile => (
-           <GridListTile key={tile.img} cols={tile.cols || 1}>
-            <img src={tile.img} alt={tile.name} onClick = {() => imageClick()} />
-           </GridListTile>
-         ))}
-        </GridList>
+        <Typography  variant='caption' style={{padding:5}}>
+        Shared Photos
+        </Typography>
+        <div style = {{padding: 3}}>
+          <GridList cellHeight={120} style ={style.gridList} cols={3}>
+            {this.props.activeUser.img.map(tile => (
+            <GridListTile key={tile.img} cols={tile.cols || 1}>
+              <img src={tile.img} alt={tile.name} onClick = {() => imageClick()} />
+            </GridListTile>
+          ))}
+          </GridList>
+        </div>
       </div>
     </Paper>
   );
@@ -119,7 +119,8 @@ class Notes extends Component {
 const style = {
   paper: {
     marginRight: 1,
-    overflow: 'hidden',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
     height: 'calc(100vh - 64px)'
   },
   gridList: {

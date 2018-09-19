@@ -54,20 +54,22 @@ class UserList extends Component {
       const count =  user.badge  > 0 ;     
         
       return (
-        <ListItem button disableGutters divider key={user.id}
-        onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
-          <Grid item>
-            <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
-          </Grid>
-          <Grid item xs>
-            <Typography>{user.name}</Typography>
-            <Typography variant= 'caption' style={styles.avatar}>{user.message}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption" style={styles.avatar}>{user.time}</Typography>
-             {count ? <Badge style={styles.margin} badgeContent={user.badge} color="secondary"></Badge> : false}  
-          </Grid>
-        </ListItem>
+        <div style = {{}}>
+          <ListItem button disableGutters divider key={user.id}
+          onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
+            <Grid item>
+              <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
+            </Grid>
+            <Grid item xs wrap="nowrap" >
+              <Typography>{user.name}</Typography>
+              <Typography variant= 'caption' style={styles.avatar} noWrap>{user.message}</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="caption" style={{ padding: 5, display: 'flex',flexDirection: 'row-reverse', marginRight:5, justifyContent:'flex-start'}}>{user.time}</Typography>
+              {count ? <Badge style={styles.margin} badgeContent={user.badge} color="secondary"></Badge> : false}  
+            </Grid>
+          </ListItem>
+        </div>
       );
     }
       return this.props.users.map(maplist)
@@ -94,7 +96,9 @@ const styles = {
     justifyContent: 'center',
   },
   avatar: {
-    padding: 10,
+    padding: 5,
+    width: 150,
+    
   },
   bigAvatar: {
     width: 50,
@@ -108,7 +112,7 @@ const styles = {
   },
   margin: {
     marginTop: 5,
-    marginRight: 25,
+    marginRight: 30,
     display: 'flex',
     flexDirection: 'row-reverse',
   },

@@ -6,10 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import { selectImage } from '../redux/actions/selectImage';
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import Note from '../components/note'
+import Note from '../components/note';
+import { bindActionCreators } from 'redux';
+import Dialog from '@material-ui/core/Dialog';
+
 
 class Notes extends Component {
   constructor(props){
@@ -19,9 +23,12 @@ class Notes extends Component {
       noteText: '',
       notes: [],
       image: {},
+      open: false
     };
-  
+    
   }
+
+
   handleChange(noteText) {
     this.setState({ noteText: noteText.target.value })
   }
@@ -37,23 +44,33 @@ class Notes extends Component {
   //   notesArr.push(this.state.noteText);
   //   this.setState({ noteText: ''});
   //   }
- //}
+  //}
     deleteNote(index) {
       let notesArr = this.state.notes;
       notesArr.splice(index, 1);
       this.setState({ notes: notesArr})
     }
+
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+  
+    handleClose = () => {
+      this.setState({ open: false });
+    };
   render() {  
     let notes = this.state.notes.map((val, key) => {
       return <Note key ={key} text ={val}
               deleteMethod = { () => this.deleteNote(key)} />
     })  
 
-    const imageClick = () => {
-      let selectImage = this.props.activeUser.img.map(photo => photo.img);
-      this.setState({image : selectImage}, () => {
+    const imageClick = (tile) => {
+      this.setState({image : tile.img}, () => {
         console.log(this.state.image)
-      })
+      }); 
+      this.setState({ open: true }, () => {
+        console.log('you opened')
+      });    
     } 
 
   return (
@@ -103,9 +120,9 @@ class Notes extends Component {
         </Typography>
         <div style = {{padding: 3}}>
           <GridList cellHeight={120} style ={style.gridList} cols={3}>
-            {this.props.activeUser.img.map(tile => (
-            <GridListTile key={tile.img} cols={tile.cols || 1}>
-              <img src={tile.img} alt={tile.name} onClick = {() => imageClick()} />
+            {this.props.activeUser.img.map((tile) => (
+            <GridListTile key={tile.img} cols={tile.cols || 1} >
+              <img src={tile.img} alt={tile.name} onClick = {() => imageClick(tile)} />
             </GridListTile>
           ))}
           </GridList>
@@ -134,7 +151,12 @@ function mapStateToProps(state){
   return {
     users: state.users,
     activeUser: state.activeUser, 
+    image: state.image
   }
 };
 
-export default connect(mapStateToProps)(Notes);
+function mapDispachToProps (dispatch) {
+  return bindActionCreators({ selectImage: selectImage }, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispachToProps )(Notes);

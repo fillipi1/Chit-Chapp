@@ -60,7 +60,7 @@ class UserList extends Component {
             <Grid item>
               <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
             </Grid>
-            <Grid item xs wrap="nowrap" >
+            <Grid item xs  >
               <Typography>{user.name}</Typography>
               <Typography variant= 'caption' style={styles.avatar} noWrap>{user.message}</Typography>
             </Grid>

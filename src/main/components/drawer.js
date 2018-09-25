@@ -45,23 +45,23 @@ class MiniDrawer extends React.Component {
             position="fixed"
             className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
             <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
-            <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, this.state.open && classes.hide)}
-                >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
-                Im•pek•a•ble
-              </Typography>
-              </div>
-              <div style = {{display: 'flex', marginRight: 20}}>
-              <Button className={classes.loginButton} > 
-                <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
-              </Button> 
+              <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={this.handleDrawerOpen}
+                  className={classNames(classes.menuButton, this.state.open && classes.hide)}
+                  >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="title" color="inherit" noWrap>
+                  Im•pek•a•ble
+                </Typography>
+                </div>
+                <div style = {{display: 'flex', marginRight: 20}}>
+                <Button className={classes.loginButton} > 
+                  <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
+                </Button> 
               </div>
             </Toolbar>
           </AppBar>

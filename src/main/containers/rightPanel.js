@@ -13,20 +13,33 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Note from '../components/note';
 import { bindActionCreators } from 'redux';
 import Dialog from '@material-ui/core/Dialog';
+import {compose} from 'redux';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 class Notes extends Component {
-  constructor(props){
-    super(props);
 
-    this.state = {
+
+    state = {
+      open: false,
       noteText: '',
       notes: [],
-      image: {},
-      open: false
+      image: {},     
     };
     
-  }
+  
 
 
   handleChange(noteText) {
@@ -49,16 +62,19 @@ class Notes extends Component {
       let notesArr = this.state.notes;
       notesArr.splice(index, 1);
       this.setState({ notes: notesArr})
-    }
+    };
 
-    handleClickOpen = () => {
+     handleClickOpen = () => {
       this.setState({ open: true });
     };
   
-    handleClose = () => {
+     handleClose = () => {
       this.setState({ open: false });
     };
+
+
   render() {  
+    const { classes } = this.props;
     let notes = this.state.notes.map((val, key) => {
       return <Note key ={key} text ={val}
               deleteMethod = { () => this.deleteNote(key)} />
@@ -66,12 +82,12 @@ class Notes extends Component {
 
     const imageClick = (tile) => {
       this.setState({image : tile.img}, () => {
-        console.log(this.state.image)
       }); 
       this.setState({ open: true }, () => {
-        console.log('you opened')
+  
       });    
     } 
+
 
   return (
     <Paper style={style.paper} >
@@ -80,9 +96,9 @@ class Notes extends Component {
           Note
         </Typography>
         <IconButton>
-          <Icon style={{ alignSelf: 'center'}} color = 'primary'>
-                    delete
-          </Icon>
+          <div style={{ alignSelf: 'center', color: 'blue'}}>
+            <CloseIcon onClick={this.handleClickOpen.bind(this)}/>
+          </div>
         </IconButton>
       </Grid>
       <Divider/> 
@@ -118,6 +134,31 @@ class Notes extends Component {
         <Typography  variant='caption' style={{padding:5}}>
         Shared Photos
         </Typography>
+        {this.state.open && <Dialog
+          fullScreen
+          open={true}
+          onClose={this.handleClose}
+          TransitionComponent={Transition}
+        >
+                 <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" className={classes.flex}>
+                Close
+              </Typography>
+              <Button color="inherit" >
+                Save image
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <List>
+            <ListItem>
+            <img src={this.state.image} />
+            </ListItem>
+          </List>
+        </Dialog>}
         <div style = {{padding: 3}}>
           <GridList cellHeight={120} style ={style.gridList} cols={3}>
             {this.props.activeUser.img.map((tile) => (
@@ -144,8 +185,15 @@ const style = {
     width: 300,
     height: 250,
   },
-
+  appBar: {
+    position: 'relative',
+  },
+  flex: {
+    flex: 1,
+  },
 };
+
+
 
 function mapStateToProps(state){
   return {
@@ -159,4 +207,13 @@ function mapDispachToProps (dispatch) {
   return bindActionCreators({ selectImage: selectImage }, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispachToProps )(Notes);
+Notes.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const enhance = compose(
+  withStyles(style),
+  connect(mapStateToProps, mapDispachToProps)
+);
+
+export default enhance(Notes);

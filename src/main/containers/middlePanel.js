@@ -16,6 +16,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 
 function TabContainer(props) {
   return (
@@ -29,19 +37,32 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 class Messages extends Component {
   constructor(props){
     super(props);
 
     this.state = {
      message: '',
-     value: 0
+     value: 0,
+     open: false
     };
   }
   state = {
     value: 0,
+    open: true
   };
 
+  handleClickOpen = () => {
+    this.setState({ open: true });
+    console.log(this.state.open)
+  };
+
+   handleClose = () => {
+    this.setState({ open1: false });
+  };
   addMessage () {
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
@@ -149,7 +170,38 @@ class Messages extends Component {
             </Button>
             </div>
         </TabContainer>}
-        {value === 1 && <TabContainer>Messenger</TabContainer>}
+        {value === 1 && <TabContainer>
+          <Button onClick={this.handleClickOpen}>>Open full-screen dialog</Button>
+        <Dialog
+          fullScreen
+          open={this.state.open}
+          onClose={this.handleClose}
+          TransitionComponent={Transition}
+        >
+                 <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" className={classes.flex}>
+                Sound
+              </Typography>
+              <Button color="inherit" onClick={this.handleClose}>
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <List>
+            <ListItem button>
+              <ListItemText primary="Phone ringtone" secondary="Titania" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+            </ListItem>
+          </List>
+        </Dialog>
+        </TabContainer>}
         {value === 2 && <TabContainer> Whats App</TabContainer>}
     </Paper>
 

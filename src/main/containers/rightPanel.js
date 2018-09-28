@@ -148,14 +148,14 @@ class Notes extends Component {
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Close
               </Typography>
-              <Button color="inherit" >
-                Save image
+              <Button color="inherit"   onClick = {() => alert('saved')}>
+                Save photo
               </Button>
             </Toolbar>
           </AppBar>
           <List>
             <ListItem>
-            <img src={this.state.image} />
+            <img src={this.state.image}/>
             </ListItem>
           </List>
         </Dialog>}

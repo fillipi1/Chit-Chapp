@@ -26,9 +26,12 @@
     "@material-ui/icons": "^2.0.3",
     "@material/list": "^0.38.1",
     "classnames": "^2.2.6",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "prop-types": "^15.6.2",
     "react": "^16.3.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -37,6 +40,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "tile-reduce": "^3.1.1",
+    "twilio": "^3.20.0",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {

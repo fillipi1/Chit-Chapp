@@ -10,6 +10,7 @@ const APP_DIR = path.resolve(__dirname, 'src');
 const STATIC_DIR = path.resolve(__dirname, 'static');
 const DEV_PORT = '8080';
 
+
 const config = {
   entry: {
     index: `${APP_DIR}/index.jsx`

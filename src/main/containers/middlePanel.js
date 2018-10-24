@@ -24,6 +24,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import firebase from '../firebase';
 
 function TabContainer(props) {
   return (
@@ -40,6 +41,13 @@ TabContainer.propTypes = {
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
+
+var messagesRef = firebase.database().ref('received messages');
+messagesRef.on('value', data => {
+  console.log(JSON.stringify(data.val()));
+});
+//Object.keys(obj).map(x=>obj[x].incomingText);
+
 class Messages extends Component {
   constructor(props){
     super(props);
@@ -59,21 +67,34 @@ class Messages extends Component {
   handleClose = () => {
     this.setState({ open1: false });
   };
-  addMessage () {
+  recievedMessage(){
+
+  }
+  addMessage (e) {
+    // register sent messaged from dashboard into firebase
+    e.preventDefault();
+    const outText = firebase.database().ref('sent messages');
+    const item = {
+      sentText: this.state.message,
+    }
+    outText.push(item);
+    this.setState({
+      message: '',
+    });
     let reqBody = {
       text : this.state.message,
       phone: this.props.user.phone
     }
+    //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
     messageArr.push(this.state.message);
     this.setState({ message: ''});
-
+    //send input message to backend server-then sent to phone number
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json; charset=utf-8",
-       
+        "Content-Type": "application/json; charset=utf-8",    
       },
       body: JSON.stringify(reqBody),
     }).then((res) => res.json()).then((json) => {

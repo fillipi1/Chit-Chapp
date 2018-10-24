@@ -38,7 +38,7 @@ import elon3 from '../../components/pictures/elon3.jpg';
         chat4: "O right my bad...may the force be with you",
         chat5: "By the way Luke is a terrible actor lol!",
         badge: 1,
-        phone: '(+12 510 334 5683)',
+        phone: '(+1 510 334 2286)',
         img: [{img:artifact1},{img:artifact2}, {img:artifact3},{img:artifact4}]
         },
         {
@@ -55,13 +55,13 @@ import elon3 from '../../components/pictures/elon3.jpg';
         chat4: "I Love lemon grass",
         chat5: "It's like my favorite flavor",
         badge: 3,
-        phone: '(+12 228 101 1343)',
+        phone: '(+1 312 493 6881)',
         img: [{img:pek1},{img:pek2}]
         },
         {
         id: 3,    
         avatar: elon,
-        name:'Elon Musk' ,
+        name:'Meek' ,
         message: 'THE ROBOTS ARE COMING!!',
         newMessage: [],
         time: '6:30 PM',
@@ -72,7 +72,7 @@ import elon3 from '../../components/pictures/elon3.jpg';
         chat4: "was that suppose to be morse code or seomthing?",
         chat5: "You've been soking too much weed now that you're friends with joe rogan",
         badge: 0,
-        phone: '(+12 787 222 9943)',
+        phone: '(+1 408 816 9237)',
         img: [{img:elon1},{img:elon2}, {img:elon3}]
         },
         {

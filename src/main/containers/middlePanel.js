@@ -50,24 +50,37 @@ class Messages extends Component {
      open: false
     };
   }
-  state = {
-    value: 0,
-    open: true
-  };
-
+  
   handleClickOpen = () => {
     this.setState({ open: true });
     console.log(this.state.open)
   };
 
-   handleClose = () => {
+  handleClose = () => {
     this.setState({ open1: false });
   };
   addMessage () {
+    let reqBody = {
+      text : this.state.message,
+      phone: this.props.user.phone
+    }
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
     messageArr.push(this.state.message);
     this.setState({ message: ''});
+
+    fetch('http://localhost:8081/sendsms', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+       
+      },
+      body: JSON.stringify(reqBody),
+    }).then((res) => res.json()).then((json) => {
+      console.log(json);
+    }).catch(function (e) {
+      console.log(e)
+    })
   }
   handleInput(message) {
     this.setState({ message: message.target.value })
@@ -75,10 +88,21 @@ class Messages extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  messageDisplay(){
+  fetchMessage = () => {
+    // fetch('https://af88d9c9.ngrok.io/records')
+    //   .then(response => response.json())
+    //   .then(response => response)
 
+    fetch('https://af88d9c9.ngrok.io/records')
+    .then(function(response){
+      return response.json()
+    })
+    .then(realData => {
+      let messageArr = this.props.user.newMessage;
+      messageArr.push(realData.person);
+      this.setState({ message: ''});
+    })
   }
-
   render () {
     const { classes } = this.props;
     const { value } = this.state;

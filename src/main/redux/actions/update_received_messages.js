@@ -1,6 +1,6 @@
-export function receivedmessage(receive){
+export function receivedMessage(message){
     return {
       type: 'RECEIVED_MESSAGES',
-      payload: receive
+      payload: message
     };
   }

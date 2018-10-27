@@ -26,7 +26,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import firebase from '../firebase';
-import {receivedmessage} from '../redux/actions/update_received_messages';
+import {receivedMessage} from '../redux/actions/update_received_messages';
 
 function TabContainer(props) {
   return (
@@ -47,6 +47,14 @@ function Transition(props) {
 
 
 class Messages extends Component {
+  componentWillMount(){
+    var messagesRef = firebase.database().ref('received messages');
+      messagesRef.on('value', data => {
+      var messages = (Object.keys(data.val()).map(x => data.val()[x].incomingText));
+      this.props.received.push(messages.pop());
+      this.recievedMessage();
+    });
+  }
   constructor(props){
     super(props);
 
@@ -56,7 +64,7 @@ class Messages extends Component {
      open: false
     };
   }
-  
+
   handleClickOpen = () => {
     this.setState({ open: true });
     console.log(this.state.open)
@@ -66,9 +74,9 @@ class Messages extends Component {
     this.setState({ open1: false });
   };
   recievedMessage(){
+    // let messageArray = this.props.user.newMessage;
+    // messageArray.push(this.props.received)
     console.log(this.props.received)
-    var messages2= ['heyooo']
-    receivedmessage(messages2);
   }
   addMessage (e) {
     // register sent messaged from dashboard into firebase
@@ -78,9 +86,6 @@ class Messages extends Component {
       sentText: this.state.message,
     }
     outText.push(item);
-    this.setState({
-      message: '',
-    });
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
@@ -113,13 +118,6 @@ class Messages extends Component {
   render () {
     const { classes } = this.props;
     const { value } = this.state;
-    var messagesRef = firebase.database().ref('received messages');
-      messagesRef.on('value', data => {
-      var messages = JSON.stringify(Object.keys(data.val()).map(x => data.val()[x].incomingText));
-      console.log(messages);
-      receivedmessage(messages);
-      console.log(this.props.received)
-    });
   return (
     <Paper style={style.paper} >
       <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap'}}>
@@ -163,16 +161,20 @@ class Messages extends Component {
         {value === 0 && 
         <TabContainer>
           <div style ={style.messageListStyle}>
-          <div style={style.block} >
-              <Typography variant= 'body1' style={style.message1}>heeey</Typography>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column',alignItems: 'flex-end', padding: 10}} >
-              {this.props.user.newMessage.map(text =>(
-              <Typography variant= 'body1' style={style.message2}>
+          <div style={{display: 'flex', flexDirection: 'column', padding: 10,}} >
+            {this.props.received.map(text =>(
+              <Typography variant= 'body1' style={style.message1}>
               {text}
               </Typography>
-              ))}
-            </div>
+            ))}
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column',alignItems: 'flex-end', padding: 10}} >
+            {this.props.user.newMessage.map(text =>(
+            <Typography variant= 'body1' style={style.message2}>
+            {text}
+            </Typography>
+            ))}
+          </div>
           </div>
           <Divider />
           <div style = {{display: 'flex', justifyContent: 'space-between'}}>
@@ -328,7 +330,7 @@ function mapStateToProps(state){
   }
 };
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ receivedmessage: receivedmessage }, dispatch);
+  return bindActionCreators({ receivedMessage: receivedMessage }, dispatch);
 }
 const enhance = compose(
   withStyles(style),

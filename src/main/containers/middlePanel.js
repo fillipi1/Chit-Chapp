@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import {compose} from 'redux';
+import { bindActionCreators } from 'redux';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
 import Icon from '@material-ui/core/Icon';
@@ -25,6 +26,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import firebase from '../firebase';
+import {receivedmessage} from '../redux/actions/update_received_messages';
 
 function TabContainer(props) {
   return (
@@ -42,11 +44,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-var messagesRef = firebase.database().ref('received messages');
-messagesRef.on('value', data => {
-  console.log(JSON.stringify(data.val()));
-});
-//Object.keys(obj).map(x=>obj[x].incomingText);
+
 
 class Messages extends Component {
   constructor(props){
@@ -68,7 +66,9 @@ class Messages extends Component {
     this.setState({ open1: false });
   };
   recievedMessage(){
-
+    console.log(this.props.received)
+    var messages2= ['heyooo']
+    receivedmessage(messages2);
   }
   addMessage (e) {
     // register sent messaged from dashboard into firebase
@@ -81,16 +81,16 @@ class Messages extends Component {
     this.setState({
       message: '',
     });
-    let reqBody = {
-      text : this.state.message,
-      phone: this.props.user.phone
-    }
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
     messageArr.push(this.state.message);
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
+        let reqBody = {
+          text : this.state.message,
+          phone: this.props.user.phone
+        }
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
       headers: {
@@ -109,25 +109,17 @@ class Messages extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  fetchMessage = () => {
-    // fetch('https://af88d9c9.ngrok.io/records')
-    //   .then(response => response.json())
-    //   .then(response => response)
 
-    fetch('https://af88d9c9.ngrok.io/records')
-    .then(function(response){
-      return response.json()
-    })
-    .then(realData => {
-      let messageArr = this.props.user.newMessage;
-      messageArr.push(realData.person);
-      this.setState({ message: ''});
-    })
-  }
   render () {
     const { classes } = this.props;
     const { value } = this.state;
-
+    var messagesRef = firebase.database().ref('received messages');
+      messagesRef.on('value', data => {
+      var messages = JSON.stringify(Object.keys(data.val()).map(x => data.val()[x].incomingText));
+      console.log(messages);
+      receivedmessage(messages);
+      console.log(this.props.received)
+    });
   return (
     <Paper style={style.paper} >
       <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap'}}>
@@ -171,25 +163,8 @@ class Messages extends Component {
         {value === 0 && 
         <TabContainer>
           <div style ={style.messageListStyle}>
-            <div style={style.block} >
-              <Typography variant= 'body1' style={style.message1}>{this.props.user.chat1}</Typography>
-            </div>
-              <Typography variant= 'caption' style={style.caption2}>Yesterday 8:30 PM</Typography>
-            <div style={style.block2} >
-              <Typography variant= 'body1' style={style.message2}>{this.props.user.chat2}</Typography>
-            </div>
-            <div style={style.block} >
-              <Typography variant= 'body1' style={style.message1}>{this.props.user.chat3}</Typography>
-            </div>
-            <Typography variant= 'caption' style={style.caption2}>Today 11:05 AM</Typography>
-            <div style={style.block2} >
-              <Typography variant= 'body1' style={style.message2}>{this.props.user.chat4}</Typography>
-            </div>
-            <div style={style.block2} >
-              <Typography variant= 'body1' style={style.message2}>{this.props.user.chat5}</Typography>
-            </div>
-            <div style={style.block2}>
-            <Typography variant= 'caption' style={style.caption3}>delivered</Typography>
+          <div style={style.block} >
+              <Typography variant= 'body1' style={style.message1}>heeey</Typography>
             </div>
             <div style={{display: 'flex', flexDirection: 'column',alignItems: 'flex-end', padding: 10}} >
               {this.props.user.newMessage.map(text =>(
@@ -211,6 +186,9 @@ class Messages extends Component {
               InputProps ={{disableUnderline:true}}
             />
             <Button variant="contained" color="primary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.addMessage.bind(this)}>
+             Send
+            </Button>
+            <Button variant="contained" color="secondary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.recievedMessage.bind(this)}>
              Send
             </Button>
             </div>
@@ -345,12 +323,16 @@ Messages.propTypes = {
 
 function mapStateToProps(state){
   return {
-    user: state.activeUser
+    user: state.activeUser,
+    received: state.receivedMessage
   }
 };
+function mapDispachToProps (dispatch) {
+  return bindActionCreators({ receivedmessage: receivedmessage }, dispatch);
+}
 const enhance = compose(
   withStyles(style),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispachToProps)
 );
 
 export default enhance(Messages);

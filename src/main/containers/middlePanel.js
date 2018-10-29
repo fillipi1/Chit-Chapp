@@ -47,12 +47,14 @@ function Transition(props) {
 
 
 class Messages extends Component {
-  componentWillMount(){
+  componentDidMount(){
     var messagesRef = firebase.database().ref('received messages');
       messagesRef.on('value', data => {
-      var messages = (Object.keys(data.val()).map(x => data.val()[x].incomingText));
-      this.props.received.push(messages.pop());
-      this.recievedMessage();
+        console.log(Object.keys(data.val()).map(x => data.val()[x]))
+      var messages = (Object.keys(data.val()).map(x => data.val()[x]));
+      this.props.user.newMessage.push(messages.pop());
+      this.props.user.recentMessage.push(messages.pop());
+      this.setState({rerender:''})
     });
   }
   constructor(props){
@@ -74,9 +76,8 @@ class Messages extends Component {
     this.setState({ open1: false });
   };
   recievedMessage(){
-    // let messageArray = this.props.user.newMessage;
-    // messageArray.push(this.props.received)
-    console.log(this.props.received)
+
+    console.log(this.props.user.recentMessage)
   }
   addMessage (e) {
     // register sent messaged from dashboard into firebase
@@ -84,12 +85,13 @@ class Messages extends Component {
     const outText = firebase.database().ref('sent messages');
     const item = {
       sentText: this.state.message,
+      id: 'sent'
     }
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
-    messageArr.push(this.state.message);
+    messageArr.push({id: 'received', incomingText: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
         let reqBody = {
@@ -114,7 +116,49 @@ class Messages extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
+  messageRender(text){
+    if (text.id === 'received'){return {
+    background: '#0024d4e3',
+    padding: 10,
+    borderRadius: '20px',
+    fontSize: '0.8em',
+    marginBottom: '1.1em',
+    marginLeft: '1 em',
+    lineHeight: '1.5em',
+    fontFamily: 'Roboto, sans-serif',
+    color: '#ffffff',
+    maxWidth: '50%'
+    }
+  } else {
+    return {
+      background: '#4b49521f',
+      padding: 10,
+      borderRadius: '20px',
+      fontSize: '0.8em',
+      marginBottom: '1.1em',
+      marginLeft: '1 em',
+      lineHeight: '1.5em',
+      fontFamily: 'Roboto, sans-serif',
+      maxWidth: '50%'
+    }
+  }
+  }
+  messagePos(text){
+    if (text.id === 'received'){return {
+      display: 'flex', 
+      flexDirection: 'column',
+      alignItems: 'flex-end', 
+      padding: 10
+    }
+  } else {
+    return {
+      display: 'flex', 
+      //flexDirection: 'column',
+      //alignItems: 'flex-end', 
+      padding: 10
+    }
+  }
+  }
   render () {
     const { classes } = this.props;
     const { value } = this.state;
@@ -161,18 +205,13 @@ class Messages extends Component {
         {value === 0 && 
         <TabContainer>
           <div style ={style.messageListStyle}>
-          <div style={{display: 'flex', flexDirection: 'column', padding: 10,}} >
-            {this.props.received.map(text =>(
-              <Typography variant= 'body1' style={style.message1}>
-              {text}
-              </Typography>
-            ))}
-          </div>
-          <div style={{display: 'flex', flexDirection: 'column',alignItems: 'flex-end', padding: 10}} >
+          <div >
             {this.props.user.newMessage.map(text =>(
-            <Typography variant= 'body1' style={style.message2}>
-            {text}
+              <div style={this.messagePos(text)} >
+            <Typography variant= 'body1' style= {this.messageRender(text)}>
+            {text.incomingText}
             </Typography>
+            </div>
             ))}
           </div>
           </div>
@@ -262,6 +301,7 @@ const style = {
     marginLeft: '1 em',
     lineHeight: '1.5em',
     fontFamily: 'Roboto, sans-serif',
+    maxWidth: '50%'
   },
 
   message2:{

@@ -22,14 +22,22 @@ import buddha3 from '../../components/pictures/buddha3.jpg';
 import elon1 from '../../components/pictures/elon1.jpg';
 import elon2 from '../../components/pictures/elon2.jpg';
 import elon3 from '../../components/pictures/elon3.jpg';
+// import firebase from '../../firebase';
 
+// var messagesRef = firebase.database().ref('received messages');
+// messagesRef.on('value', data => {
+//     console.log(Object.keys(data.val()).map(x => data.val()[x].incomingText).pop())
+//   var messages = (Object.keys(data.val()).map(x => data.val()[x].incomingText).pop());
+//  return messages;
+// })
  const users = [
         {
         id: 1,
         avatar: indiana ,
         name: 'Indiana jones' ,
-        message: "No dude! wrong Harsion Ford! this is Indiana Jones",
+        recentMessage: ['1'],
         newMessage: [],
+        message: '',
         time: '2:40 AM',
         active: '1h ago',
         chat1: "have the crystal skull!!!",
@@ -96,7 +104,7 @@ import elon3 from '../../components/pictures/elon3.jpg';
         {
         id: 5,
         avatar: yoshi ,
-        name: 'Yoshi' ,
+        name: 'Ida' ,
         message: 'Can I get a treatment, my back hurts. Mario has gotten so fat!',
         newMessage: [],
         time: '5:30 PM',
@@ -107,7 +115,7 @@ import elon3 from '../../components/pictures/elon3.jpg';
         chat4: "Sure come by around 5",
         chat5: "Must be all those mushrooms he's eating",
         badge: 0,
-        phone: '(+12 202 777 1123)',
+        phone: '(+1 650 245 5080)',
         img: [{img:yoshiworld},{img:marioland},{img:yoshi1}, {img:yoshi2}]
 
         },

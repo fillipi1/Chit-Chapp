@@ -14,7 +14,6 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 
 class UserList extends Component {
-  
   componentWillMount(){
     this.props.selectUser(this.props.users[0])
   }

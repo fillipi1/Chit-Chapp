@@ -52,8 +52,9 @@ class Messages extends Component {
       messagesRef.on('value', data => {
         console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages = (Object.keys(data.val()).map(x => data.val()[x]));
+      var messages2 = (Object.keys(data.val()).map(x => data.val()[x].incomingText));
       this.props.user.newMessage.push(messages.pop());
-      this.props.user.recentMessage.push(messages.pop());
+      this.props.user.recentMessage = (messages2.pop());
       this.setState({rerender:''})
     });
   }
@@ -63,17 +64,20 @@ class Messages extends Component {
     this.state = {
      message: '',
      value: 0,
-     open: false
+     open: false,
     };
   }
-
+  openScreen = () =>{
+    this.setState({open: true})
+    console.log(this.state.open)
+  }
   handleClickOpen = () => {
-    this.setState({ open: true });
+    
     console.log(this.state.open)
   };
 
   handleClose = () => {
-    this.setState({ open1: false });
+    this.setState({ open: false });
   };
   recievedMessage(){
 
@@ -173,10 +177,32 @@ class Messages extends Component {
         <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
         {this.props.user.phone}
         </Typography>
+        {this.state.open && <Dialog
+          fullScreen
+          open={true}
+          onClose={this.handleClose}
+          TransitionComponent={Transition}
+        >
+                 <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" className={classes.flex}>
+                Close
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <List>
+            <ListItem>
+            <img src={this.state.image}/>
+            </ListItem>
+          </List>
+        </Dialog>}
         </div>
         <div style = {{justifyContent:'flex-end'}}>
-        <IconButton color="primary" style = {{margin: -7}}>
-        <Icon  color = 'primary'>search</Icon>
+        <IconButton color="primary" style = {{margin: -7}} onClick={this.openScreen}>
+        <Icon  color = 'primary' onClick={this.openScreen}>search</Icon>
         </IconButton>
         <IconButton color="primary" style = {{margin: -7}}>
           <PhotoCamera />
@@ -236,35 +262,7 @@ class Messages extends Component {
         </TabContainer>}
         {value === 1 && <TabContainer>
           <Button onClick={this.handleClickOpen}>>Open full-screen dialog</Button>
-        <Dialog
-          fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
-          TransitionComponent={Transition}
-        >
-                 <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" className={classes.flex}>
-                Sound
-              </Typography>
-              <Button color="inherit" onClick={this.handleClose}>
-                save
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
-          </List>
-        </Dialog>
+
         </TabContainer>}
         {value === 2 && <TabContainer> Whats App</TabContainer>}
     </Paper>

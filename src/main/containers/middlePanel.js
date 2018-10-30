@@ -18,7 +18,6 @@ import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import AppBar from '@material-ui/core/AppBar';
@@ -44,13 +43,11 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-
-
 class Messages extends Component {
   componentDidMount(){
     var messagesRef = firebase.database().ref('received messages');
-      messagesRef.on('value', data => {
-        console.log(Object.keys(data.val()).map(x => data.val()[x]))
+    messagesRef.on('value', data => {
+      console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages = (Object.keys(data.val()).map(x => data.val()[x]));
       var messages2 = (Object.keys(data.val()).map(x => data.val()[x].incomingText));
       this.props.user.newMessage.push(messages.pop());
@@ -60,7 +57,6 @@ class Messages extends Component {
   }
   constructor(props){
     super(props);
-
     this.state = {
      message: '',
      value: 0,
@@ -69,19 +65,12 @@ class Messages extends Component {
   }
   openScreen = () =>{
     this.setState({open: true})
-    console.log(this.state.open)
   }
-  handleClickOpen = () => {
-    
-    console.log(this.state.open)
-  };
-
-  handleClose = () => {
+  closeScreen = () => {
     this.setState({ open: false });
-  };
+  }
   recievedMessage(){
-
-    console.log(this.props.user.recentMessage)
+    console.log(this.props.user.newMessage)
   }
   addMessage (e) {
     // register sent messaged from dashboard into firebase
@@ -95,13 +84,13 @@ class Messages extends Component {
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
-    messageArr.push({id: 'received', incomingText: this.state.message});
+    messageArr.push({id: 'sent', incomingText: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
-        let reqBody = {
-          text : this.state.message,
-          phone: this.props.user.phone
-        }
+    let reqBody = {
+      text : this.state.message,
+      phone: this.props.user.phone
+    }
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
       headers: {
@@ -122,6 +111,18 @@ class Messages extends Component {
   };
   messageRender(text){
     if (text.id === 'received'){return {
+      background: '#4b49521f',
+      padding: 10,
+      borderRadius: '20px',
+      fontSize: '0.8em',
+      marginBottom: '1.1em',
+      marginLeft: '1 em',
+      lineHeight: '1.5em',
+      fontFamily: 'Roboto, sans-serif',
+      maxWidth: '50%'
+    }
+  } else {
+    return {
     background: '#0024d4e3',
     padding: 10,
     borderRadius: '20px',
@@ -133,32 +134,18 @@ class Messages extends Component {
     color: '#ffffff',
     maxWidth: '50%'
     }
-  } else {
-    return {
-      background: '#4b49521f',
-      padding: 10,
-      borderRadius: '20px',
-      fontSize: '0.8em',
-      marginBottom: '1.1em',
-      marginLeft: '1 em',
-      lineHeight: '1.5em',
-      fontFamily: 'Roboto, sans-serif',
-      maxWidth: '50%'
-    }
   }
   }
   messagePos(text){
-    if (text.id === 'received'){return {
+    if (text.id === 'sent'){return {
       display: 'flex', 
       flexDirection: 'column',
       alignItems: 'flex-end', 
       padding: 10
-    }
-  } else {
+      }
+    } else {
     return {
       display: 'flex', 
-      //flexDirection: 'column',
-      //alignItems: 'flex-end', 
       padding: 10
     }
   }
@@ -185,7 +172,7 @@ class Messages extends Component {
         >
                  <AppBar className={classes.appBar}>
             <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <IconButton color="inherit" onClick={this.closeScreen} aria-label="Close">
                 <CloseIcon />
               </IconButton>
               <Typography variant="title" color="inherit" className={classes.flex}>
@@ -256,7 +243,7 @@ class Messages extends Component {
              Send
             </Button>
             <Button variant="contained" color="secondary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.recievedMessage.bind(this)}>
-             Send
+             Console.Log
             </Button>
             </div>
         </TabContainer>}

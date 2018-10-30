@@ -98,53 +98,6 @@ import elon3 from '../../components/pictures/elon3.jpg';
         img: [{img:yoshiworld},{img:marioland},{img:yoshi1}, {img:yoshi2}]
 
         },
-        {
-        id:6,
-        avatar: buddha ,
-        name: 'Buddha' ,
-        message: 'OMMMMMMM',
-        newMessage: [],
-        time: '1:30 PM',
-        active: ' 3 thousand years ago',
-        badge: 1,
-        phone: '(+12 202 555 9098)',
-        img: [{img:buddha1},{img:buddha2}, {img:buddha3}]
-        },
-        {
-        id: 7,    
-        avatar: elon3,
-        name:'A.I' ,
-        message: '1001101010101',
-        newMessage: [],
-        time: '6:30 PM',
-        active: '2h ago',
-        badge: 0,
-        phone: '(+12 787 222 9943)',
-        img: [{img:elon1},{img:elon2}, {img:elon3}]
-        },
-        {
-        id: 8,    
-        avatar: yoshi1,
-        name:'Bean' ,
-        message: 'Where is Mario?!',
-        newMessage: [],
-        time: '6:30 PM',
-        active: '2h ago',
-        badge: 0,
-        phone: '(+12 787 222 9943)',
-        img: [{img:elon1},{img:elon2}, {img:elon3}]
-        },
-        {
-        id: 9,    
-        avatar: artifact2,
-        name:'Sacred Skull' ,
-        message: 'We are one with God',
-        newMessage: [],
-        time: '6:30 PM',
-        active: '2h ago',
-        phone: '(+12 787 222 9943)',
-        img: [{img:elon1},{img:elon2}, {img:elon3}]
-        },
 ];
 
     export default function leftPanelReducer(state = users, action){

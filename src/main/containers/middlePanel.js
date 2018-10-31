@@ -25,7 +25,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import firebase from '../firebase';
-import {receivedMessage} from '../redux/actions/update_received_messages';
+import {updateUsers} from '../redux/actions/updateUser';
+import {updateMessages} from '../redux/actions/updateMessages';
 
 function TabContainer(props) {
   return (
@@ -45,15 +46,20 @@ function Transition(props) {
 
 class Messages extends Component {
   componentDidMount(){
-    var messagesRef = firebase.database().ref('received messages');
+    var messagesRef = firebase.database().ref('messages');
+    var usersRef = firebase.database().ref('users');
     messagesRef.on('value', data => {
       console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages = (Object.keys(data.val()).map(x => data.val()[x]));
-      var messages2 = (Object.keys(data.val()).map(x => data.val()[x].incomingText));
+      var messages2 = (Object.keys(data.val()).map(x => data.val()[x].Text));
       this.props.user.newMessage.push(messages.pop());
       this.props.user.recentMessage = (messages2.pop());
+      this.props.updateMessages(Object.keys(data.val()).map(x => data.val()[x]))
       this.setState({rerender:''})
     });
+    usersRef.on('value', data =>{
+      this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]))
+    })
   }
   constructor(props){
     super(props);
@@ -70,21 +76,27 @@ class Messages extends Component {
     this.setState({ open: false });
   }
   recievedMessage(){
-    console.log(this.props.user.newMessage)
+    console.log(this.props.usersDataBase, this.props.messagesDataBase)
+    const newUser = firebase.database().ref('users');
+    const item = {
+      id: 'new user',
+      Text: this.props.user.name,
+    }
+    newUser.push(item);
   }
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
-    const outText = firebase.database().ref('sent messages');
+    const outText = firebase.database().ref('messages');
     const item = {
-      sentText: this.state.message,
-      id: 'sent'
+      id: 'sent',
+      Text: this.state.message,
     }
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.user.newMessage;
-    messageArr.push({id: 'sent', incomingText: this.state.message});
+    //messageArr.push({id: 'sent', Text: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
     let reqBody = {
@@ -219,10 +231,10 @@ class Messages extends Component {
         <TabContainer>
           <div style ={style.messageListStyle}>
           <div >
-            {this.props.user.newMessage.map(text =>(
-              <div style={this.messagePos(text)} >
+            {this.props.messagesDataBase.map(text =>(
+              <div style={this.messagePos(text)} key={text.id} >
             <Typography variant= 'body1' style= {this.messageRender(text)}>
-            {text.incomingText}
+            {text.Text}
             </Typography>
             </div>
             ))}
@@ -351,12 +363,15 @@ Messages.propTypes = {
 function mapStateToProps(state){
   return {
     user: state.activeUser,
-    received: state.receivedMessage
+    usersDataBase: state.usersDataBase,
+    messagesDataBase: state.messagesDataBase
   }
 };
+
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ receivedMessage: receivedMessage }, dispatch);
+  return bindActionCreators({ updateUsers, updateMessages } , dispatch);
 }
+
 const enhance = compose(
   withStyles(style),
   connect(mapStateToProps, mapDispachToProps)

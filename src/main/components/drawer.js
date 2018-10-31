@@ -19,7 +19,8 @@ import Panels from './panels';
 import fillipi from './pictures/fillipi.jpg';
 import {compose} from 'redux';
 import { connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import {loginUser} from '../redux/actions/updateUser'
 
 class MiniDrawer extends React.Component {
   state = {
@@ -59,6 +60,9 @@ class MiniDrawer extends React.Component {
                 </Typography>
                 </div>
                 <div style = {{display: 'flex', marginRight: 20}}>
+                <Button onClick = {this.props.loginUser}>
+                  login
+                </Button>
                 <Button className={classes.loginButton} > 
                   <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
                 </Button> 
@@ -183,6 +187,10 @@ class MiniDrawer extends React.Component {
       users: state.users,
       activeUser: state.activeUser 
     };
-  } 
+  }
+  function mapDispachToProps (dispatch) {
+    return bindActionCreators({ loginUser } , dispatch);
+  }
+   
 
-export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps))(MiniDrawer);
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, mapDispachToProps))(MiniDrawer);

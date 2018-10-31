@@ -12,20 +12,61 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import {updateUsers} from '../redux/actions/updateUser';
 
 class UserList extends Component {
+ 
   componentWillMount(){
     this.props.selectUser(this.props.users[0])
   }
+  state = {
+    open: false,
+    name: '',
+    phone: ''
+  };
+ handleClickOpen = () => {
+  this.setState({ open: true });
+};
+handleClose = () => {
+  this.setState({ open: false });
+  console.log(this.state.name, this.state.phone)
+};
+handleInputName(name) {
+  this.setState({ name: name.target.value })
+};
+handleInputPhone(phone) {
+  this.setState({ phone: phone.target.value })
+}
+handleNewUser(user){
+  user.push({
+    id: this.state.phone,
+    avatar: indiana ,
+    name: this.state.name ,
+    recentMessage: '',
+    newMessage: [],
+    message: '',
+    time: '2:40 AM',
+    active: '1h ago',
+    badge: 0,
+    phone: this.state.phone,
+    img: []
+    })
+}
   renderSubHeader(){
     return (
       <div>
         <Grid item>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 12}}>
             <Typography variant = 'headline'>
-              Conversation
+              Add Contact
             </Typography>
-            <IconButton>
+            <IconButton onClick ={this.handleClickOpen}>
             <Icon color = 'primary'>
               add
             </Icon>
@@ -53,8 +94,8 @@ class UserList extends Component {
       const count =  user.badge  > 0 ;     
         
       return (
-        <div style = {{}}>
-          <ListItem button disableGutters divider key={user.id}
+        <div key={user.id}>
+          <ListItem button disableGutters divider 
           onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
             <Grid item>
               <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
@@ -81,6 +122,45 @@ class UserList extends Component {
         <div style = {{height: 'calc(100vh - 185px)', overflowY: 'scroll'}}>
           {this.renderList()}   
         </div>     
+        <div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Add User</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Enter contact name and phone #
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Name"
+              type="text"
+              fullWidth
+              onChange = {name => this.handleInputName(name)}
+            />
+             <TextField
+              variant="outlined"
+              id="phone number"
+              label="Phone #"
+              type="number"
+              onChange = {phone => this.handleInputPhone(phone)}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleNewUser} color="primary">
+              Add Contact
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       </Paper>
     );
   }
@@ -122,12 +202,13 @@ function mapStateToProps(state) {
   
   return {
     users: state.users,
-    activeUser: state.activeUser 
+    activeUser: state.activeUser,
+    usersDataBase: state.usersDataBase
   };
 } 
 
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ selectUser: selectUser }, dispatch);
+  return bindActionCreators({ selectUser, updateUsers }, dispatch);
 }
 
 

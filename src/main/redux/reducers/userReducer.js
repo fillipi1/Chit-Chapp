@@ -2,8 +2,6 @@ import elon from '../../components/pictures/elon.jpg';
 import pek from '../../components/pictures/pek.jpg';
 import indiana from '../../components/pictures/indiana.jpg';
 import yoshi from '../../components/pictures/yoshi.jpg';
-import jesus from '../../components/pictures/jesus.jpg';
-import buddha from '../../components/pictures/Budha.jpg';
 import yoshiworld from '../../components/pictures/yoshiworld.png';
 import marioland from '../../components/pictures/marioland.jpg';
 import artifact1 from '../../components/pictures/artifact1.jpg';
@@ -14,22 +12,10 @@ import artifact3 from '../../components/pictures/artifact3.jpg';
 import artifact4 from '../../components/pictures/artifact4.jpg';
 import pek1 from '../../components/pictures/pek1.jpg';
 import pek2 from '../../components/pictures/pek2.jpg';
-import jesus1 from '../../components/pictures/jesus1.jpg';
-import jesus2 from '../../components/pictures/jesus2.jpg';
-import buddha1 from '../../components/pictures/buddha1.jpg';
-import buddha2 from '../../components/pictures/buddha2.jpg';
-import buddha3 from '../../components/pictures/buddha3.jpg';
 import elon1 from '../../components/pictures/elon1.jpg';
 import elon2 from '../../components/pictures/elon2.jpg';
 import elon3 from '../../components/pictures/elon3.jpg';
-// import firebase from '../../firebase';
 
-// var messagesRef = firebase.database().ref('received messages');
-// messagesRef.on('value', data => {
-//     console.log(Object.keys(data.val()).map(x => data.val()[x].incomingText).pop())
-//   var messages = (Object.keys(data.val()).map(x => data.val()[x].incomingText).pop());
-//  return messages;
-// })
  const users = [
         {
         id: 1,
@@ -71,20 +57,6 @@ import elon3 from '../../components/pictures/elon3.jpg';
         img: [{img:elon1},{img:elon2}, {img:elon3}]
         },
         {
-        id: 4, 
-        avatar: elon3,
-        name: 'A.I' ,
-        recentMessage: '',
-        message: 'Wana come over to my place for supper?',
-        newMessage: [],
-        time: '11:11 AM',
-        active: '2 millenniums ago',
-        badge: 6,
-        phone: '(+12 510 334 6789)',
-        img: [{img:jesus1},{img:jesus2}]
-
-        },
-        {
         id: 5,
         avatar: yoshi ,
         name: 'Ida' ,
@@ -96,7 +68,6 @@ import elon3 from '../../components/pictures/elon3.jpg';
         badge: 0,
         phone: '(+1 650 245 5080)',
         img: [{img:yoshiworld},{img:marioland},{img:yoshi1}, {img:yoshi2}]
-
         },
 ];
 

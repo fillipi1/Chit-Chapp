@@ -32,20 +32,20 @@ class Note extends Component {
             backgroundColor : this.state.hovering ? "red" : 'blue',
         };
         let deleteIcon = this.state.hovering ? 
-         <div style={{ display: 'flex', alignSelf: 'center', padding: 0, marginRight: 10}} >
-        <div onClick={this.props.deleteMethod} onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1}>
-            <Icon color = {this.state.delete ? "secondary" : 'primary'}>
-            delete
-            </Icon>
-        </div>
-    </div>
-    : <div style={{ padding: 10, marginTop: 10}}>{}</div>;
-        
+            <div style={{ display: 'flex', alignSelf: 'center', padding: 0, marginRight: 10}} >
+                <div onClick={this.props.deleteMethod} onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1}>
+                    <Icon color = {this.state.delete ? "secondary" : 'primary'}>
+                        delete
+                    </Icon>
+                </div>
+            </div>
+            : 
+            <div style={{ padding: 10, marginTop: 10}}>{}</div>
+        ;   
         const handleMouseEnter = () => this.setState({hovering : true});
         const handleMouseLeave = () => this.setState({hovering : false});
         const handleMouseEnter1 = () => this.setState({delete : true});
-        const handleMouseLeave1 = () => this.setState({delete : false});
-        
+        const handleMouseLeave1 = () => this.setState({delete : false});  
           return (
             <div style = {styleIcon} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>              
                 <div style = {{display: 'flex', justifyContent: 'space-between', padding: 5, }}>
@@ -60,7 +60,7 @@ class Note extends Component {
                     <div style = {{display: 'flex'}} onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1}>       
                         {deleteIcon}   
                      </div>   
-                    </div>
+                </div>
                 <Divider />
             </div>
         )

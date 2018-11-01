@@ -47,7 +47,7 @@ function Transition(props) {
 class Messages extends Component {
   componentDidMount(){
     var messagesRef = firebase.database().ref('messages');
-    var usersRef = firebase.database().ref('users');
+    var usersRef = firebase.database().ref('USERS');
     messagesRef.on('value', data => {
       console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages = (Object.keys(data.val()).map(x => data.val()[x]));
@@ -76,14 +76,8 @@ class Messages extends Component {
     this.setState({ open: false });
   }
   recievedMessage(){
-    console.log(this.props.usersDataBase, this.props.messagesDataBase)
-    const newUser = firebase.database().ref('users');
-    const item = {
-      id: 'new user',
-      Text: this.props.user.name,
-    }
-    newUser.push(item);
-  }
+    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs)
+  };
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
@@ -245,7 +239,7 @@ class Messages extends Component {
           <TextField
               id="textarea"
               placeholder="Type a message..." 
-              style={style.textField}
+              style={{marginRight: 10, width: 450, marginLeft:5}}
               value = {this.state.message}
               onChange = {message => this.handleInput(message)}
               margin="normal"
@@ -289,70 +283,10 @@ const style = {
     maxWidth: 170,
     color: '#ffffff',
  },
-  message1:{
-    background: '#4b49521f',
-    padding: 10,
-    borderRadius: '20px',
-    fontSize: '0.8em',
-    marginBottom: '1.1em',
-    marginLeft: '1 em',
-    lineHeight: '1.5em',
-    fontFamily: 'Roboto, sans-serif',
-    maxWidth: '50%'
-  },
-
-  message2:{
-    background: '#0024d4e3',
-    padding: 10,
-    borderRadius: '20px',
-    fontSize: '0.8em',
-    marginBottom: '1.1em',
-    marginLeft: '1 em',
-    lineHeight: '1.5em',
-    fontFamily: 'Roboto, sans-serif',
-    color: '#ffffff',
-    maxWidth: '50%'
-  },
-
-  block: {
-    padding:20,
-    maxWidth: '50%',
-    display: 'flex'
-  },
-
-  block2: {
-    padding: 10,
-    display: 'flex',
-    flexDirection: 'row-reverse',
-  },
-  caption1: {
-    marginLeft: 30,
-  },
-  caption2: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  caption3: {
-    marginRight: 10,
-    marginTop: -10
-  },
-  division: {
-    padding:10,
-    maxWidth:250,
-  },
-  button: {
-    marginTop:50,
-  },
-  textField: {
-    marginRight: 10,
-    width: 450,
-    marginLeft:5
-  },
   bigAvatar: {
     width: 45,
     height: 45,
     marginLeft:5,
-
   },
 };
 
@@ -364,7 +298,8 @@ function mapStateToProps(state){
   return {
     user: state.activeUser,
     usersDataBase: state.usersDataBase,
-    messagesDataBase: state.messagesDataBase
+    messagesDataBase: state.messagesDataBase,
+    loggedInAs: state.loggedIn
   }
 };
 

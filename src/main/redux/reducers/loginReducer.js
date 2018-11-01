@@ -1,4 +1,8 @@
 export default function loggedin(state = {}, action){
-    return state;
-}
-  
+    switch(action.type) {
+        case 'LOG_IN':
+          return action.payload;
+        default:
+          return state;
+      }
+    }

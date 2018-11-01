@@ -41,57 +41,57 @@ class MiniDrawer extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-        <div className={classes.root}>
-          <AppBar
-            position="fixed"
-            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-            <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
-              <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
-                <IconButton
-                  color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.handleDrawerOpen}
-                  className={classNames(classes.menuButton, this.state.open && classes.hide)}
-                  >
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" noWrap>
-                  Im•pek•a•ble
-                </Typography>
-                </div>
-                <div style = {{display: 'flex', marginRight: 20}}>
-                <Button onClick = {this.props.loginUser}>
-                  login
-                </Button>
-                <Button className={classes.loginButton} > 
-                  <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
-                </Button> 
-              </div>
-            </Toolbar>
-          </AppBar>
-          
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-            }}
-            open={this.state.open}
-          >
-            <div className={classes.toolbar}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+      <div className={classes.root}>
+        <AppBar
+          position="fixed"
+          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
+          <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+            <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, this.state.open && classes.hide)}
+                >
+                <MenuIcon />
               </IconButton>
+              <Typography variant="title" color="inherit" noWrap>
+                Im•pek•a•ble
+              </Typography>
+              </div>
+              <div style = {{display: 'flex', marginRight: 20}}>
+              <Button onClick = {this.props.loginUser}>
+                login
+              </Button>
+              <Button className={classes.loginButton} > 
+                <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
+              </Button> 
             </div>
-            <div style={{alignItems: 'center'}}>
-            <List>{mailFolderListItems}</List>
-            <Divider />
-            <List>{otherMailFolderListItems}</List>
-            </div>
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />   
-            <Panels />
-          </main>
+          </Toolbar>
+        </AppBar>
+        
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+          }}
+          open={this.state.open}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          <div style={{alignItems: 'center'}}>
+          <List>{mailFolderListItems}</List>
+          <Divider />
+          <List>{otherMailFolderListItems}</List>
+          </div>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />   
+          <Panels />
+        </main>
       </div>
     );
   }

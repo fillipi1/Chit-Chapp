@@ -6,7 +6,7 @@ import App from './main/app';
 import store from './main/redux/store';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store()}>
     <Router>
       <Switch>
         <Route path="/" component={App} />

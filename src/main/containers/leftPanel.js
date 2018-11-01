@@ -18,46 +18,46 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {updateUsers} from '../redux/actions/updateUser';
+import {updateUsers, addUser} from '../redux/actions/updateUser';
 
 class UserList extends Component {
  
   componentWillMount(){
     this.props.selectUser(this.props.users[0])
   }
+
   state = {
     open: false,
     name: '',
-    phone: ''
+    phone: '',
+    email: ''
   };
- handleClickOpen = () => {
-  this.setState({ open: true });
-};
-handleClose = () => {
-  this.setState({ open: false });
-  console.log(this.state.name, this.state.phone)
-};
-handleInputName(name) {
-  this.setState({ name: name.target.value })
-};
-handleInputPhone(phone) {
-  this.setState({ phone: phone.target.value })
-}
-handleNewUser(user){
-  user.push({
-    id: this.state.phone,
-    avatar: indiana ,
-    name: this.state.name ,
-    recentMessage: '',
-    newMessage: [],
-    message: '',
-    time: '2:40 AM',
-    active: '1h ago',
-    badge: 0,
-    phone: this.state.phone,
-    img: []
-    })
-}
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+    console.log(this.state.name, this.state.phone)
+  };
+
+  handleInputName(name) {
+    this.setState({ name: name.target.value })
+  };
+
+  handleInputPhone(phone) {
+    this.setState({ phone: phone.target.value })
+  };
+
+  handleInputEmail(email) {
+    this.setState({ email: email.target.value })
+  };
+  handleNewUser =() =>{
+    this.setState({ open: false });
+    this.props.addUser(this.state.email, this.state.phone, this.state.name)
+  }
+
   renderSubHeader(){
     return (
       <div>
@@ -73,16 +73,16 @@ handleNewUser(user){
             </IconButton>
           </div>
         </Grid>
-          <Divider/>
-          <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
-            <Icon  color= 'disabled'>search</Icon>
-            <TextField
-                id="textarea"
-                placeholder="Search Conversation"
-                InputProps ={{disableUnderline:true}}
-                style= {{marginLeft:5}}
-              />
-            </div>
+        <Divider/>
+        <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
+          <Icon  color= 'disabled'>search</Icon>
+          <TextField
+              id="textarea"
+              placeholder="Search Conversation"
+              InputProps ={{disableUnderline:true}}
+              style= {{marginLeft:5}}
+            />
+        </div>
             <Divider/>
       </div>
     )
@@ -112,7 +112,7 @@ handleNewUser(user){
         </div>
       );
     }
-      return this.props.users.map(maplist)
+    return this.props.usersDataBase.map(maplist)
   }
 
   render() {
@@ -123,11 +123,8 @@ handleNewUser(user){
           {this.renderList()}   
         </div>     
         <div>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
+        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title"
+>
           <DialogTitle id="form-dialog-title">Add User</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -142,12 +139,20 @@ handleNewUser(user){
               fullWidth
               onChange = {name => this.handleInputName(name)}
             />
-             <TextField
+            <TextField
               variant="outlined"
               id="phone number"
               label="Phone #"
               type="number"
               onChange = {phone => this.handleInputPhone(phone)}
+              fullWidth
+            />
+            <TextField
+              variant="outlined"
+              id="email"
+              label="Email"
+              type="email"
+              onChange = {email => this.handleInputEmail(email)}
               fullWidth
             />
           </DialogContent>
@@ -160,7 +165,7 @@ handleNewUser(user){
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+        </div>
       </Paper>
     );
   }
@@ -208,7 +213,7 @@ function mapStateToProps(state) {
 } 
 
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ selectUser, updateUsers }, dispatch);
+  return bindActionCreators({ selectUser, updateUsers, addUser }, dispatch);
 }
 
 

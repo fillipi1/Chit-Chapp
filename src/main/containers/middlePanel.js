@@ -52,7 +52,7 @@ class Messages extends Component {
       console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages = (Object.keys(data.val()).map(x => data.val()[x]));
       var messages2 = (Object.keys(data.val()).map(x => data.val()[x].Text));
-      this.props.user.newMessage.push(messages.pop());
+      this.props.user.messages.push(messages.pop());
       this.props.user.recentMessage = (messages2.pop());
       this.props.updateMessages(Object.keys(data.val()).map(x => data.val()[x]))
       this.setState({rerender:''})
@@ -89,8 +89,8 @@ class Messages extends Component {
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
-    let messageArr = this.props.user.newMessage;
-    //messageArr.push({id: 'sent', Text: this.state.message});
+    let messageArr = this.props.messagesDataBase;
+    messageArr.push({id: 'sent', Text: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
     let reqBody = {

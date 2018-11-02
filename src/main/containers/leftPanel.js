@@ -128,7 +128,7 @@ class UserList extends Component {
           <DialogTitle id="form-dialog-title">Add User</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter contact name and phone #
+              Enter contact name, phone # and email
             </DialogContentText>
             <TextField
               autoFocus

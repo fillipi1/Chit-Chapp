@@ -17,7 +17,8 @@ const config = {
   },
   output: {
     path: BUILD_DIR,
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    publicPath: '/',
   },
   plugins: [
     new CleanWebpackPlugin([BUILD_DIR]),
@@ -66,7 +67,9 @@ const config = {
   },
   devServer: {
     contentBase: BUILD_DIR,
-    port: DEV_PORT
+    port: DEV_PORT,
+    historyApiFallback: true,
+    contentBase: './',
   },
   resolve: {
     extensions: [ '.js', '.jsx' ],

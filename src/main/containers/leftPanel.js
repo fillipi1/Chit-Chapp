@@ -19,6 +19,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {updateUsers, addUser} from '../redux/actions/updateUser';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+
 
 class UserList extends Component {
  
@@ -28,6 +32,7 @@ class UserList extends Component {
 
   state = {
     open: false,
+    open1: false,
     name: '',
     phone: '',
     email: ''
@@ -37,8 +42,11 @@ class UserList extends Component {
     this.setState({ open: true });
   };
 
+  handleClickOpen1 = () => {
+    this.setState({ open1: true });
+  };
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, open1:false });
     console.log(this.state.name, this.state.phone)
   };
 
@@ -57,8 +65,29 @@ class UserList extends Component {
     this.setState({ open: false });
     this.props.addUser(this.state.email, this.state.phone, this.state.name)
   }
-
-  renderSubHeader(){
+  MenuPopupState() {
+    return (
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {popupState => (
+          <React.Fragment>
+            <Button variant="contained" {...bindTrigger(popupState)}>
+              Open Menu
+            </Button>
+            <Menu {...bindMenu(popupState)}>
+            {this.props.usersDataBase.map(this.renderUsers)}
+            </Menu>
+          </React.Fragment>
+        )}
+      </PopupState>
+    );
+  }
+  renderUsers(user) {
+    
+ return (
+  <MenuItem>{user.name}</MenuItem>
+ )
+  }
+  renderSubHeader() {
     return (
       <div>
         <Grid item>
@@ -68,6 +97,11 @@ class UserList extends Component {
             </Typography>
             <IconButton onClick ={this.handleClickOpen}>
             <Icon color = 'primary'>
+              add
+            </Icon>
+            </IconButton>
+            <IconButton onClick ={this.handleClickOpen1}>
+            <Icon color = 'secondary'>
               add
             </Icon>
             </IconButton>
@@ -94,7 +128,7 @@ class UserList extends Component {
       const count =  user.badge  > 0 ;     
         
       return (
-        <div key={user.id}>
+        <div key={user.email}>
           <ListItem button disableGutters divider 
           onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
             <Grid item>
@@ -119,6 +153,7 @@ class UserList extends Component {
     return (
       <Paper style={{ overflow: 'hidden', height: 'calc(100vh - 64px)'}}>
         {this.renderSubHeader()}
+
         <div style = {{height: 'calc(100vh - 185px)', overflowY: 'scroll'}}>
           {this.renderList()}   
         </div>     
@@ -165,7 +200,25 @@ class UserList extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        </div>
+         <Dialog open={this.state.open1} onClose={this.handleClose} aria-labelledby="form-dialog-title"
+>
+          <DialogTitle id="form-dialog-title">Start new conversation</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              select customer
+            </DialogContentText>
+            {this. MenuPopupState()}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleNewUser} color="primary">
+              Add Conversation
+            </Button>
+          </DialogActions>
+        </Dialog>
+        </div>        
       </Paper>
     );
   }

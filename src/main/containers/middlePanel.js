@@ -27,6 +27,7 @@ import Slide from '@material-ui/core/Slide';
 import firebase from '../firebase';
 import {updateUsers} from '../redux/actions/updateUser';
 import {updateMessages} from '../redux/actions/updateMessages';
+import { Link } from 'react-router-dom';
 
 function TabContainer(props) {
   return (
@@ -47,14 +48,12 @@ function Transition(props) {
 class Messages extends Component {
   componentDidMount(){
     var messagesRef = firebase.database().ref('messages');
-    var usersRef = firebase.database().ref('USERS');
+    var usersRef = firebase.database().ref('customers');
     messagesRef.on('value', data => {
-      console.log(Object.keys(data.val()).map(x => data.val()[x]))
-      var messages = (Object.keys(data.val()).map(x => data.val()[x]));
+      // console.log(Object.keys(data.val()))
       var messages2 = (Object.keys(data.val()).map(x => data.val()[x].Text));
-      this.props.user.messages.push(messages.pop());
       this.props.user.recentMessage = (messages2.pop());
-      this.props.updateMessages(Object.keys(data.val()).map(x => data.val()[x]))
+      this.props.updateMessages(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
       this.setState({rerender:''})
     });
     usersRef.on('value', data =>{
@@ -76,21 +75,22 @@ class Messages extends Component {
     this.setState({ open: false });
   }
   recievedMessage(){
-    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs)
+    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase)
   };
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
     const outText = firebase.database().ref('messages');
     const item = {
-      id: 'sent',
       Text: this.state.message,
+      phone: "+15103437234",
+      //id: Object.keys(this.props.messagesDataBase).map(x => this.props.messagesDataBase[x]).pop()
     }
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
     let messageArr = this.props.messagesDataBase;
-    messageArr.push({id: 'sent', Text: this.state.message});
+    messageArr.push({Text: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
     let reqBody = {
@@ -116,7 +116,20 @@ class Messages extends Component {
     this.setState({ value });
   };
   messageRender(text){
-    if (text.id === 'received'){return {
+    if (text.id === "D0p74t7KH7dS7BdS5QZstdorYlP2"){return {
+      background: '#0024d4e3',
+      padding: 10,
+      borderRadius: '20px',
+      fontSize: '0.8em',
+      marginBottom: '1.1em',
+      marginLeft: '1 em',
+      lineHeight: '1.5em',
+      fontFamily: 'Roboto, sans-serif',
+      color: '#ffffff',
+      maxWidth: '50%'
+    }
+  } else {
+    return {
       background: '#4b49521f',
       padding: 10,
       borderRadius: '20px',
@@ -127,23 +140,10 @@ class Messages extends Component {
       fontFamily: 'Roboto, sans-serif',
       maxWidth: '50%'
     }
-  } else {
-    return {
-    background: '#0024d4e3',
-    padding: 10,
-    borderRadius: '20px',
-    fontSize: '0.8em',
-    marginBottom: '1.1em',
-    marginLeft: '1 em',
-    lineHeight: '1.5em',
-    fontFamily: 'Roboto, sans-serif',
-    color: '#ffffff',
-    maxWidth: '50%'
-    }
   }
   }
   messagePos(text){
-    if (text.id === 'sent'){return {
+    if (text.id === "D0p74t7KH7dS7BdS5QZstdorYlP2"){return {
       display: 'flex', 
       flexDirection: 'column',
       alignItems: 'flex-end', 
@@ -176,7 +176,7 @@ class Messages extends Component {
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
-                 <AppBar className={classes.appBar}>
+            <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.closeScreen} aria-label="Close">
                 <CloseIcon />
@@ -255,6 +255,7 @@ class Messages extends Component {
         </TabContainer>}
         {value === 1 && <TabContainer>
           <Button onClick={this.handleClickOpen}>>Open full-screen dialog</Button>
+          <Link to="/store" className= "btn btn-danger"> GO!</Link>
 
         </TabContainer>}
         {value === 2 && <TabContainer> Whats App</TabContainer>}
@@ -299,7 +300,7 @@ function mapStateToProps(state){
     user: state.activeUser,
     usersDataBase: state.usersDataBase,
     messagesDataBase: state.messagesDataBase,
-    loggedInAs: state.loggedIn
+    loggedInAs: state.loggedinUser
   }
 };
 

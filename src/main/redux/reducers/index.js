@@ -4,7 +4,7 @@ import leftPanelReducer from './userReducer';
 import activeImage from './activeImage';
 import updateUsers from './users';
 import updateMessages from './messagesReducer';
-import loggedIn from './loginReducer'
+import loggedinUser from './loggedinUser'
 
 const rootReducer = combineReducers({
     users: leftPanelReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     image: activeImage,
     usersDataBase: updateUsers,
     messagesDataBase: updateMessages,
-    loggedIn: loggedIn
+    loggedinUser: loggedinUser
 });
 
 export default rootReducer; 

@@ -12,7 +12,7 @@ const users = [
     name: 'Indiana jones' ,
     recentMessage: '',
     newMessage: [],
-    message: [],
+    messages: [{text:"wassup"}],
     time: '2:40 AM',
     active: '1h ago',
     badge: 0,

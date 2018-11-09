@@ -25,7 +25,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import firebase from '../firebase';
-import {updateUsers} from '../redux/actions/updateUser';
+import {updateUsers, updateAgent} from '../redux/actions/updateUser';
 import {updateMessages} from '../redux/actions/updateMessages';
 import { Link } from 'react-router-dom';
 
@@ -47,17 +47,24 @@ function Transition(props) {
 
 class Messages extends Component {
   componentDidMount(){
-    var messagesRef = firebase.database().ref('messages');
-    var usersRef = firebase.database().ref('customers');
+    console.log(this.props.user.chatId);
+    var messagesRef = firebase.database().ref(`messages(trial)`); 
     messagesRef.on('value', data => {
-      // console.log(Object.keys(data.val()))
+      // data.val().forEach((message) => {
+      //   message.
+      // })
+      console.log(Object.keys(data.val()).map(x => data.val()[x]))
       var messages2 = (Object.keys(data.val()).map(x => data.val()[x].Text));
       this.props.user.recentMessage = (messages2.pop());
-      this.props.updateMessages(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
-      this.setState({rerender:''})
+      //this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
     });
+    var usersRef = firebase.database().ref('customers');
     usersRef.on('value', data =>{
       this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]))
+    });
+    var logInRef = firebase.database().ref('agent');
+    logInRef.on('value', data => {
+      this.props.updateAgent(Object.keys(data.val()).map(x => data.val()[x]))
     })
   }
   constructor(props){
@@ -75,12 +82,12 @@ class Messages extends Component {
     this.setState({ open: false });
   }
   recievedMessage(){
-    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase)
+    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase);
   };
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
-    const outText = firebase.database().ref('messages');
+    const outText = firebase.database().ref(`messages(trial)/${this.props.user.chatId}`);
     const item = {
       Text: this.state.message,
       phone: "+15103437234",
@@ -89,13 +96,14 @@ class Messages extends Component {
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
-    let messageArr = this.props.messagesDataBase;
-    messageArr.push({Text: this.state.message});
+    let messageArr = this.props.user.messages;
+    messageArr.push({text: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
     let reqBody = {
       text : this.state.message,
-      phone: this.props.user.phone
+      phone: this.props.user.phone,
+
     }
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
@@ -225,10 +233,10 @@ class Messages extends Component {
         <TabContainer>
           <div style ={style.messageListStyle}>
           <div >
-            {this.props.messagesDataBase.map(text =>(
+            {this.props.user.messages.map(text =>(
               <div style={this.messagePos(text)} key={text.id} >
             <Typography variant= 'body1' style= {this.messageRender(text)}>
-            {text.Text}
+            {text.text}
             </Typography>
             </div>
             ))}
@@ -305,7 +313,7 @@ function mapStateToProps(state){
 };
 
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ updateUsers, updateMessages } , dispatch);
+  return bindActionCreators({ updateUsers, updateMessages, updateAgent } , dispatch);
 }
 
 const enhance = compose(

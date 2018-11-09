@@ -42,10 +42,10 @@ class UserList extends Component {
     this.setState({ open: true });
   };
 
-  handleClickOpen1 = () => {
+  handleClickOpen1 =() => {
     this.setState({ open1: true });
   };
-  handleClose = () => {
+  handleClose =() => {
     this.setState({ open: false, open1:false });
     console.log(this.state.name, this.state.phone)
   };
@@ -61,10 +61,10 @@ class UserList extends Component {
   handleInputEmail(email) {
     this.setState({ email: email.target.value })
   };
-  handleNewUser =() =>{
+  handleNewUser =() => {
     this.setState({ open: false });
-    this.props.addUser(this.state.email, this.state.phone, this.state.name)
-  }
+    this.props.addUser(this.state.email, this.state.phone, this.state.name);
+  };
   MenuPopupState() {
     return (
       <PopupState variant="popover" popupId="demo-popup-menu">
@@ -100,11 +100,11 @@ class UserList extends Component {
               add
             </Icon>
             </IconButton>
-            <IconButton onClick ={this.handleClickOpen1}>
+            {/* <IconButton onClick ={this.handleClickOpen1}>
             <Icon color = 'secondary'>
               add
             </Icon>
-            </IconButton>
+            </IconButton> */}
           </div>
         </Grid>
         <Divider/>
@@ -178,7 +178,7 @@ class UserList extends Component {
               variant="outlined"
               id="phone number"
               label="Phone #"
-              type="number"
+              type="text"
               onChange = {phone => this.handleInputPhone(phone)}
               fullWidth
             />
@@ -200,7 +200,7 @@ class UserList extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-         <Dialog open={this.state.open1} onClose={this.handleClose} aria-labelledby="form-dialog-title"
+         {/* <Dialog open={this.state.open1} onClose={this.handleClose} aria-labelledby="form-dialog-title"
 >
           <DialogTitle id="form-dialog-title">Start new conversation</DialogTitle>
           <DialogContent>
@@ -217,7 +217,7 @@ class UserList extends Component {
               Add Conversation
             </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
         </div>        
       </Paper>
     );

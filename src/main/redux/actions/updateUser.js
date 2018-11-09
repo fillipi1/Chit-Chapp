@@ -5,9 +5,16 @@ export function updateUsers(user){
   };
 }
 
+export function updateAgent(user){
+  return {
+    type: 'NEW_AGENT',
+    payload: user
+  };
+}
+
 export function loginUser(){
   console.log('called')
-  firebase.auth().createUserWithEmailAndPassword('Fillip111@gmail.com', 'testpassword').then((response) => {
+  firebase.auth().createUserWithEmailAndPassword('Fillip1111@yahoo.com', 'testpassword').then((response) => {
     const MY_ID = response.user.uid;
     const MY_EMAIL = response.user.email;
     var userRef = firebase.database().ref('agent').set({[response.user.uid]: {
@@ -16,16 +23,11 @@ export function loginUser(){
       email: MY_EMAIL,
       phone: "+15103437234"
     }})
-    // userRef.push({
-    //   id: MY_ID,
-    //   name: 'Fillipi',
-    //   email: MY_EMAIL,
-    //   phone: "+15103437234"
-    // })
-    .then(() => {
+    .then((response) => {
+      console.log(response)
       return {
         type: 'LOG_IN',
-      payload: user
+      payload: response
       }
     })
   })
@@ -38,30 +40,20 @@ export function addUser(email, password, name) {
       name: name,
       email: email,
       phone: password,
-    }).then(function(response) {
-      console.log(response.key)
-      const customerId = response.key
+      messages: [{text: ''}]
+    }).then(function(newCustomerRef) {
+      console.log(newCustomerRef.key)
+      const customerId = newCustomerRef.key
       const chatRef = firebase.database().ref('chat');
       chatRef.push({
-        members: {customer: customerId, agent: "dBMGQE4T23a6cbTGLIS4gD2ljr13"}
+        members: {customer: customerId, agent: "F7fdZdXzhBUva0vu4TcQ2K5y33k2"}
       }).then(function(response) {
-       const messageId = response.key
-       const messageRef = firebase.database().ref('messages(trial)');
-        messageRef.push({
-          Id: messageId
-        })
-        console.log('char id' + response.key)
+        firebase.database().ref('messages(trial)').set({[response.key]: {
+      
+       }});
+        console.log(newCustomerRef)
+        newCustomerRef.update({chatId: response.key})
       })
-      //create new chat then save chatUID in both agent and customer
     });
   }
 }
-  
- //const a = firebase.database().ref(`agents/${customerId}/`);
- //next steps: 1) make sure agents key is = agentId 2) 
-//  firebase.database().ref("pathName").set({[variable] : 'MoreStuff'});
-// Option 2
-// var id="30";
-// var updatedObj = {};
-// updatedObj[id] = true;
-// ref.child("someChild").update(updatedObj);

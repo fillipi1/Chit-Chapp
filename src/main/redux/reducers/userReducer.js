@@ -16,6 +16,7 @@ const users = [
     time: '2:40 AM',
     active: '1h ago',
     badge: 0,
+    chatId: "-LQqGKCHLrBnhlE1oZWQ",
     phone: '(+1 510 334 2286)',
     img: [{img:artifact1},{img:artifact2}, {img:artifact3},{img:artifact4}]
     },

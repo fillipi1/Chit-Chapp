@@ -24,11 +24,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
-
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
-
+/*
+The Notes component creates a new note typography and addes it into a local state. 
+It is displayed on the right side of the dashboard. Below the notes are images that open a full screen
+dialiog.
+*/
 class Notes extends Component { 
     state = {
       open: false,
@@ -75,7 +78,6 @@ class Notes extends Component {
   
       });    
     } 
-
 
     return (
       <Paper style={style.paper} >
@@ -169,20 +171,7 @@ const style = {
     overflowX: 'hidden',
     height: 'calc(100vh - 64px)'
   },
-  gridList: {
-    width: 300,
-    height: 250,
-  },
-  appBar: {
-    position: 'relative',
-  },
-  flex: {
-    flex: 1,
-  },
 };
-
-
-
 function mapStateToProps(state){
   return {
     users: state.users,
@@ -190,15 +179,12 @@ function mapStateToProps(state){
     image: state.image
   }
 };
-
 function mapDispachToProps (dispatch) {
   return bindActionCreators({ selectImage: selectImage }, dispatch);
 }
-
 Notes.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
 const enhance = compose(
   withStyles(style),
   connect(mapStateToProps, mapDispachToProps)

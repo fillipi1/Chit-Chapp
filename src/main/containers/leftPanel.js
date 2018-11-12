@@ -23,7 +23,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
-
+/*
+UserList class maps created users in the firebase database and diplays them on the left side component.
+This component also allows for creation of new users and conversations.
+*/
 class UserList extends Component {
  
   componentWillMount(){

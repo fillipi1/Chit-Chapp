@@ -44,9 +44,13 @@ TabContainer.propTypes = {
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
-
+/*
+The message class is the middle coponent of the dashboard, where messages are displayed. 
+Messages are being mapped from firebase by a firebase listener which then inputs it into the 
+Redux state 
+*/
 class Messages extends Component {
-  componentDidMount(){
+  componentWillMount(){
     console.log(this.props.user.chatId);
     var messagesRef = firebase.database().ref(`messages(trial)`); 
     messagesRef.on('value', data => {
@@ -73,6 +77,7 @@ class Messages extends Component {
      message: '',
      value: 0,
      open: false,
+     messages: []
     };
   }
   openScreen = () =>{
@@ -165,6 +170,18 @@ class Messages extends Component {
   }
   }
   render () {
+  //   var chatRef = firebase.database().ref(`messages(trial)/${this.props.user.chatId}`); 
+  //   chatRef.on('value', data => {
+  //    const messages = Object.keys(data.val()).map(x => data.val()[x].Text);
+  //    const phone = Object.keys(data.val()).map(x => data.val()[x].phone)
+  //    const dataObj = {
+  //      phone : phone,
+  //      messages: messages
+  //    }
+  //    var usersRef = firebase.database().ref(`customers/`)
+  //  //  this.setState({messages: dataObj})
+  //    console.log(this.state.messages)
+   // });
     const { classes } = this.props;
     const { value } = this.state;
   return (
@@ -285,17 +302,6 @@ const style = {
     position: 'relative',
     overflowY: 'scroll',
     height: 'calc(100vh - 265px)'
-  },
-  welcome:{
-    padding: 30,
-    borderRadius: '20px',
-    maxWidth: 170,
-    color: '#ffffff',
- },
-  bigAvatar: {
-    width: 45,
-    height: 45,
-    marginLeft:5,
   },
 };
 

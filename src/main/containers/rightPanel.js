@@ -130,7 +130,7 @@ class Notes extends Component {
             onClose={this.handleClose}
             TransitionComponent={Transition}
           >
-                  <AppBar className={classes.appBar}>
+            <AppBar className={classes.appBar}>
               <Toolbar>
                 <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                   <CloseIcon />
@@ -149,15 +149,6 @@ class Notes extends Component {
               </ListItem>
             </List>
           </Dialog>}
-          {/* <div style = {{padding: 3}}>
-            <GridList cellHeight={120} style ={style.gridList} cols={3}>
-              {this.props.activeUser.img.map((tile) => (
-              <GridListTile key={tile.img} cols={tile.cols || 1} >
-                <img src={tile.img} alt={tile.name} onClick = {() => imageClick(tile)} />
-              </GridListTile>
-            ))}
-            </GridList>
-          </div> */}
         </div>
       </Paper>
     );

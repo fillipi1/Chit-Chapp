@@ -164,7 +164,7 @@ class UserList extends Component {
       return <p> loading...</p>
     }
     return (
-      <Paper style={{ overflow: 'hidden', height: 'calc(100vh - 200px)'}}>
+      <div >
         <div style = {{height: 'calc(100vh - 185px)', overflowY: 'scroll'}}>
           {this.renderList()}   
         </div>     
@@ -230,7 +230,7 @@ class UserList extends Component {
           </DialogActions>
         </Dialog> */}
         </div>        
-      </Paper>
+      </div>
     );
   }
 };

@@ -48,9 +48,9 @@ export function addUser(email, password, name) {
       chatRef.push({
         members: {customer: customerId, agent: "F7fdZdXzhBUva0vu4TcQ2K5y33k2"}
       }).then(function(response) {
-        firebase.database().ref('messages(trial)').set({[response.key]: {
+      //   firebase.database().ref('messages(trial)').set({[response.key]: {
       
-       }});
+      //  }});
         console.log(newCustomerRef)
         newCustomerRef.update({chatId: response.key})
       })

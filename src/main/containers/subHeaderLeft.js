@@ -59,78 +59,74 @@ class renderSubHeader extends Component {
     };
     render(){
         return (
-            <Paper style={{ overflow: 'hidden'}}>
-             <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title"
->
-          <DialogTitle id="form-dialog-title">Add User</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Enter contact name, phone # and email
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              type="text"
-              fullWidth
-              onChange = {name => this.handleInputName(name)}
-            />
-            <TextField
-              variant="outlined"
-              id="phone number"
-              label="Phone #"
-              type="text"
-              onChange = {phone => this.handleInputPhone(phone)}
-              fullWidth
-            />
-            <TextField
-              variant="outlined"
-              id="email"
-              label="Email"
-              type="email"
-              onChange = {email => this.handleInputEmail(email)}
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleNewUser} color="primary">
-              Add Contact
-            </Button>
-          </DialogActions>
-        </Dialog>
-            <Grid item>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 12}}>
-                <Typography variant = 'headline'>
-                Add Contact
-                </Typography>
-                <IconButton onClick ={this.handleClickOpen}>
-                <Icon color = 'primary'>
-                add
-                </Icon>
-                </IconButton>
-                {/* <IconButton onClick ={this.handleClickOpen1}>
-                <Icon color = 'secondary'>
-                add
-                </Icon>
-                </IconButton> */}
-            </div>
-            </Grid>
-            <Divider/>
-            <div style = {{display: 'flex', alignItems: 'center', padding: 7.5}}>
-            <Icon  color= 'disabled'>search</Icon>
-            <TextField
-                id="textarea"
-                placeholder="Search Conversation"
-                InputProps ={{disableUnderline:true}}
-                style= {{marginLeft:5}}
-                />
-            </div>
+            <div style={{ overflow: 'hidden'}}>
+                <div style={{ overflow: 'hidden', height: 67 }}>
+                <Grid item>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 12}}>
+                        <Typography variant = 'headline'>
+                        Add Contact
+                        </Typography>
+                        <IconButton onClick ={this.handleClickOpen}>
+                        <Icon color = 'primary'>
+                        add
+                        </Icon>
+                        </IconButton>
+                    </div>
+                </Grid>
+                </div>
                 <Divider/>
-        </Paper>
+                <div style = {{display: 'flex', alignItems: 'center', padding: 7.5, height: 31}}>
+                <Icon  color= 'disabled'>search</Icon>
+                <TextField
+                    id="textarea"
+                    placeholder="Search Conversation"
+                    InputProps ={{disableUnderline:true}}
+                    style= {{marginLeft:5}}
+                    />
+                </div>
+                    <Divider/>
+                    <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Add User</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    Enter contact name, phone # and email
+                    </DialogContentText>
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Name"
+                    type="text"
+                    fullWidth
+                    onChange = {name => this.handleInputName(name)}
+                    />
+                    <TextField
+                    variant="outlined"
+                    id="phone number"
+                    label="Phone #"
+                    type="text"
+                    onChange = {phone => this.handleInputPhone(phone)}
+                    fullWidth
+                    />
+                    <TextField
+                    variant="outlined"
+                    id="email"
+                    label="Email"
+                    type="email"
+                    onChange = {email => this.handleInputEmail(email)}
+                    fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                    Cancel
+                    </Button>
+                    <Button onClick={this.handleNewUser} color="primary">
+                    Add Contact
+                    </Button>
+                </DialogActions>
+                </Dialog>
+            </div>
         )
     }
 }

@@ -182,13 +182,13 @@ class Messages extends Component {
   }
   }
   render () {
-    if (Object.keys(this.state.messages).length === 0){
-      return (
-        <p>
-          loading...
-        </p>
-      )
-    }
+    // if (Object.keys(this.state.messages).length === 0){
+    //   return (
+    //     <p>
+    //       loading...
+    //     </p>
+    //   )
+    // }
     var messageRender = this.state.messages
     console.log(messageRender);
     const { classes } = this.props;

@@ -29,8 +29,14 @@ This component also allows for creation of new users and conversations.
 */
 class UserList extends Component {
  
-  componentWillMount(){
-    this.props.selectUser(this.props.users[0])
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps.activeUser)
+    if (Object.keys(this.props.activeUser).length === 0){
+      console.log('yessss')
+      if (nextProps.usersDataBase.users.length > 0){
+        this.props.selectUser(nextProps.usersDataBase.users[0])
+      }
+    }
   }
 
   state = {
@@ -149,14 +155,16 @@ class UserList extends Component {
         </div>
       );
     }
-    return this.props.usersDataBase.map(maplist)
+    return this.props.usersDataBase.users.map(maplist)
   }
 
   render() {
+    console.log(this.props.usersDataBase)
+    if(this.props.usersDataBase.loading === true){
+      return <p> loading...</p>
+    }
     return (
-      <Paper style={{ overflow: 'hidden', height: 'calc(100vh - 64px)'}}>
-        {this.renderSubHeader()}
-
+      <Paper style={{ overflow: 'hidden', height: 'calc(100vh - 200px)'}}>
         <div style = {{height: 'calc(100vh - 185px)', overflowY: 'scroll'}}>
           {this.renderList()}   
         </div>     

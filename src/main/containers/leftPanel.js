@@ -23,10 +23,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
-/*
-UserList class maps created users in the firebase database and diplays them on the left side component.
-This component also allows for creation of new users and conversations.
-*/
+
+//UserList class maps created users in the firebase database and diplays them on the left side component.
+
+
 class UserList extends Component {
  
   componentWillReceiveProps(nextProps){
@@ -109,11 +109,6 @@ class UserList extends Component {
               add
             </Icon>
             </IconButton>
-            {/* <IconButton onClick ={this.handleClickOpen1}>
-            <Icon color = 'secondary'>
-              add
-            </Icon>
-            </IconButton> */}
           </div>
         </Grid>
         <Divider/>
@@ -135,13 +130,13 @@ class UserList extends Component {
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name;
       const count =  user.badge  > 0 ;     
-        
+        console.log(user)
       return (
         <div key={user.email}>
           <ListItem button disableGutters divider 
           onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
             <Grid item>
-              <Avatar alt={user.avatar} src= {user.avatar} style={styles.bigAvatar}/>
+              <Avatar alt={user.avatar} src= {`https://api.adorable.io/avatars/255/${user.phone}@adorable.png`} style={{width:45, height:45, margin:5, marginRight: 20}}/>
             </Grid>
             <Grid item xs  >
               <Typography>{user.name}</Typography>
@@ -211,24 +206,6 @@ class UserList extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-         {/* <Dialog open={this.state.open1} onClose={this.handleClose} aria-labelledby="form-dialog-title"
->
-          <DialogTitle id="form-dialog-title">Start new conversation</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              select customer
-            </DialogContentText>
-            {this. MenuPopupState()}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleNewUser} color="primary">
-              Add Conversation
-            </Button>
-          </DialogActions>
-        </Dialog> */}
         </div>        
       </div>
     );

@@ -87,9 +87,9 @@ class Messages extends Component {
           messages: currentMessages
         })
       }
-     // var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].Text));
-    //this.props.user.recentMessage = (messages2.pop());
-    //this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
+     var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].Text));
+    this.props.user.recentMessage = (messages2.pop());
+    this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
     });
   }
   openScreen = () =>{
@@ -141,7 +141,6 @@ class Messages extends Component {
     this.setState({ value });
   };
   messageStyle(phone){
-    console.log(phone)
     if (phone === '+15103437234'){return {
       background: '#0024d4e3',
       padding: 10,
@@ -169,7 +168,6 @@ class Messages extends Component {
   }
   }
   messagePos(phone){
-    console.log(this.state.message)
     if (phone === '+15103437234'){return {
       display: 'flex', 
       flexDirection: 'column',
@@ -192,19 +190,18 @@ class Messages extends Component {
     //   )
     // }
     var messageRender = this.state.messages
-    console.log(messageRender);
     const { classes } = this.props;
     const { value } = this.state;
   return (
     <Paper style={style.paper} >
       <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap'}}>
       <div style ={{display:'flex', alignItems: 'center'}}>
-        <Avatar alt="indiana" src= {this.props.user.avatar} style={style.bigAvatar} />
+      <Avatar  src= {`https://api.adorable.io/avatars/255/${this.props.user.phone}@adorable.png`} style={{width:40, height:40}}/>
         <Typography variant = 'body2' gutterBottom style = {{marginLeft: 15}}>
         {this.props.user.name}
         </Typography>
         <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
-        {this.props.user.phone}
+        ({this.props.user.phone})
         </Typography>
         {this.state.open && <Dialog
           fullScreen
@@ -212,7 +209,7 @@ class Messages extends Component {
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
-            <AppBar className={classes.appBar}>
+          <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.closeScreen} aria-label="Close">
                 <CloseIcon />
@@ -262,7 +259,6 @@ class Messages extends Component {
           <div style ={style.messageListStyle}>
           <div >
             {Object.keys(messageRender).map(text => {
-              console.log(messageRender[text].phone)
               return (
                 <div style={this.messagePos(messageRender[text].phone)} key={text.id} >
                   <Typography variant= 'body1' style= {this.messageStyle(messageRender[text].phone)}>
@@ -270,9 +266,6 @@ class Messages extends Component {
                   </Typography>
                 </div>
                 )
-              // return (
-              //   <p>{messageRender[text].Text}</p>
-              // )
             })}
           </div>
           </div>
@@ -289,9 +282,6 @@ class Messages extends Component {
             />
             <Button variant="contained" color="primary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.addMessage.bind(this)}>
              Send
-            </Button>
-            <Button variant="contained" color="secondary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.recievedMessage.bind(this)}>
-             Console.Log
             </Button>
             </div>
         </TabContainer>}

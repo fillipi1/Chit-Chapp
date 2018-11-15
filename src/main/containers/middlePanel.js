@@ -79,7 +79,7 @@ class Messages extends Component {
     
   }
   setActiveUserMessages(myProps){
-    var messagesRef = firebase.database().ref(`messages(trial)/${myProps.user.chatId}`); 
+    var messagesRef = firebase.database().ref(`messages(trial)/${'+' + myProps.user.phone}`); 
     messagesRef.on('value', data => {
       const currentMessages = data.val();
       if(currentMessages != null){
@@ -104,9 +104,9 @@ class Messages extends Component {
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
-    const outText = firebase.database().ref(`messages(trial)/${this.props.user.chatId}`);
+    const outText = firebase.database().ref(`messages(trial)/${'+' + this.props.user.phone}`);
     const item = {
-      Text: this.state.message,
+      message: this.state.message,
       phone: "+15103437234",
       //id: Object.keys(this.props.messagesDataBase).map(x => this.props.messagesDataBase[x]).pop()
     }
@@ -140,8 +140,9 @@ class Messages extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  messageRender(text){
-    if (text.id === "D0p74t7KH7dS7BdS5QZstdorYlP2"){return {
+  messageStyle(phone){
+    console.log(phone)
+    if (phone === '+15103437234'){return {
       background: '#0024d4e3',
       padding: 10,
       borderRadius: '20px',
@@ -167,8 +168,9 @@ class Messages extends Component {
     }
   }
   }
-  messagePos(text){
-    if (text.id === "D0p74t7KH7dS7BdS5QZstdorYlP2"){return {
+  messagePos(phone){
+    console.log(this.state.message)
+    if (phone === '+15103437234'){return {
       display: 'flex', 
       flexDirection: 'column',
       alignItems: 'flex-end', 
@@ -260,11 +262,11 @@ class Messages extends Component {
           <div style ={style.messageListStyle}>
           <div >
             {Object.keys(messageRender).map(text => {
-              console.log(text)
+              console.log(messageRender[text].phone)
               return (
-                <div style={this.messagePos(text)} key={text.id} >
-                  <Typography variant= 'body1' style= {this.messageRender(text)}>
-                   {messageRender[text].Text}
+                <div style={this.messagePos(messageRender[text].phone)} key={text.id} >
+                  <Typography variant= 'body1' style= {this.messageStyle(messageRender[text].phone)}>
+                   {messageRender[text].message}
                   </Typography>
                 </div>
                 )

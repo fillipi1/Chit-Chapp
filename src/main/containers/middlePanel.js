@@ -87,9 +87,9 @@ class Messages extends Component {
           messages: currentMessages
         })
       }
-     var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].Text));
-    this.props.user.recentMessage = (messages2.pop());
-    this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
+      var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].Text));
+      this.props.user.recentMessage = (messages2.pop());
+      this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
     });
   }
   openScreen = () =>{

@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production webpack",
     "lint": "eslint **/*.{js,jsx} --quiet --ignore-pattern 'src/icons/*' .; exit 0",
     "stats": "webpack --profile --json > stats.json",
-    "start:dev": "NODE_ENV=development webpack-dev-server --progress --hot",
+    "start": "NODE_ENV=development webpack-dev-server --progress --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

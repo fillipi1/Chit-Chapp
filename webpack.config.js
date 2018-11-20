@@ -83,7 +83,7 @@ const config = {
 if (process.env.NODE_ENV === 'production') {
 
   config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin(),
+  //  new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin({ filename: '[name].[chunkhash].css' })
   );
 

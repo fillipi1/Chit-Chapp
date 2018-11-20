@@ -30,9 +30,8 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 class UserList extends Component {
  
   componentWillReceiveProps(nextProps){
-    console.log(nextProps.activeUser)
+   // console.log(nextProps.activeUser)
     if (Object.keys(this.props.activeUser).length === 0){
-      console.log('yessss')
       if (nextProps.usersDataBase.users.length > 0){
         this.props.selectUser(nextProps.usersDataBase.users[0])
       }
@@ -130,7 +129,7 @@ class UserList extends Component {
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name;
       const count =  user.badge  > 0 ;     
-        console.log(user)
+       // console.log(user)
       return (
         <div key={user.email}>
           <ListItem button disableGutters divider 
@@ -154,7 +153,6 @@ class UserList extends Component {
   }
 
   render() {
-    console.log(this.props.usersDataBase)
     if(this.props.usersDataBase.loading === true){
       return <p> loading...</p>
     }

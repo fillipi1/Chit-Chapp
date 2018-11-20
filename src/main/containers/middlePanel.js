@@ -59,6 +59,7 @@ class Messages extends Component {
      messages: {}
     };
   }
+
   componentWillMount(){
     this.setActiveUserMessages(this.props);
     this.props.firebaseLoadUsers();
@@ -66,16 +67,35 @@ class Messages extends Component {
     usersRef.on('value', data =>{
       this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]))
     });
+
     var logInRef = firebase.database().ref('agent');
     logInRef.on('value', data => {
       this.props.updateAgent(Object.keys(data.val()).map(x => data.val()[x]))
     })
   }
+    
+  componentDidMount() {
+    this.scrollToBottom();
+    // var messagesRef = firebase.database().ref(`messages(trial)`); 
+    // messagesRef.on('value', data => {
+    //   const currentMessages = data.val(); 
+    //   console.log(Object.keys(currentMessages).map(x => currentMessages[x].message))
+    //   var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].message));
+    //   this.props.user.recentMessage = (messages2.pop());
+    //   console.log(this.props.user.recentMessage)
+    // });
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();    
+  }
+
   componentWillReceiveProps(nextProps){
     console.log('NEXT PROPS', nextProps.user); 
     this.setActiveUserMessages(nextProps);
     
   }
+
   setActiveUserMessages(myProps){
     var messagesRef = firebase.database().ref(`messages(trial)/${'+' + myProps.user.phone}`); 
     messagesRef.on('value', data => {
@@ -89,21 +109,27 @@ class Messages extends Component {
           messages: ''
         })
       }
-      console.log(Object.keys(currentMessages).map(x => currentMessages[x].message))
       var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].message));
       this.props.user.recentMessage = (messages2.pop());
-      console.log(this.props.user.recentMessage)
     });
   }
+
   openScreen = () =>{
     this.setState({open: true})
   }
+
   closeScreen = () => {
     this.setState({ open: false });
   }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
   recievedMessage(){
     console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase, this.state.messages);
   };
+
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
@@ -135,12 +161,15 @@ class Messages extends Component {
       console.log(e)
     })
   }
+
   handleInput(message) {
     this.setState({ message: message.target.value })
   }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
+
   messageStyle(phone){
     if (phone === '+15103437234'){return {
       background: '#0024d4e3',
@@ -183,13 +212,6 @@ class Messages extends Component {
   }
   }
   render () {
-    // if (Object.keys(this.state.messages).length === 0){
-    //   return (
-    //     <p>
-    //       loading...
-    //     </p>
-    //   )
-    // }
     var messageRender = this.state.messages
     const { classes } = this.props;
     const { value } = this.state;
@@ -258,17 +280,20 @@ class Messages extends Component {
         {value === 0 && 
         <TabContainer>
           <div style ={style.messageListStyle}>
-          <div >
-            {Object.keys(messageRender).map(text => {
-              return (
-                <div style={this.messagePos(messageRender[text].phone)} key={text.id} >
-                  <Typography variant= 'body1' style= {this.messageStyle(messageRender[text].phone)}>
-                   {messageRender[text].message}
-                  </Typography>
-                </div>
-                )
-            })}
-          </div>
+            <div >
+              {Object.keys(messageRender).map(text => {
+                return (
+                  <div style={this.messagePos(messageRender[text].phone)} key={text.id} >
+                    <Typography variant= 'body1' style= {this.messageStyle(messageRender[text].phone)}>
+                    {messageRender[text].message}
+                    </Typography>
+                  </div>
+                  )
+              })}
+            </div>
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+            </div>
           </div>
           <Divider />
           <div style = {{display: 'flex', justifyContent: 'space-between'}}>

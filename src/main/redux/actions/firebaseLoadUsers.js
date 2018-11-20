@@ -1,6 +1,5 @@
 export function firebaseLoadUsers() {
     return (dispatch) => {
-        console.log('loading user')
         dispatch({ type: "LOAD_USER" });
         firebase.database().ref('/customers').once('value')
         .then((snapshot) => {  

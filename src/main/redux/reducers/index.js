@@ -9,6 +9,7 @@ import loggedinUser from './loggedinUser';
 const rootReducer = combineReducers({
     users: leftPanelReducer,
     activeUser: activeUser,
+    
     image: activeImage,
     usersDataBase: updateUsers,
     messagesDataBase: updateMessages,

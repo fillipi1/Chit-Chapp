@@ -40,7 +40,7 @@ export function addUser(email, password, name) {
       name: name,
       email: email,
       phone: password,
-      messages: [{text: ''}]
+      recentMessage: ''
     }).then(function(newCustomerRef) {
       console.log(newCustomerRef.key)
       const customerId = newCustomerRef.key

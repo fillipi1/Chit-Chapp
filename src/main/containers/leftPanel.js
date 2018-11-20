@@ -140,7 +140,7 @@ class UserList extends Component {
             </Grid>
             <Grid item xs  >
               <Typography>{user.name}</Typography>
-              <Typography variant= 'caption' style={styles.avatar} noWrap>{user.recentMessage}</Typography>
+              <Typography variant= 'caption' style={styles.avatar} >{user.recentMessage}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption" style={{ padding: 5, display: 'flex',flexDirection: 'row-reverse', marginRight:5, justifyContent:'flex-start'}}>{user.time}</Typography>

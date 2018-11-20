@@ -39,18 +39,16 @@ function TabContainer(props) {
   );
 }
 
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
+
 /*
 The message class is the middle coponent of the dashboard, where messages are displayed. 
 Messages are being mapped from firebase by a firebase listener which then inputs it into the 
 Redux state 
 */
+
 class Messages extends Component {
   constructor(props){
     super(props);
@@ -86,10 +84,15 @@ class Messages extends Component {
         this.setState({
           messages: currentMessages
         })
+      } else {
+        this.setState({
+          messages: ''
+        })
       }
-      var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].Text));
+      console.log(Object.keys(currentMessages).map(x => currentMessages[x].message))
+      var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].message));
       this.props.user.recentMessage = (messages2.pop());
-      this.props.user.messages.push(Object.keys(data.val()).map(x => ({...data.val()[x], id: x})))
+      console.log(this.props.user.recentMessage)
     });
   }
   openScreen = () =>{
@@ -113,8 +116,6 @@ class Messages extends Component {
     outText.push(item);
     //input message into dashboard
     if (this.state.message === '') {return}
-    let messageArr = this.props.user.messages;
-    messageArr.push({text: this.state.message});
     this.setState({ message: ''});
     //send input message to backend server-then sent to phone number
     let reqBody = {

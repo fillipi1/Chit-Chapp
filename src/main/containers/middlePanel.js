@@ -61,7 +61,7 @@ class Messages extends Component {
   }
 
   componentWillMount(){
-    this.setActiveUserMessages(this.props);
+    //this.setActiveUserMessages(this.props);
     this.props.firebaseLoadUsers();
     var usersRef = firebase.database().ref('customers');
     usersRef.on('value', data =>{
@@ -76,8 +76,6 @@ class Messages extends Component {
     
   componentDidMount() {
     this.scrollToBottom();
-    const recentMes = firebase.database().ref(`messages/recentMessage`);
-    console.log(recentMes)
   }
   
   componentDidUpdate() {
@@ -87,9 +85,18 @@ class Messages extends Component {
   componentWillReceiveProps(nextProps){
     console.log('NEXT PROPS', nextProps.user); 
     this.setActiveUserMessages(nextProps);
+    //this.setRecentMessage(nextProps);
     
   }
 
+  // setRecentMessage(myProps) {
+  //   var recentMessageRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}`)
+  //   recentMessageRef.on('value', data => {
+  //     var recentMessage = data.val();
+  //     this.props.user.recentMessage = recentMessage.recentMessage;
+  //     console.log(recentMessage.recentMessage)
+  //   })
+  // }
   setActiveUserMessages(myProps){
     var messagesRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/all`); 
     messagesRef.on('value', data => {

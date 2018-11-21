@@ -37,7 +37,7 @@ class UserList extends Component {
       }
     }
   }
-
+  
   state = {
     open: false,
     open1: false,
@@ -89,12 +89,13 @@ class UserList extends Component {
       </PopupState>
     );
   }
-  renderUsers(user) {
-    
+
+  renderUsers(user) {   
  return (
   <MenuItem>{user.name}</MenuItem>
  )
   }
+
   renderSubHeader() {
     return (
       <div>
@@ -128,8 +129,14 @@ class UserList extends Component {
   renderList(){
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name;
-      const count =  user.badge  > 0 ;     
-       // console.log(user)
+      const count =  user.badge  > 0 ;  
+
+      var recentMessageRef = firebase.database().ref(`messages/${'+' + user.phone}`)
+      recentMessageRef.on('value', data => {
+        var recentMessage = data.val();
+        user.recentMessage = recentMessage.recentMessage;
+        console.log(recentMessage.recentMessage)
+      })
       return (
         <div key={user.email}>
           <ListItem button disableGutters divider 

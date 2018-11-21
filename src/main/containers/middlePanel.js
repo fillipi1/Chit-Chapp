@@ -76,14 +76,8 @@ class Messages extends Component {
     
   componentDidMount() {
     this.scrollToBottom();
-    // var messagesRef = firebase.database().ref(`messages(trial)`); 
-    // messagesRef.on('value', data => {
-    //   const currentMessages = data.val(); 
-    //   console.log(Object.keys(currentMessages).map(x => currentMessages[x].message))
-    //   var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].message));
-    //   this.props.user.recentMessage = (messages2.pop());
-    //   console.log(this.props.user.recentMessage)
-    // });
+    const recentMes = firebase.database().ref(`messages/recentMessage`);
+    console.log(recentMes)
   }
   
   componentDidUpdate() {
@@ -97,7 +91,7 @@ class Messages extends Component {
   }
 
   setActiveUserMessages(myProps){
-    var messagesRef = firebase.database().ref(`messages(trial)/${'+' + myProps.user.phone}`); 
+    var messagesRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/all`); 
     messagesRef.on('value', data => {
       const currentMessages = data.val();
       if(currentMessages != null){
@@ -109,8 +103,9 @@ class Messages extends Component {
           messages: ''
         })
       }
-      var messages2 = (Object.keys(currentMessages).map(x => currentMessages[x].message));
-      this.props.user.recentMessage = (messages2.pop());
+      var recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
+      var recentRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/recentMessage`);
+      recentRef.set(recentMes.pop());
     });
   }
 
@@ -133,11 +128,10 @@ class Messages extends Component {
   addMessage (e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
-    const outText = firebase.database().ref(`messages(trial)/${'+' + this.props.user.phone}`);
+    const outText = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`);
     const item = {
       message: this.state.message,
       phone: "+15103437234",
-      //id: Object.keys(this.props.messagesDataBase).map(x => this.props.messagesDataBase[x]).pop()
     }
     outText.push(item);
     //input message into dashboard

@@ -37,7 +37,8 @@ class UserList extends Component {
       }
     }
   }
-  
+ 
+  componentD
   state = {
     open: false,
     open1: false,
@@ -45,6 +46,7 @@ class UserList extends Component {
     phone: '',
     email: ''
   };
+
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -160,6 +162,11 @@ class UserList extends Component {
   }
 
   render() {
+    var recentMesRef = firebase.database().ref(`messages/`);
+    recentMesRef.on('value', data => {
+    this.renderList()
+    })
+  
     if(this.props.usersDataBase.loading === true){
       return <p> loading...</p>
     }

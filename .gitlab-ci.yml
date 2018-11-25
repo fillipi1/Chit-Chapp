@@ -1,0 +1,92 @@
+image: impekable/awscli
+
+#
+# CI/CD Variables
+#
+# Customize these to configure the job and add
+# more for project specific needs.  These variables
+# are referenced in multiple helper scripts, so be
+# wary of removing the core items listed here.
+variables:
+  PROJECT_NAME: "react-skeleton"
+  DOMAIN: "lab.impekable.com"
+  S3_BUCKET: "${PROJECT_NAME}.${DOMAIN}"
+  S3_FOLDER: ""
+
+#
+# General Build Stage
+#
+# This common build stage is used to compile the
+# associated assets into the production binary,
+# which is passed to the appropriate deploy stage
+# for delivery to final destination.
+build:
+  stage: build
+  image: impekable/nodejs:8
+  artifacts:
+    name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}_${CI_JOB_STAGE}_${CI_COMMIT_SHA}"
+    paths:
+      - build/
+    expire_in: 2 days
+  script:
+    - npm install
+    - npm run build
+
+#
+# S3 Deployment - Non-master Branches
+#
+# This build step deploys working copy artifacts
+# from any branch published that is not master.
+branch-deploy:
+  stage: deploy
+  except:
+    - master
+  variables:
+    S3_FOLDER: "${CI_COMMIT_REF_NAME}"
+  artifacts:
+    name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}_${CI_JOB_STAGE}_${CI_COMMIT_SHA}"
+    paths:
+      - build/
+    expire_in: 2 days
+  environment:
+    name: "${CI_COMMIT_REF_NAME}"
+    url: "http://${S3_BUCKET}/${CI_COMMIT_REF_NAME}/"
+  script:
+    - /impekable/configure-aws
+    - cd build
+    - /impekable/s3-deploy all
+
+#
+# S3 Deployment - Master Branch
+#
+# This build step deploys working copy artifacts
+# from the master branch.
+master-deploy:
+  stage: deploy
+  only:
+    - master
+  artifacts:
+    name: "${CI_PROJECT_NAME}"
+    paths:
+      - build/
+    expire_in: 2 week
+  environment:
+    name: production
+    url: "http://${S3_BUCKET}/"
+  script:
+    - /impekable/configure-aws
+    - cd build
+    - /impekable/s3-deploy all
+
+#
+# ECR Deployment - Master Branch
+#
+# This build step builds and deploys working copy
+# image from the master branch.
+#ecr-deploy:
+#  stage: deploy
+#  only:
+#    - master
+#  script:
+#    - /impekable/configure-aws ecr
+#    - /impekable/docker-build -n "${PROJECT_NAME}" all

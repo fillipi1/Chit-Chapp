@@ -89,14 +89,6 @@ class Messages extends Component {
     
   }
 
-  // setRecentMessage(myProps) {
-  //   var recentMessageRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}`)
-  //   recentMessageRef.on('value', data => {
-  //     var recentMessage = data.val();
-  //     this.props.user.recentMessage = recentMessage.recentMessage;
-  //     console.log(recentMessage.recentMessage)
-  //   })
-  // }
   setActiveUserMessages(myProps){
     var messagesRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/all`); 
     messagesRef.on('value', data => {

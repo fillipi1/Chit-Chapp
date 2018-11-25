@@ -60,8 +60,12 @@ class MiniDrawer extends React.Component {
               </Typography>
               </div>
               <div style = {{display: 'flex', marginRight: 20}}>
-              <Button onClick = {this.props.loginUser}>
-                login
+              <Button onClick = {this.props.loginUser} style = {{color: '#ffffff'}}>
+              <Typography>
+                <div style = {{color: 'white'}}>
+              Logout
+              </div>
+              </Typography>
               </Button>
               <Button className={classes.loginButton} > 
                 <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 

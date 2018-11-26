@@ -13,7 +13,6 @@ class Note extends Component {
         };
     }
 
-   
     render() {   
         let d = new Date(); 
         let hour = d.getHours();

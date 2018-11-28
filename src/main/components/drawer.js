@@ -20,7 +20,7 @@ import fillipi from './pictures/fillipi.jpg';
 import {compose} from 'redux';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {loginUser} from '../redux/actions/updateUser'
+import {loginUser} from '../redux/actions/updateUser';
 
 class MiniDrawer extends React.Component {
   state = {
@@ -29,12 +29,10 @@ class MiniDrawer extends React.Component {
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
-
   };
 
   handleDrawerClose = () => {
     this.setState({ open: false });
-
   };
 
   render() {
@@ -44,31 +42,32 @@ class MiniDrawer extends React.Component {
       <div className={classes.root}>
         <AppBar
           position="fixed"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-          <Toolbar disableGutters={!this.state.open} style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
-            <div style = {{display:'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+        >
+          <Toolbar disableGutters={!this.state.open} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <IconButton
                 color="inherit"
                 aria-label="Open drawer"
                 onClick={this.handleDrawerOpen}
                 className={classNames(classes.menuButton, this.state.open && classes.hide)}
-                >
+              >
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
                 Im•pek•a•ble
               </Typography>
               </div>
-              <div style = {{display: 'flex', marginRight: 20}}>
-              <Button onClick = {this.props.loginUser} style = {{color: '#ffffff'}}>
+              <div style={{ display: 'flex', marginRight: 20 }}>
+              <Button onClick={this.props.loginUser} style={{ color: '#ffffff' }}>
               <Typography>
-                <div style = {{color: 'white'}}>
+                <div style={{ color: 'white' }}>
               Logout
               </div>
               </Typography>
               </Button>
               <Button className={classes.loginButton} > 
-                <Avatar alt="Profile" src= {fillipi} className={classes.bigAvatar} /> 
+                <Avatar alt="Profile" src={fillipi} className={classes.bigAvatar} /> 
               </Button> 
             </div>
           </Toolbar>
@@ -86,7 +85,7 @@ class MiniDrawer extends React.Component {
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>
-          <div style={{alignItems: 'center'}}>
+          <div style={{ alignItems: 'center' }}>
           <List>{mailFolderListItems}</List>
           <Divider />
           <List>{otherMailFolderListItems}</List>
@@ -118,7 +117,7 @@ class MiniDrawer extends React.Component {
 
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1 ,
+      zIndex: theme.zIndex.drawer + 1,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -186,7 +185,6 @@ class MiniDrawer extends React.Component {
   });
 
   function mapStateToProps(state) {
-  
     return {
       users: state.users,
       activeUser: state.activeUser 

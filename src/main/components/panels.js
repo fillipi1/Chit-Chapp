@@ -7,14 +7,12 @@ import RenderSubHeader from '../containers/SubHeaderLeft';
 import { Paper } from '@material-ui/core';
 
 export default () => (
-  <div style = {{display: 'flex', flexWrap: 'wrap', overflow: 'hidden', height: 'calc(100vh -60px)'}}>
+  <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'hidden', height: 'calc(100vh -60px)' }}>
     <Grid container>
         <Grid item sm={3}>
-        <Paper style={{ overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 65px)'}}>
+        <Paper style={{ overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 65px)' }}>
           <RenderSubHeader/>
-         {/* <div style = {{overflowY: 'scroll', overflow: 'hidden', height: 'calc(100vh - 200px)'}}> */}
             <LeftPanel />
-          {/* </div> */}
         </Paper>
         </Grid>
       <Grid item sm={6}>

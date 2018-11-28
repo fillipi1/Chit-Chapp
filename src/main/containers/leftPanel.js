@@ -19,9 +19,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { updateUsers, addUser } from '../redux/actions/updateUser';
 import { selectUser } from '../redux/actions/selectUser';
+import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
 
 
 //UserList class maps created users in the firebase 
@@ -29,7 +29,7 @@ import { selectUser } from '../redux/actions/selectUser';
 
 
 class UserList extends Component {
- 
+
   state={
     open: false,
     open1: false,
@@ -44,7 +44,21 @@ class UserList extends Component {
             this.props.selectUser(nextProps.usersDataBase.users[0]);
         }
     }
-}
+    var usersRef = firebase.database().ref('customers');
+    usersRef.on('value', data =>{
+      const users = Object.keys(data.val()).map(x => data.val()[x])
+      console.log(users);
+      this.props.updateUsers(users);
+      console.log(this.props.usersDataBase)
+    });
+};
+
+componentWillMount(){
+  var usersRef = firebase.database().ref('customers');
+  usersRef.on('value', data =>{
+    this.props.firebaseLoadUsers();
+  });
+};
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -74,28 +88,6 @@ class UserList extends Component {
     this.setState({ open: false });
     this.props.addUser(this.state.email, this.state.phone, this.state.name);
   };
-  MenuPopupState() {
-    return (
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {popupState => (
-          <React.Fragment>
-            <Button variant="contained" {...bindTrigger(popupState)}>
-              Open Menu
-            </Button>
-            <Menu {...bindMenu(popupState)}>
-            {this.props.usersDataBase.map(this.renderUsers)}
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
-    );
-  }
-
-  renderUsers(user) {   
- return (
-  <MenuItem>{user.name}</MenuItem>
- );
-  }
 
   renderSubHeader() {
     return (
@@ -141,7 +133,6 @@ class UserList extends Component {
       recentMessageRef.on('value', data => {
         const recentMessage = data.val();
         user.recentMessage = recentMessage.recentMessage;
-        console.log(recentMessage.recentMessage);
       });
       return (
         <div key={user.email}>
@@ -166,10 +157,7 @@ class UserList extends Component {
   }
 
   render() {
-    const recentMesRef = firebase.database().ref(`messages/`);
-    recentMesRef.on('value', data => {
-    this.renderList()
-    });
+
     if (this.props.usersDataBase.loading === true) { 
       return <p> loading...</p>;
     }
@@ -267,7 +255,7 @@ function mapStateToProps(state) {
 } 
 
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ selectUser, updateUsers, addUser }, dispatch);
+  return bindActionCreators({ selectUser, updateUsers, addUser, firebaseLoadUsers }, dispatch);
 }
 
 

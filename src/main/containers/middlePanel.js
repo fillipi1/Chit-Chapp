@@ -28,7 +28,7 @@ import firebase from '../firebase';
 import {updateUsers, updateAgent} from '../redux/actions/updateUser';
 import {updateMessages} from '../redux/actions/updateMessages';
 import {selectUser} from '../redux/actions/selectUser';
-import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers'
+import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
 import { Link } from 'react-router-dom';
 
 function TabContainer(props) {
@@ -61,11 +61,10 @@ class Messages extends Component {
   }
 
   componentWillMount(){
-    //this.setActiveUserMessages(this.props);
-    this.props.firebaseLoadUsers();
     var usersRef = firebase.database().ref('customers');
     usersRef.on('value', data =>{
-      this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]))
+      this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]));
+      this.props.firebaseLoadUsers();
     });
 
     var logInRef = firebase.database().ref('agent');
@@ -76,6 +75,7 @@ class Messages extends Component {
     
   componentDidMount() {
     this.scrollToBottom();
+    this.props.firebaseLoadUsers();
   }
   
   componentDidUpdate() {
@@ -85,8 +85,6 @@ class Messages extends Component {
   componentWillReceiveProps(nextProps){
     console.log('NEXT PROPS', nextProps.user); 
     this.setActiveUserMessages(nextProps);
-    //this.setRecentMessage(nextProps);
-    
   }
 
   setActiveUserMessages(myProps){
@@ -123,6 +121,10 @@ class Messages extends Component {
   recievedMessage(){
     console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase, this.state.messages);
   };
+  handleRemove = () => {
+     firebase.database().ref('customers').child(this.props.user.id).remove();
+     this.props.updateUsers()
+};
 
   addMessage (e) {
     // register sent messaged from dashboard into firebase
@@ -205,6 +207,7 @@ class Messages extends Component {
   }
   }
   render () {
+    console.log(this.props.usersDataBase)
     var messageRender = this.state.messages
     const { classes } = this.props;
     const { value } = this.state;
@@ -243,16 +246,16 @@ class Messages extends Component {
         </Dialog>}
         </div>
         <div style = {{justifyContent:'flex-end'}}>
-        <IconButton color="primary" style = {{margin: -7}} onClick={this.openScreen}>
+        <IconButton color="primary" style={{margin: -7}} onClick={this.openScreen}>
         <Icon  color = 'primary' onClick={this.openScreen}>search</Icon>
         </IconButton>
-        <IconButton color="primary" style = {{margin: -7}}>
+        <IconButton color="primary" style={{margin: -7}}>
           <PhotoCamera />
         </IconButton>
-        <IconButton color="primary" style = {{margin: -7}}>
+        <IconButton color="primary" style={{margin: -7}}>
         <InboxIcon color = 'primary'/>
         </IconButton>
-        <IconButton color="primary" style = {{margin: -7}}>
+        <IconButton color="primary" style={{margin: -7}} onClick={this.handleRemove}>
         <DeleteIcon color = 'secondary'/>
         </IconButton>
         </div>

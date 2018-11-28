@@ -40,20 +40,16 @@ export function addUser(email, password, name) {
       name: name,
       email: email,
       phone: password,
-      recentMessage: ''
+      recentMessage: '',
+      id: ''
     }).then(function(newCustomerRef) {
       console.log(newCustomerRef.key)
       const customerId = newCustomerRef.key
-      const chatRef = firebase.database().ref('chat');
-      chatRef.push({
-        members: {customer: customerId, agent: "F7fdZdXzhBUva0vu4TcQ2K5y33k2"}
-      }).then(function(response) {
-      //   firebase.database().ref('messages(trial)').set({[response.key]: {
-      
-      //  }});
-        console.log(newCustomerRef)
-        newCustomerRef.update({chatId: response.key})
+      const idRef = firebase.database().ref(`customers/${customerId}`);
+      idRef.update({
+        id: customerId
       })
+
     });
   }
 }

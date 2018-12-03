@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import Badge from '@material-ui/core/Badge';
 import TextField from '@material-ui/core/TextField';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,8 +16,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { updateUsers, addUser } from '../redux/actions/updateUser';
 import { selectUser } from '../redux/actions/selectUser';
 import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
@@ -39,6 +36,8 @@ class UserList extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    //set the active user as the first on the list
+    console.log(Object.keys(this.props.activeUser).length)
     if (Object.keys(this.props.activeUser).length === 0) {
         if (nextProps.usersDataBase.users.length > 0) {
             this.props.selectUser(nextProps.usersDataBase.users[0]);
@@ -50,6 +49,15 @@ class UserList extends Component {
       console.log(users);
       this.props.updateUsers(users);
       console.log(this.props.usersDataBase)
+    });
+
+    const messagesRef = firebase.database().ref(`messages/${'+' + this.props.activeUser.phone}/all`); 
+    messagesRef.on('value', data => {
+      console.log('stage 1')
+      const currentMessages = data.val();
+      const recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
+      const recentRef = firebase.database().ref(`messages/${'+' + nextProps.user.phone}/recentMessage`);
+      recentRef.set(recentMes.pop());
     });
 };
 
@@ -131,8 +139,8 @@ componentWillMount(){
       const count = user.badge > 0;  
       const recentMessageRef = firebase.database().ref(`messages/${'+' + user.phone}`);
       recentMessageRef.on('value', data => {
-        const recentMessage = data.val();
-        user.recentMessage = recentMessage.recentMessage;
+        let recentMessage = data.val().recentMessage;
+        user.recentMessage = recentMessage;
       });
       return (
         <div key={user.email}>

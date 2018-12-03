@@ -25,7 +25,6 @@ class renderSubHeader extends Component {
 
     state = {
         open: false,
-        open1: false,
         name: '',
         phone: '',
         email: ''
@@ -34,11 +33,8 @@ class renderSubHeader extends Component {
         this.setState({ open: true });
     };
     
-    handleClickOpen1 =() => {
-        this.setState({ open1: true });
-    };
     handleClose =() => {
-        this.setState({ open: false, open1:false });
+        this.setState({ open: false });
         console.log(this.state.name, this.state.phone)
     };
 

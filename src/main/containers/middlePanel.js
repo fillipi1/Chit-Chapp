@@ -50,7 +50,7 @@ Redux state
 */
 
 class Messages extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
      message: '',
@@ -60,54 +60,62 @@ class Messages extends Component {
     };
   }
 
-  componentWillMount(){
-    var usersRef = firebase.database().ref('customers');
-    usersRef.on('value', data =>{
+  componentWillMount() {
+    const usersRef = firebase.database().ref('customers');
+    usersRef.on('value', data => {
       this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]));
       this.props.firebaseLoadUsers();
     });
 
-    var logInRef = firebase.database().ref('agent');
+    const logInRef = firebase.database().ref('agent');
     logInRef.on('value', data => {
-      this.props.updateAgent(Object.keys(data.val()).map(x => data.val()[x]))
-    })
+      this.props.updateAgent(Object.keys(data.val()).map(x => data.val()[x]));
+    });
   }
     
   componentDidMount() {
     this.scrollToBottom();
     this.props.firebaseLoadUsers();
-  }
-  
-  componentDidUpdate() {
-    this.scrollToBottom();    
-  }
 
-  componentWillReceiveProps(nextProps){
-    console.log('NEXT PROPS', nextProps.user); 
-    this.setActiveUserMessages(nextProps);
-  }
-
-  setActiveUserMessages(myProps){
-    var messagesRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/all`); 
+    const messagesRef = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`); 
     messagesRef.on('value', data => {
       const currentMessages = data.val();
-      if(currentMessages != null){
-        this.setState({
-          messages: currentMessages
-        })
-      } else {
-        this.setState({
-          messages: ''
-        })
-      }
-      var recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
-      var recentRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/recentMessage`);
+      const recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
+      const recentRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/recentMessage`);
       recentRef.set(recentMes.pop());
     });
   }
 
-  openScreen = () =>{
-    this.setState({open: true})
+  componentWillReceiveProps(nextProps) {
+    console.log('NEXT PROPS', nextProps.user); 
+    this.setActiveUserMessages(nextProps);
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();   
+  }
+
+  setActiveUserMessages(myProps) {
+    const messagesRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/all`); 
+    messagesRef.on('value', data => {
+      const currentMessages = data.val();
+      if (currentMessages != null) {
+        this.setState({
+          messages: currentMessages
+        });
+      } else {
+        this.setState({
+          messages: ''
+        });
+      }
+      const recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
+      const recentRef = firebase.database().ref(`messages/${'+' + myProps.user.phone}/recentMessage`);
+      recentRef.set(recentMes.pop());
+    });
+  }
+
+  openScreen = () => {
+    this.setState({ open: true });
   }
 
   closeScreen = () => {
@@ -115,35 +123,32 @@ class Messages extends Component {
   }
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
   }
 
-  recievedMessage(){
-    console.log(this.props.usersDataBase, this.props.user, this.props.loggedInAs, this.props.messagesDataBase, this.state.messages);
-  };
   handleRemove = () => {
      firebase.database().ref('customers').child(this.props.user.id).remove();
-     this.props.updateUsers()
+     this.props.updateUsers();
 };
 
-  addMessage (e) {
+  addMessage(e) {
     // register sent messaged from dashboard into firebase
     e.preventDefault();
     const outText = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`);
     const item = {
       message: this.state.message,
-      phone: "+15103437234",
-    }
+      phone: '+15103437234',
+    };
     outText.push(item);
     //input message into dashboard
-    if (this.state.message === '') {return}
-    this.setState({ message: ''});
+    if (this.state.message === '') { return; }
+    this.setState({ message: '' });
     //send input message to backend server-then sent to phone number
-    let reqBody = {
-      text : this.state.message,
+    const reqBody = {
+      text: this.state.message,
       phone: this.props.user.phone,
 
-    }
+    };
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
       headers: {
@@ -158,15 +163,16 @@ class Messages extends Component {
   }
 
   handleInput(message) {
-    this.setState({ message: message.target.value })
+    this.setState({ message: message.target.value });
   }
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
-  messageStyle(phone){
-    if (phone === '+15103437234'){return {
+  messageStyle(phone) {
+    if (phone === '+15103437234') { 
+      return {
       background: '#0024d4e3',
       padding: 10,
       borderRadius: '20px',
@@ -177,7 +183,7 @@ class Messages extends Component {
       fontFamily: 'Roboto, sans-serif',
       color: '#ffffff',
       maxWidth: '50%'
-    }
+    };
   } else {
     return {
       background: '#4b49521f',
@@ -189,37 +195,38 @@ class Messages extends Component {
       lineHeight: '1.5em',
       fontFamily: 'Roboto, sans-serif',
       maxWidth: '50%'
-    }
+    };
   }
   }
-  messagePos(phone){
-    if (phone === '+15103437234'){return {
+  messagePos(phone) {
+    if (phone === '+15103437234') {
+      return {
       display: 'flex', 
       flexDirection: 'column',
       alignItems: 'flex-end', 
       padding: 10
-      }
+      };
     } else {
     return {
       display: 'flex', 
       padding: 10
-    }
+    };
   }
   }
-  render () {
-    console.log(this.props.usersDataBase)
-    var messageRender = this.state.messages
+  render() {
+    console.log(this.props.usersDataBase);
+    const messageRender = this.state.messages;
     const { classes } = this.props;
     const { value } = this.state;
   return (
     <Paper style={style.paper} >
-      <Grid container style = {{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap'}}>
-      <div style ={{display:'flex', alignItems: 'center'}}>
-      <Avatar  src= {`https://api.adorable.io/avatars/255/${this.props.user.phone}@adorable.png`} style={{width:40, height:40}}/>
-        <Typography variant = 'body2' gutterBottom style = {{marginLeft: 15}}>
+      <Grid container style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Avatar src={`https://api.adorable.io/avatars/255/${this.props.user.phone}@adorable.png`} style={{ width: 40, height: 40 }} />
+        <Typography variant='body2' gutterBottom style={{ marginLeft: 15 }}>
         {this.props.user.name}
         </Typography>
-        <Typography variant = 'caption' gutterBottom style = {{marginLeft: 10, color: 'purple'}}>
+        <Typography variant='caption' gutterBottom style={{ marginLeft: 10, color: 'purple' }}>
         ({this.props.user.phone})
         </Typography>
         {this.state.open && <Dialog
@@ -240,86 +247,94 @@ class Messages extends Component {
           </AppBar>
           <List>
             <ListItem>
-            <img src={this.state.image}/>
+            <img src={this.state.image} />
             </ListItem>
           </List>
         </Dialog>}
         </div>
-        <div style = {{justifyContent:'flex-end'}}>
-        <IconButton color="primary" style={{margin: -7}} onClick={this.openScreen}>
-        <Icon  color = 'primary' onClick={this.openScreen}>search</Icon>
+        <div style={{ justifyContent: 'flex-end' }}>
+        <IconButton color="primary" style={{ margin: -7 }} onClick={this.openScreen}>
+        <Icon color='primary' onClick={this.openScreen}>search</Icon>
         </IconButton>
-        <IconButton color="primary" style={{margin: -7}}>
+        <IconButton color="primary" style={{ margin: -7 }}>
           <PhotoCamera />
         </IconButton>
-        <IconButton color="primary" style={{margin: -7}}>
-        <InboxIcon color = 'primary'/>
+        <IconButton color="primary" style={{ margin: -7 }}>
+        <InboxIcon color='primary' />
         </IconButton>
-        <IconButton color="primary" style={{margin: -7}} onClick={this.handleRemove}>
-        <DeleteIcon color = 'secondary'/>
+        <IconButton color="primary" style={{margin: -7 }} onClick={this.handleRemove}>
+        <DeleteIcon color='secondary' />
         </IconButton>
         </div>
       </Grid>
-      <Divider/>
+      <Divider />
       <Tabs
           value={value}
           onChange={this.handleChange}
           indicatorColor="primary"
           textColor="primary"
           centered
-          style = {{backgroundColor : '#f3f3f3c2', display: 'flex'}}
-        >
-          <Tab label="SMS" color="default"/>
+          style={{ backgroundColor: '#f3f3f3c2', display: 'flex' }}
+      >
+          <Tab label="SMS" color="default" />
           <Tab label="Messenger" />
           <Tab label="Whats app" />
         </Tabs>
         {value === 0 && 
         <TabContainer>
-          <div style ={style.messageListStyle}>
+          <div style={style.messageListStyle}>
             <div >
               {Object.keys(messageRender).map(text => {
                 return (
                   <div style={this.messagePos(messageRender[text].phone)} key={text.id} >
-                    <Typography variant= 'body1' style= {this.messageStyle(messageRender[text].phone)}>
+                    <Typography variant='body1' style={this.messageStyle(messageRender[text].phone)}>
                     {messageRender[text].message}
                     </Typography>
                   </div>
-                  )
+                  );
               })}
             </div>
-            <div style={{ float:"left", clear: "both" }}
-              ref={(el) => { this.messagesEnd = el; }}>
-            </div>
+            <div 
+              style={{ float: 'left', clear: 'both' }}
+              ref={(el) => { this.messagesEnd = el; }}
+            />
           </div>
           <Divider />
-          <div style = {{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <TextField
               id="textarea"
               placeholder="Type a message..." 
-              style={{marginRight: 10, width: 450, marginLeft:5}}
-              value = {this.state.message}
-              onChange = {message => this.handleInput(message)}
+              style={{ marginRight: 10, width: 450, marginLeft: 5 }}
+              value={this.state.message}
+              onChange={message => this.handleInput(message)}
               margin="normal"
-              InputProps ={{disableUnderline:true}}
-            />
-            <Button variant="contained" color="primary"  style = {{margin: 15, alginSelf: 'center'}} onClick ={this.addMessage.bind(this)}>
+              InputProps={{ disableUnderline: true }}
+          />
+            <Button variant="contained" color="primary" style={{ margin: 15, alginSelf: 'center' }} onClick={this.addMessage.bind(this)}>
              Send
             </Button>
             </div>
         </TabContainer>}
         {value === 1 && <TabContainer>
           <Button onClick={this.handleClickOpen}>>Open full-screen dialog</Button>
-          <Link to="/store" className= "btn btn-danger"> GO!</Link>
-
+          <Link to="/store" className="btn btn-danger"> GO!</Link>
+          <div 
+              style={{ float: 'left', clear: 'both' }}
+              ref={(el) => { this.messagesEnd = el; }}
+            />
         </TabContainer>}
-        {value === 2 && <TabContainer> Whats App</TabContainer>}
+        {value === 2 && <TabContainer> 
+          Whats App
+          <div 
+              style={{ float: 'left', clear: 'both' }}
+              ref={(el) => { this.messagesEnd = el; }}
+            />
+          </TabContainer>}
     </Paper>
 
-  )
+  );
 }
 }
-
-
 
 const style = {
   paper: {
@@ -338,14 +353,14 @@ Messages.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     user: state.activeUser,
     usersDataBase: state.usersDataBase,
     messagesDataBase: state.messagesDataBase,
     loggedInAs: state.loggedinUser
-  }
-};
+  };
+}
 
 function mapDispachToProps (dispatch) {
   return bindActionCreators({ updateUsers, updateMessages, updateAgent, firebaseLoadUsers, selectUser } , dispatch);

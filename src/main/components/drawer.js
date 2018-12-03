@@ -17,10 +17,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import Panels from './panels';
 import fillipi from './pictures/fillipi.jpg';
-import {compose} from 'redux';
-import { connect} from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {loginUser} from '../redux/actions/updateUser';
+import { loginUser } from '../redux/actions/updateUser';
 
 class MiniDrawer extends React.Component {
   state = {

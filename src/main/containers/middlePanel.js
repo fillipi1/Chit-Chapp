@@ -61,12 +61,12 @@ class Messages extends Component {
   }
 
   componentWillMount() {
+     //map through firebase database of customers and update it into redux
     const usersRef = firebase.database().ref('customers');
     usersRef.on('value', data => {
       this.props.updateUsers(Object.keys(data.val()).map(x => data.val()[x]));
       this.props.firebaseLoadUsers();
     });
-
     const logInRef = firebase.database().ref('agent');
     logInRef.on('value', data => {
       this.props.updateAgent(Object.keys(data.val()).map(x => data.val()[x]));
@@ -76,7 +76,7 @@ class Messages extends Component {
   componentDidMount() {
     this.scrollToBottom();
     this.props.firebaseLoadUsers();
-
+    //map through firebase database of active users message by phone number and update message history into redux 
     const messagesRef = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`); 
     messagesRef.on('value', data => {
       const currentMessages = data.val();
@@ -87,8 +87,8 @@ class Messages extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('NEXT PROPS', nextProps.user); 
     this.setActiveUserMessages(nextProps);
+    this.scrollToBottom();   
   }
 
   componentDidUpdate() {
@@ -133,15 +133,15 @@ class Messages extends Component {
 
   addMessage(e) {
     // register sent messaged from dashboard into firebase
-    e.preventDefault();
-    const outText = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`);
+    if (this.state.message === '') { return console.log('nada');
+  }else{
+    const outgoingText = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`);
     const item = {
       message: this.state.message,
       phone: '+15103437234',
     };
-    outText.push(item);
+    outgoingText.push(item);
     //input message into dashboard
-    if (this.state.message === '') { return; }
     this.setState({ message: '' });
     //send input message to backend server-then sent to phone number
     const reqBody = {
@@ -161,10 +161,47 @@ class Messages extends Component {
       console.log(e)
     })
   }
+    
+  };
+
+  addMessageKey(e) {
+    // register sent messaged from dashboard into firebase when pressing enter
+    if (e.key == 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (this.state.message === '') { return console.log('nada');
+    }else{
+      const outgoingText = firebase.database().ref(`messages/${'+' + this.props.user.phone}/all`);
+    const item = {
+      message: this.state.message,
+      phone: '+15103437234',
+    };
+    outgoingText.push(item);
+    //input message into dashboard
+    if (this.state.message === '') { return; }
+    this.setState({ message: '' });
+    //send input message to backend server-then sent to phone number
+    const reqBody = {
+      text: this.state.message,
+      phone: this.props.user.phone,
+
+    };
+    fetch('http://localhost:8081/sendsms', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",    
+      },
+      body: JSON.stringify(reqBody),
+    }).then((res) => res.json()).then((json) => {
+      console.log(json);
+    }).catch(function (e) {
+    })
+    }
+  }
+  };
 
   handleInput(message) {
     this.setState({ message: message.target.value });
-  }
+  };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -214,7 +251,6 @@ class Messages extends Component {
   }
   }
   render() {
-    console.log(this.props.usersDataBase);
     const messageRender = this.state.messages;
     const { classes } = this.props;
     const { value } = this.state;
@@ -309,10 +345,15 @@ class Messages extends Component {
               onChange={message => this.handleInput(message)}
               margin="normal"
               InputProps={{ disableUnderline: true }}
+              multiline='true'
+              rowsMax='4'
+              onKeyPress={this.addMessageKey.bind(this)}
           />
-            <Button variant="contained" color="primary" style={{ margin: 15, alginSelf: 'center' }} onClick={this.addMessage.bind(this)}>
-             Send
-            </Button>
+            <div style={{flex:'none'}} >
+              <Button variant="contained" color="primary" style={{ margin: 15, alginSelf: 'center' }} onClick={this.addMessage.bind(this)}>
+              Send
+              </Button>
+            </div>
             </div>
         </TabContainer>}
         {value === 1 && <TabContainer>

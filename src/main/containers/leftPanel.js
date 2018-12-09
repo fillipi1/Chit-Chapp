@@ -37,23 +37,14 @@ class UserList extends Component {
 
   componentWillReceiveProps(nextProps) {
     //set the active user as the first on the list
-    console.log(Object.keys(this.props.activeUser).length)
     if (Object.keys(this.props.activeUser).length === 0) {
         if (nextProps.usersDataBase.users.length > 0) {
             this.props.selectUser(nextProps.usersDataBase.users[0]);
         }
     }
-    var usersRef = firebase.database().ref('customers');
-    usersRef.on('value', data =>{
-      const users = Object.keys(data.val()).map(x => data.val()[x])
-      console.log(users);
-      this.props.updateUsers(users);
-      console.log(this.props.usersDataBase)
-    });
-
+    //map through firebase database of active users message by phone number and update message history into redux 
     const messagesRef = firebase.database().ref(`messages/${'+' + this.props.activeUser.phone}/all`); 
     messagesRef.on('value', data => {
-      console.log('stage 1')
       const currentMessages = data.val();
       const recentMes = (Object.keys(currentMessages).map(x => currentMessages[x].message));
       const recentRef = firebase.database().ref(`messages/${'+' + nextProps.user.phone}/recentMessage`);
@@ -62,6 +53,7 @@ class UserList extends Component {
 };
 
 componentWillMount(){
+  //map through firebase database of customers and update it into redux
   var usersRef = firebase.database().ref('customers');
   usersRef.on('value', data =>{
     this.props.firebaseLoadUsers();
@@ -82,56 +74,20 @@ componentWillMount(){
 
   handleInputName(name) {
     this.setState({ name: name.target.value });
-  }
+  };
 
   handleInputPhone(phone) {
     this.setState({ phone: phone.target.value });
-  }
+  };
 
   handleInputEmail(email) {
     this.setState({ email: email.target.value });
-  }
+  };
 
   handleNewUser =() => {
     this.setState({ open: false });
     this.props.addUser(this.state.email, this.state.phone, this.state.name);
   };
-
-  renderSubHeader() {
-    return (
-      <div>
-        <Grid item>
-          <div 
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center', 
-              padding: 12 }}
-          >
-            <Typography variant='headline'>
-              Add Contact
-            </Typography>
-            <IconButton onClick={this.handleClickOpen}>
-            <Icon color='primary'>
-              add
-            </Icon>
-            </IconButton>
-          </div>
-        </Grid>
-        <Divider />
-        <div style={{ display: 'flex', alignItems: 'center', padding: 7.5 }}>
-          <Icon color='disabled'>search</Icon>
-          <TextField
-              id="textarea"
-              placeholder="Search Conversation"
-              InputProps={{ disableUnderline: true }}
-              style={{ marginLeft: 5 }}
-          />
-        </div>
-            <Divider />
-      </div>
-    );
-  }
 
   renderList() {
     const maplist = (user) => {
@@ -143,7 +99,7 @@ componentWillMount(){
         user.recentMessage = recentMessage;
       });
       return (
-        <div key={user.email}>
+        <div key={user.id}>
           <ListItem button disableGutters divider 
           onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
             <Grid item>
@@ -165,7 +121,6 @@ componentWillMount(){
   }
 
   render() {
-
     if (this.props.usersDataBase.loading === true) { 
       return <p> loading...</p>;
     }

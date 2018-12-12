@@ -23,6 +23,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import Pictures from '../components/sharedPhotos';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -64,15 +65,15 @@ class Notes extends Component {
      handleClose = () => {
       this.setState({ open: false });
     };
-
+    
   render() {  
     const { classes } = this.props;
     let notes = this.state.notes.map((val, key) => {
       return <Note key ={key} text ={val} deleteMethod = { () => this.deleteNote(key)} />
     })  
 
-    const imageClick = (tile) => {
-      this.setState({image : tile.img}, () => {
+    const imageClick = (pictures) => {
+      this.setState({image : pictures.img}, () => {
       }); 
       this.setState({ open: true }, () => {
   
@@ -114,7 +115,7 @@ class Notes extends Component {
             </Button>       
           </div>
           <Divider />
-        <div style = {{ height: 200,overflowY: 'scroll'}}>
+        <div style = {{ height: 150,overflowY: 'scroll'}}>
           <div variant = 'body2' style = {{display: 'flex', flexDirection: 'column-reverse'}}>
             {notes} 
           </div>
@@ -124,21 +125,30 @@ class Notes extends Component {
           <Typography  variant='caption' style={{padding:5}}>
           Shared Photos
           </Typography>
+          <div style={{padding: 3}}>
+            <GridList cellHeight={150} style ={style.gridList} cols={3}>
+              {Pictures.map((pictures) => (
+              <GridListTile key={pictures.img} cols={pictures.cols || 1} >
+                <img src={pictures.img} alt={pictures.name} onClick = {() => imageClick(pictures)} />
+              </GridListTile>
+            ))}
+            </GridList>
+          </div>
           {this.state.open && <Dialog
             fullScreen
             open={true}
             onClose={this.handleClose}
             TransitionComponent={Transition}
           >
-            <AppBar className={classes.appBar}>
+            <AppBar >
               <Toolbar>
                 <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                   <CloseIcon />
                 </IconButton>
-                <Typography variant="title" color="inherit" className={classes.flex}>
+                <Typography variant="title" color="inherit" >
                   Close
                 </Typography>
-                <Button color="inherit"   onClick = {() => alert('saved')}>
+                <Button color="inherit"  style={{marginLeft: '85%'}} onClick = {() => alert('saved')}>
                   Save photo
                 </Button>
               </Toolbar>
@@ -157,11 +167,14 @@ class Notes extends Component {
 }
 const style = {
   paper: {
-    marginRight: 1,
-    overflowY: 'scroll',
+    overflowY: 'hidden',
     overflowX: 'hidden',
     height: 'calc(100vh - 64px)'
   },
+    gridList: {
+      width: 330,
+      height: 350,
+    },
 };
 function mapStateToProps(state){
   return {

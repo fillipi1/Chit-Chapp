@@ -7,9 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import Badge from '@material-ui/core/Badge';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -29,7 +26,6 @@ class UserList extends Component {
 
   state={
     open: false,
-    open1: false,
     name: '',
     phone: '',
     email: ''
@@ -101,13 +97,13 @@ componentWillMount(){
       return (
         <div key={user.id}>
           <ListItem button disableGutters divider 
-          onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
+            onClick={() => this.props.selectUser(user)} style={active ? {backgroundColor:'rgb(237, 237, 237)'} : {}} >
             <Grid item>
               <Avatar alt={user.avatar} src={`https://api.adorable.io/avatars/255/${user.phone}@adorable.png`} style={{ width: 45, height: 45, margin: 5, marginRight: 20 }}/>
             </Grid>
-            <Grid item xs >
+            <Grid item xs  wrap="nowrap" >
               <Typography>{user.name}</Typography>
-              <Typography variant='caption' style={styles.avatar} >{user.recentMessage}</Typography>
+              <Typography variant='caption' style={styles.avatar} noWrap >{user.recentMessage}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption" style={{ padding: 5, display: 'flex',flexDirection: 'row-reverse', marginRight: 5, justifyContent:'flex-start'}}>{user.time}</Typography>
@@ -187,7 +183,7 @@ const styles = {
   },
   avatar: {
     padding: 5,
-    width: 150,
+    width: '70%',
     
   },
   bigAvatar: {
@@ -208,7 +204,6 @@ const styles = {
   },
 };
 
-
 function mapStateToProps(state) {
   return {
     users: state.users,
@@ -220,6 +215,5 @@ function mapStateToProps(state) {
 function mapDispachToProps (dispatch) {
   return bindActionCreators({ selectUser, updateUsers, addUser, firebaseLoadUsers }, dispatch);
 }
-
 
 export default connect(mapStateToProps, mapDispachToProps)(UserList);

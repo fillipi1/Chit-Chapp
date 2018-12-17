@@ -172,7 +172,7 @@ const style = {
     height: 'calc(100vh - 64px)'
   },
     gridList: {
-      width: 330,
+      width: 350,
       height: 350,
     },
 };

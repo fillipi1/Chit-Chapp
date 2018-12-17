@@ -88,7 +88,7 @@ class Messages extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setActiveUserMessages(nextProps);
-    this.scrollToBottom();   
+    //this.scrollToBottom();   
   }
 
   componentDidUpdate() {

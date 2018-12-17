@@ -6,13 +6,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import Badge from '@material-ui/core/Badge';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { updateUsers, addUser } from '../redux/actions/updateUser';
 import { selectUser } from '../redux/actions/selectUser';
 import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
@@ -21,15 +14,7 @@ import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
 //UserList class maps created users in the firebase 
 //database and diplays them on the left side component.
 
-
 class UserList extends Component {
-
-  state={
-    open: false,
-    name: '',
-    phone: '',
-    email: ''
-  };
 
   componentWillReceiveProps(nextProps) {
     //set the active user as the first on the list
@@ -56,39 +41,9 @@ componentWillMount(){
   });
 };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClickOpen1 =() => {
-    this.setState({ open1: true });
-  };
-  handleClose =() => {
-    this.setState({ open: false, open1: false });
-    console.log(this.state.name, this.state.phone);
-  };
-
-  handleInputName(name) {
-    this.setState({ name: name.target.value });
-  };
-
-  handleInputPhone(phone) {
-    this.setState({ phone: phone.target.value });
-  };
-
-  handleInputEmail(email) {
-    this.setState({ email: email.target.value });
-  };
-
-  handleNewUser =() => {
-    this.setState({ open: false });
-    this.props.addUser(this.state.email, this.state.phone, this.state.name);
-  };
-
   renderList() {
     const maplist = (user) => {
-      const active = this.props.activeUser.name === user.name;
-      const count = user.badge > 0;  
+      const active = this.props.activeUser.name === user.name; 
       const recentMessageRef = firebase.database().ref(`messages/${'+' + user.phone}`);
       recentMessageRef.on('value', data => {
         let recentMessage = data.val().recentMessage;
@@ -103,11 +58,9 @@ componentWillMount(){
             </Grid>
             <Grid item xs  wrap="nowrap" >
               <Typography>{user.name}</Typography>
-              <Typography variant='caption' style={styles.avatar} noWrap >{user.recentMessage}</Typography>
+              <Typography variant='caption' style={styles.userList} noWrap >{user.recentMessage}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="caption" style={{ padding: 5, display: 'flex',flexDirection: 'row-reverse', marginRight: 5, justifyContent:'flex-start'}}>{user.time}</Typography>
-              {count ? <Badge style={styles.margin} badgeContent={user.badge} color="secondary"></Badge> : false}  
             </Grid>
           </ListItem>
         </div>
@@ -124,77 +77,16 @@ componentWillMount(){
       <div>
         <div style={{ height: 'calc(100vh - 185px)', overflowY: 'scroll' }}>
           {this.renderList()}   
-        </div>     
-        <div>
-        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Add User</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Enter contact name, phone # and email
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              type="text"
-              fullWidth
-              onChange={name => this.handleInputName(name)}
-            />
-            <TextField
-              variant="outlined"
-              id="phone number"
-              label="Phone #"
-              type="text"
-              onChange={phone => this.handleInputPhone(phone)}
-              fullWidth
-            />
-            <TextField
-              variant="outlined"
-              id="email"
-              label="Email"
-              type="email"
-              onChange={email => this.handleInputEmail(email)}
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleNewUser} color="primary">
-              Add Contact
-            </Button>
-          </DialogActions>
-        </Dialog>
-        </div>        
+        </div>           
       </div>
     );
   }
 }
   
 const styles = {
-  root: {
-    overflow: 'hidden',
-  },
-  row: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  avatar: {
+  userList: {
     padding: 5,
-    width: '70%',
-    
-  },
-  bigAvatar: {
-    width: 50,
-    height: 50,
-    margin: 5,
-  },
-  paper: {
-    padding: 0, 
-    height: '100vh',
-    overflow: 'hidden'
+    width: '70%', 
   },
   margin: {
     marginTop: 5,

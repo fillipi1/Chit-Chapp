@@ -3,18 +3,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import Badge from '@material-ui/core/Badge';
 import { updateUsers, addUser } from '../redux/actions/updateUser';
 import { selectUser } from '../redux/actions/selectUser';
 import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
+import contactCenter from '../components/contactCenter';
+
 
 
 //UserList class maps created users in the firebase 
 //database and diplays them on the left side component.
 
 class UserList extends Component {
+
+  state={
+    search: ''
+  }
 
   componentWillReceiveProps(nextProps) {
     //set the active user as the first on the list
@@ -41,7 +50,12 @@ componentWillMount(){
   });
 };
 
+handleInput(text) {
+  this.setState({ search: text.target.value });
+};
+
   renderList() {
+    let filteredList = this.props.usersDataBase.users.filter((word) => word.name.toLowerCase().indexOf(this.state.search) !== -1);
     const maplist = (user) => {
       const active = this.props.activeUser.name === user.name; 
       const recentMessageRef = firebase.database().ref(`messages/${'+' + user.phone}`);
@@ -58,7 +72,7 @@ componentWillMount(){
             </Grid>
             <Grid item xs  wrap="nowrap" >
               <Typography>{user.name}</Typography>
-              <Typography variant='caption' style={styles.userList} noWrap >{user.recentMessage}</Typography>
+              {/* <Typography variant='caption' style={styles.userList} noWrap >{user.recentMessage}</Typography> */}
             </Grid>
             <Grid item>
             </Grid>
@@ -66,20 +80,39 @@ componentWillMount(){
         </div>
       );
     }
-    return this.props.usersDataBase.users.map(maplist)
+    return filteredList.map(maplist)
   }
 
   render() {
+    
+    console.log(this.props.usersDataBase.users)
     if (this.props.usersDataBase.loading === true) { 
-      return <p> loading...</p>;
+      return <p> Loading...</p>;
     }
-    return (
-      <div>
-        <div style={{ height: 'calc(100vh - 185px)', overflowY: 'scroll' }}>
-          {this.renderList()}   
-        </div>           
-      </div>
-    );
+    if (this.props.usersDataBase === 0) {
+      return <p> add user</p>
+    } else {
+      return (
+        <div>
+           <div style = {{display: 'flex', alignItems: 'center', padding: 7.5, height: 31}}>
+                <Icon  color= 'disabled'>search</Icon>
+                <TextField
+                    id="textarea"
+                    placeholder="Search Conversation"
+                    InputProps ={{disableUnderline:true}}
+                    style= {{marginLeft:5}}
+                    value = {this.state.search}
+                    onChange={text => this.handleInput(text)}
+                    />
+                </div>
+                <Divider/>
+          <div style={{ height: 'calc(100vh - 185px)', overflowY: 'scroll' }}>
+            {this.renderList()}   
+          </div>           
+        </div>
+      );
+    }
+ 
   }
 }
   

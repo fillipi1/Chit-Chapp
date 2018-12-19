@@ -25,6 +25,7 @@ class renderSubHeader extends Component {
         phone: '',
         email: ''
       };
+
     handleClickOpen = () => {
         this.setState({ open: true });
     };
@@ -65,16 +66,6 @@ class renderSubHeader extends Component {
                         </IconButton>
                     </div>
                 </Grid>
-                </div>
-                <Divider/>
-                <div style = {{display: 'flex', alignItems: 'center', padding: 7.5, height: 31}}>
-                <Icon  color= 'disabled'>search</Icon>
-                <TextField
-                    id="textarea"
-                    placeholder="Search Conversation"
-                    InputProps ={{disableUnderline:true}}
-                    style= {{marginLeft:5}}
-                    />
                 </div>
                     <Divider/>
                     <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">

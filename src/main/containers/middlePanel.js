@@ -32,6 +32,8 @@ import {selectUser} from '../redux/actions/selectUser';
 import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
 import { Link } from 'react-router-dom';
 import PhoneIcon from '@material-ui/icons/Phone';
+import TextIcon from '@material-ui/icons/textsms';
+import Video from '@material-ui/icons/videocam';
 
 function TabContainer(props) {
   return (
@@ -162,8 +164,7 @@ class Messages extends Component {
     }).catch(function (e) {
       console.log(e)
     })
-  }
-    
+  }  
   };
 
   addMessageKey(e) {
@@ -185,7 +186,6 @@ class Messages extends Component {
     const reqBody = {
       text: this.state.message,
       phone: this.props.user.phone,
-
     };
     fetch('http://localhost:8081/sendsms', {
       method: 'POST',
@@ -200,6 +200,15 @@ class Messages extends Component {
     }
   }
   };
+
+  makeCall() {
+    fetch('http://localhost:8081/call', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",    
+      }
+    }).done()
+  }
 
   handleInput(message) {
     this.setState({ message: message.target.value });
@@ -283,22 +292,14 @@ class Messages extends Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <List>
-            <ListItem>
-            <img src={this.state.image} />
-            </ListItem>
-          </List>
         </Dialog>}
         </div>
         <div style={{ justifyContent: 'flex-end' }}>
-        <IconButton color="primary" style={{ margin: -7 }} onClick={this.openScreen}>
-        <Icon color='primary' onClick={this.openScreen}>search</Icon>
+        <IconButton color="primary" style={{ margin: -7 }} onClick={this.makeCall} >
+        <PhoneIcon />
         </IconButton>
         <IconButton color="primary" style={{ margin: -7 }}>
           <PhotoCamera />
-        </IconButton>
-        <IconButton color="primary" style={{ margin: -7 }}>
-        <InboxIcon color='primary' />
         </IconButton>
         <IconButton color="primary" style={{margin: -7 }} onClick={this.handleRemove}>
         <DeleteIcon color='secondary' />
@@ -312,11 +313,11 @@ class Messages extends Component {
           indicatorColor="primary"
           textColor="primary"
           centered
-          style={{ backgroundColor: '#f3f3f3c2', display: 'flex' }}
+          style={{ backgroundColor: '#f3f3f3c2', display: 'flex', justifyContent: 'center' }}
       >
-          <Tab label="SMS" color="default" />
+          <Tab icon={<TextIcon />} color="default" />
           <Tab icon={<PhoneIcon />} />
-          <Tab label="Whats app" />
+          <Tab icon={<Video />}/>
         </Tabs>
         {value === 0 && 
         <TabContainer>
@@ -361,9 +362,9 @@ class Messages extends Component {
         {value === 1 && <TabContainer  >
           <div style={{flexGrow: 1}}>
             <div style ={{justifyContent: 'center', alignItems: 'center', display: 'flex', height: 'calc(100vh - 265px)'}}>
-              <MyButton style={{justifyItems: 'center', alignItems: 'center'}}>
+              <CallButton style={{justifyItems: 'center', alignItems: 'center'}}>
                 Call
-              </MyButton>
+              </CallButton>
             </div>
             <div 
                 style={{ float: 'left', clear: 'both' }}
@@ -372,11 +373,17 @@ class Messages extends Component {
           </div>
         </TabContainer>}
         {value === 2 && <TabContainer> 
-          Whats App
-          <div 
-              style={{ float: 'left', clear: 'both' }}
-              ref={(el) => { this.messagesEnd = el; }}
-            />
+          <div style={{flexGrow: 1}}>
+            <div style ={{justifyContent: 'center', alignItems: 'center', display: 'flex', height: 'calc(100vh - 265px)'}}>
+              <FacetimeButton style={{justifyItems: 'center', alignItems: 'center'}}>
+                Facetime
+              </FacetimeButton>
+            </div>
+            <div 
+                style={{ float: 'left', clear: 'both' }}
+                ref={(el) => { this.messagesEnd = el; }}
+              />
+          </div>
           </TabContainer>}
     </Paper>
 
@@ -396,8 +403,21 @@ const style = {
     height: 'calc(100vh - 265px)'
   },
 };
-const MyButton = styled(Button)({
+const CallButton = styled(Button)({
   background: 'linear-gradient(25deg, green 20%, #fff 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+  width: '20%',
+  display: 'flex',
+  alignItems: 'center'
+});
+
+const FacetimeButton = styled(Button)({
+  background: 'linear-gradient(25deg, #2f19e2 20%, #fff 90%)',
   border: 0,
   borderRadius: 3,
   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',

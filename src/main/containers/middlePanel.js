@@ -7,9 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import {compose} from 'redux';
 import { bindActionCreators } from 'redux';
 import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
 import Icon from '@material-ui/core/Icon';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import IconButton from '@material-ui/core/IconButton';
@@ -31,6 +31,7 @@ import {updateMessages} from '../redux/actions/updateMessages';
 import {selectUser} from '../redux/actions/selectUser';
 import {firebaseLoadUsers} from '../redux/actions/firebaseLoadUsers';
 import { Link } from 'react-router-dom';
+import PhoneIcon from '@material-ui/icons/Phone';
 
 function TabContainer(props) {
   return (
@@ -314,7 +315,7 @@ class Messages extends Component {
           style={{ backgroundColor: '#f3f3f3c2', display: 'flex' }}
       >
           <Tab label="SMS" color="default" />
-          <Tab label="Voice" />
+          <Tab icon={<PhoneIcon />} />
           <Tab label="Whats app" />
         </Tabs>
         {value === 0 && 
@@ -357,14 +358,18 @@ class Messages extends Component {
             </div>
             </div>
         </TabContainer>}
-        {value === 1 && <TabContainer>
-          <MyButton>
-            Call
-          </MyButton>
-          <div 
-              style={{ float: 'left', clear: 'both' }}
-              ref={(el) => { this.messagesEnd = el; }}
-            />
+        {value === 1 && <TabContainer  >
+          <div style={{flexGrow: 1}}>
+            <div style ={{justifyContent: 'center', alignItems: 'center', display: 'flex', height: 'calc(100vh - 265px)'}}>
+              <MyButton style={{justifyItems: 'center', alignItems: 'center'}}>
+                Call
+              </MyButton>
+            </div>
+            <div 
+                style={{ float: 'left', clear: 'both' }}
+                ref={(el) => { this.messagesEnd = el; }}
+              />
+          </div>
         </TabContainer>}
         {value === 2 && <TabContainer> 
           Whats App
@@ -392,14 +397,16 @@ const style = {
   },
 };
 const MyButton = styled(Button)({
-  background: 'linear-gradient(25deg, #00cefd 20%, #fff 90%)',
+  background: 'linear-gradient(25deg, green 20%, #fff 90%)',
   border: 0,
   borderRadius: 3,
   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   color: 'white',
   height: 48,
   padding: '0 30px',
-  width: '50%'
+  width: '20%',
+  display: 'flex',
+  alignItems: 'center'
 });
 
 Messages.propTypes = {

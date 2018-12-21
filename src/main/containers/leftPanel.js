@@ -72,7 +72,7 @@ handleInput(text) {
             </Grid>
             <Grid item xs  wrap="nowrap" >
               <Typography>{user.name}</Typography>
-              {/* <Typography variant='caption' style={styles.userList} noWrap >{user.recentMessage}</Typography> */}
+              <Typography variant='caption' style={styles.userList} noWrap >{user.recentMessage}</Typography>
             </Grid>
             <Grid item>
             </Grid>

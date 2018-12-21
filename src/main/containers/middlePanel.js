@@ -17,6 +17,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import { styled } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -313,7 +314,7 @@ class Messages extends Component {
           style={{ backgroundColor: '#f3f3f3c2', display: 'flex' }}
       >
           <Tab label="SMS" color="default" />
-          <Tab label="Messenger" />
+          <Tab label="Voice" />
           <Tab label="Whats app" />
         </Tabs>
         {value === 0 && 
@@ -357,8 +358,9 @@ class Messages extends Component {
             </div>
         </TabContainer>}
         {value === 1 && <TabContainer>
-          <Button onClick={this.handleClickOpen}>>Open full-screen dialog</Button>
-          <Link to="/store" className="btn btn-danger"> GO!</Link>
+          <MyButton>
+            Call
+          </MyButton>
           <div 
               style={{ float: 'left', clear: 'both' }}
               ref={(el) => { this.messagesEnd = el; }}
@@ -389,6 +391,16 @@ const style = {
     height: 'calc(100vh - 265px)'
   },
 };
+const MyButton = styled(Button)({
+  background: 'linear-gradient(25deg, #00cefd 20%, #fff 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+  width: '50%'
+});
 
 Messages.propTypes = {
   classes: PropTypes.object.isRequired,

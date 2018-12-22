@@ -7,16 +7,17 @@ import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/Report';
 import { Link } from 'react-router-dom';
+import Conference from '@material-ui/icons/group';
 
 export const mailFolderListItems = (
   <div>
     <ListItem button>
     <Link to='/graphs'>
       <ListItemIcon>
-        <InboxIcon />
+        <Conference />
       </ListItemIcon>
       </Link>
-      <ListItemText primary='Store' />
+      <ListItemText primary='Conference Call' />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

@@ -202,12 +202,18 @@ class Messages extends Component {
   };
 
   makeCall() {
+    const reqBody={
+      phone: this.props.user.phone
+    };
     fetch('http://localhost:8081/call', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=utf-8",    
-      }
-    }).done()
+      },
+      body: JSON.stringify(reqBody),
+    }).then((res) => res.json()).then((json) => {
+      console.log(json);
+    })
   }
 
   handleInput(message) {
@@ -265,6 +271,7 @@ class Messages extends Component {
     const messageRender = this.state.messages;
     const { classes } = this.props;
     const { value } = this.state;
+    console.log(this.props.user.phone)
   return (
     <Paper style={style.paper} >
       <Grid container style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap' }}>
@@ -295,7 +302,7 @@ class Messages extends Component {
         </Dialog>}
         </div>
         <div style={{ justifyContent: 'flex-end' }}>
-        <IconButton color="primary" style={{ margin: -7 }} onClick={this.makeCall} >
+        <IconButton color="primary" style={{ margin: -7 }} onClick={this.makeCall.bind(this)} >
         <PhoneIcon />
         </IconButton>
         <IconButton color="primary" style={{ margin: -7 }}>
@@ -362,7 +369,7 @@ class Messages extends Component {
         {value === 1 && <TabContainer  >
           <div style={{flexGrow: 1}}>
             <div style ={{justifyContent: 'center', alignItems: 'center', display: 'flex', height: 'calc(100vh - 265px)'}}>
-              <CallButton style={{justifyItems: 'center', alignItems: 'center'}}>
+              <CallButton style={{justifyItems: 'center', alignItems: 'center'}} onClick={this.makeCall}>
                 Call
               </CallButton>
             </div>

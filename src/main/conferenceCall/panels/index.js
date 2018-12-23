@@ -4,19 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Typography from '@material-ui/core/Typography';
 import Mic from '@material-ui/icons/keyboardvoice';
-import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar'
 import Attachment from '@material-ui/icons/attachment';
-import Build from '@material-ui/icons/build';
 import Layers from '@material-ui/icons/layers';
 import Poll from '@material-ui/icons/personadd';
 import List from '@material-ui/core/List';
 import Settings from '@material-ui/icons/settings';
 import Help from '@material-ui/icons/help';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
 import {firebaseLoadUsers} from '../../redux/actions/firebaseLoadUsers';
 import { selectUser } from '../../redux/actions/selectUser';
 import blue from '@material-ui/core/colors/blue';
@@ -24,6 +18,11 @@ import { ListItem, ListItemIcon, ListItemText, ListItemAvatar } from '@material-
 import SimpleDialog from './dialog';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Callend from '@material-ui/icons/callend';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import GoogleMap from './map'
+
+
 
 class Panels extends Component {
   
@@ -51,6 +50,22 @@ class Panels extends Component {
     this.setState({ selectedValue: value, open: false });
   };
 
+  makeCall() {
+    console.log('called conferene')
+    const reqBody={
+      phone: this.props.activeuser.phone
+    };
+    fetch('http://localhost:8081/call', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",    
+      },
+      body: JSON.stringify(reqBody),
+    }).then((res) => res.json()).then((json) => {
+      console.log(json);
+    })
+  }
+
   renderList() {
     const maplist = (user) => {
       console.log(user)
@@ -66,8 +81,12 @@ class Panels extends Component {
               <Typography style={{color: 'white'}}>{user.user.name}</Typography>
               <Typography style={{color: 'white'}}>{user.user.phone}</Typography>
             </Grid>
-            <PhoneIcon style={{color: 'green', marginRight: 20}}/>
-            <Callend style={{color: 'red', marginRight: 10}}/>
+            <IconButton style={{marginRight: 5, color: 'green'}} onClick={this.makeCall.bind(this)}>
+              <PhoneIcon  />
+            </IconButton>
+            <IconButton style={{color: 'red', marginRight: 5}}>
+              <Callend />
+            </IconButton>
             <Grid item>
             </Grid>
           </ListItem>
@@ -79,6 +98,7 @@ class Panels extends Component {
 
 
   render() {
+    console.log(this.props.activeUser)
     const data = this.props.usersDataBase.users.map(x=> x.name)
     const { classes, onClose, selectedValue, ...other } = this.props;
       return (
@@ -115,7 +135,9 @@ class Panels extends Component {
                 {this.renderList()}
               </div>
           </div>
-          <div style={{height: '40%', backgroundColor: 'black'}} />
+          <div style={{height: '40%' }} >
+            {/* <GoogleMap lon={-121.893028} lat={37.335480}  style={{height: '200px', width: '250px'}} /> */}
+          </div>
           </Grid>
           <Grid item sm={9}>
             <div style={{ backgroundColor: 'black', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 60px)', border: '1px solid grey', borderLeftWidth: '0px', width: 999  }}>
@@ -169,7 +191,7 @@ const styles={
 function mapStateToProps(state) {
   return {
     users: state.users,
-    activeUser: state.activeUser,
+    activeuser: state.activeUser,
     usersDataBase: state.usersDataBase,
     conferenceusers: state.conferenceUsers,
     activeUser: state.activeUser

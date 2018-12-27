@@ -3,9 +3,13 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export class MapContainer extends Component {
     render() {
+        console.log(this.state)
       return (
-        <Map google={this.props.google} zoom={14}>
-   
+        <Map 
+        google={this.props.google} zoom={12} 
+        style={style}
+        >
+    
           <Marker onClick={this.onMarkerClick}
                   name={'Current location'} />
    
@@ -17,6 +21,12 @@ export class MapContainer extends Component {
         </Map>
       );
     }
+  }
+
+  const style = {
+    width: '24%',
+    height: '31.7%',
+    position: 'relative'
   }
    
   export default GoogleApiWrapper({

@@ -9,6 +9,7 @@ import Attachment from '@material-ui/icons/attachment';
 import Layers from '@material-ui/icons/layers';
 import Poll from '@material-ui/icons/personadd';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import Settings from '@material-ui/icons/settings';
 import Help from '@material-ui/icons/help';
 import {firebaseLoadUsers} from '../../redux/actions/firebaseLoadUsers';
@@ -73,7 +74,7 @@ class Panels extends Component {
       return (
         <div key={user.id}>
           <ListItem button disableGutters divider 
-            onClick={() => this.props.selectUser(user.user)} style={active ? {backgroundColor:'#39393a'} : {backgroundColor:'#2e3d61'}} >
+            onClick={() => this.props.selectUser(user.user)} style={active ? {backgroundColor:'#39393a'} : {}} >
             <Grid item>
               <Avatar alt={user.user.avatar} src={`https://api.adorable.io/avatars/255/${user.user.phone}@adorable.png`} style={{ width: 45, height: 45, margin: 5, marginRight: 20 }}/>
             </Grid>
@@ -86,11 +87,11 @@ class Panels extends Component {
             </IconButton>
             <IconButton style={{color: 'red', marginRight: 5}}>
               <Callend />
-            </IconButton>
-            <Grid item>
-            </Grid>
+            </IconButton> 
           </ListItem>
+          <Divider style={{backgroundColor: 'black'}}/>
         </div>
+        
       );
     }
     return this.props.conferenceusers.map(maplist)
@@ -102,55 +103,53 @@ class Panels extends Component {
     const data = this.props.usersDataBase.users.map(x=> x.name)
     const { classes, onClose, selectedValue, ...other } = this.props;
       return (
-        <div style={{ display: 'flex', overflow: 'hidden', height: 'calc(100vh - 60px)', marginRight: 5, width: '100%' }}>
-        <List style={{backgroundColor: '#5e667b', width: '4%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'spaceBetween'}}>
-          <div>
-            <ListItem button style={styles.iconContainer} onClick={this.handleClickOpen}>
-              <Poll style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer}>
-                <PhoneIcon style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer}>
-                <Layers style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer}>
-                <Attachment style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer}>
-                <Mic style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer2}>
-                <Settings style={styles.icon}/>
-            </ListItem>
-            <ListItem button style={styles.iconContainer}>
-                <Help style={styles.icon}/>
-            </ListItem>
-          </div>
-        </List>
-        <Grid container>
-          <Grid item sm={3}>
-          <div style={{ backgroundColor: '#131315', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 300px)', border: '1px solid grey' }}>
-              <div style={{maxHeight: '100%', overflow: 'hidden', overflowY: 'scroll'}}>
-                {this.renderList()}
-              </div>
-          </div>
-          <div style={{height: '40%' }} >
-            <GoogleMap  />
-          </div>
-          </Grid>
-          <Grid item sm={9}>
-            <div style={{ backgroundColor: 'black', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 60px)', border: '1px solid grey', borderLeftWidth: '0px', width: 999  }}>
-              <div>
-                <SimpleDialog
-                  open={this.state.open}
-                  onClose={this.handleClose}
-                />
-               </div>
+        <div style={{ display: 'flex', overflow: 'hidden', height: 'calc(100vh - 66px)', width: '100%', maxHeight: '100vh' }}>
+          <List style={{backgroundColor: '#5e667b', width: '4%', display: 'flex', flexDirection: 'column', justifyContent: 'spaceBetween'}}>
+            <div>
+              <ListItem button style={styles.iconContainer} onClick={this.handleClickOpen}>
+                <Poll style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer}>
+                  <PhoneIcon style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer}>
+                  <Layers style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer}>
+                  <Attachment style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer}>
+                  <Mic style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer2}>
+                  <Settings style={styles.icon}/>
+              </ListItem>
+              <ListItem button style={styles.iconContainer}>
+                  <Help style={styles.icon}/>
+              </ListItem>
             </div>
+          </List>
+          <Grid container>
+            <Grid item sm={3} style ={{maxHeight: 100}}>
+              <div style={{ backgroundColor: '#222225', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 300px)', border: '1px solid grey' }}>
+                  <div style={{maxHeight: '100%', overflow: 'hidden', overflowY: 'scroll'}}>
+                    {this.renderList()}
+                  </div>
+              </div>
+              <GoogleMap />
+            </Grid>
+            <Grid item sm={9}>
+              <div style={{ backgroundColor: 'black', overflow: 'hidden', height: 'calc(100vh - 60px)',  border: '1px solid grey', borderLeftWidth: '0px'  }}>
+                <div>
+                  <SimpleDialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                  />
+                </div>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
+        </div>
     );
   }
 }

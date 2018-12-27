@@ -130,14 +130,14 @@ class Panels extends Component {
         </List>
         <Grid container>
           <Grid item sm={3}>
-          <div style={{ backgroundColor: '#131315', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 60px)', border: '1px solid grey' }}>
+          <div style={{ backgroundColor: '#131315', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 300px)', border: '1px solid grey' }}>
               <div style={{maxHeight: '100%', overflow: 'hidden', overflowY: 'scroll'}}>
                 {this.renderList()}
               </div>
           </div>
-          {/* <div style={{height: '40%' }} > */}
-            {/* <GoogleMap lon={-121.893028} lat={37.335480}  style={{height: '200px', width: '250px'}} /> */}
-          {/* </div> */}
+          <div style={{height: '40%' }} >
+            <GoogleMap  />
+          </div>
           </Grid>
           <Grid item sm={9}>
             <div style={{ backgroundColor: 'black', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 60px)', border: '1px solid grey', borderLeftWidth: '0px', width: 999  }}>

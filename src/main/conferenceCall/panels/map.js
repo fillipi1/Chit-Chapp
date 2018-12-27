@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-class GoogleMap extends Component {
-    componentDidMount() {
-        const google = window.google;
-        new google.maps.Map(this.refs.map, {
-            zoom: 12,
-            center: {
-                lat: 37.335480,
-                lng: -121.893028
-            }
-        })
-    }
-
+export class MapContainer extends Component {
     render() {
-        return <div ref='map' />
+      return (
+        <Map google={this.props.google} zoom={14}>
+   
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'} />
+   
+          {/* <InfoWindow onClose={this.onInfoWindowClose}>
+              <div>
+                <h1>{this.state.selectedPlace.name}</h1>
+              </div>
+          </InfoWindow> */}
+        </Map>
+      );
     }
-}
-
-export default GoogleMap;
+  }
+   
+  export default GoogleApiWrapper({
+    apiKey: ('AIzaSyCUiLQOc56ddjRIx_JQpV1nzjaCBb2y-oc')
+  })(MapContainer)

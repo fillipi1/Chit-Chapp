@@ -8,7 +8,7 @@ import List from '@material-ui/core/List';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 import {firebaseloadusers} from '../../redux/actions/firebaseLoadUsers';
 import {addConferenceUser} from '../../redux/actions/addConferenceUser';
 import blue from '@material-ui/core/colors/blue';
@@ -33,6 +33,9 @@ class SimpleDialog extends Component {
       this.props.addConferenceUser(value)
     };
   
+    handleListItemClose = () => {
+        this.setState({open: false})
+      };
   
     render() {
       console.log(this.props.conferenceusers)
@@ -41,7 +44,7 @@ class SimpleDialog extends Component {
      // const emails = [{name:'joe'}, {name: 'sicko'}];
   
       return (
-        <Dialog onClose={this.handleClose1} aria-labelledby="simple-dialog-title" {...other}>
+        <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
           <DialogTitle id="simple-dialog-title">Add Customer or Agent to Conference Call</DialogTitle>
           <div>
             <List>
@@ -55,10 +58,10 @@ class SimpleDialog extends Component {
                   <ListItemText primary={user.name} secondary={user.phone}/>
                 </ListItem>
               ))}
-              <ListItem button onClick={() => this.handleListItemClick('addAccount')}>
+              <ListItem button onClick={this.handleClose}>
                 <ListItemAvatar>
                   <Avatar>
-                    <AddIcon />
+                    <CloseIcon />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Cancel" />

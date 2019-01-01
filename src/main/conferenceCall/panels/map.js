@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export class MapContainer extends Component {
+    handremove(){
+        console.log( 'biiitch')
+    }
     render() {
-        console.log(this.state)
       return (
         <Map 
         google={this.props.google} zoom={12} 

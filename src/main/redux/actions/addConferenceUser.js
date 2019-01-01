@@ -4,3 +4,11 @@ export function addConferenceUser(user){
       payload: user
     };
   }
+
+  export function removeConferenceUser(user){
+    console.log(user.user.name)
+      return {
+          type: 'REMOVE_CONFERENCE_USER',
+          payload: user
+      }
+  }

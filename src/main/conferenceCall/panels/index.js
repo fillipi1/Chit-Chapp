@@ -14,6 +14,7 @@ import Settings from '@material-ui/icons/settings';
 import Help from '@material-ui/icons/help';
 import {firebaseLoadUsers} from '../../redux/actions/firebaseLoadUsers';
 import { selectUser } from '../../redux/actions/selectUser';
+import {removeConferenceUser} from '../../redux/actions/addConferenceUser';
 import blue from '@material-ui/core/colors/blue';
 import { ListItem, ListItemIcon, ListItemText, ListItemAvatar } from '@material-ui/core';
 import SimpleDialog from './dialog';
@@ -29,7 +30,6 @@ class Panels extends Component {
   
   state = {
     open: false,
-    users: []
   };
 
   componentWillMount(){
@@ -41,7 +41,6 @@ class Panels extends Component {
   };
 
   handleClickOpen = () => {
-    console.log('opened')
     this.setState({
       open: true,
     });
@@ -52,7 +51,6 @@ class Panels extends Component {
   };
 
   makeCall() {
-    console.log('called conferene')
     const reqBody={
       phone: this.props.activeuser.phone
     };
@@ -65,6 +63,10 @@ class Panels extends Component {
     }).then((res) => res.json()).then((json) => {
       console.log(json);
     })
+  }
+
+  removeUser(user) {
+    this.props.removeConferenceUser(user);
   }
 
   renderList() {
@@ -85,7 +87,7 @@ class Panels extends Component {
             <IconButton style={{marginRight: 5, color: 'green'}} onClick={this.makeCall.bind(this)}>
               <PhoneIcon  />
             </IconButton>
-            <IconButton style={{color: 'red', marginRight: 5}}>
+            <IconButton style={{color: 'red', marginRight: 5}} onClick={this.removeUser.bind(this, user)}>
               <Callend />
             </IconButton> 
           </ListItem>
@@ -130,7 +132,7 @@ class Panels extends Component {
             </div>
           </List>
           <Grid container>
-            <Grid item sm={3} style ={{maxHeight: 100}}>
+            <Grid item sm={3} >
               <div style={{ backgroundColor: '#222225', overflow: 'hidden', overflowY: 'scroll', height: 'calc(100vh - 300px)', border: '1px solid grey' }}>
                   <div style={{maxHeight: '100%', overflow: 'hidden', overflowY: 'scroll'}}>
                     {this.renderList()}
@@ -198,7 +200,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispachToProps (dispatch) {
-  return bindActionCreators({ firebaseLoadUsers, selectUser }, dispatch);
+  return bindActionCreators({ firebaseLoadUsers, selectUser,removeConferenceUser }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispachToProps)(Panels);

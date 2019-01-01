@@ -271,17 +271,17 @@ class Messages extends Component {
     const messageRender = this.state.messages;
     const { classes } = this.props;
     const { value } = this.state;
-    console.log(this.props.user.phone)
+    const active = Object.keys(this.props.user).length === 0;
   return (
     <Paper style={style.paper} >
       <Grid container style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 13.5, wrap: 'noWrap' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Avatar src={`https://api.adorable.io/avatars/255/${this.props.user.phone}@adorable.png`} style={{ width: 40, height: 40 }} />
+      {active? <div/> : <Avatar src={`https://api.adorable.io/avatars/255/${this.props.user.phone}@adorable.png`} style={{ width: 40, height: 40 }} />}
         <Typography variant='body2' gutterBottom style={{ marginLeft: 15 }}>
         {this.props.user.name}
         </Typography>
         <Typography variant='caption' gutterBottom style={{ marginLeft: 10, color: 'purple' }}>
-        ({this.props.user.phone})
+        {active? <div/> : '(' + this.props.user.phone + ')' }
         </Typography>
         {this.state.open && <Dialog
           fullScreen

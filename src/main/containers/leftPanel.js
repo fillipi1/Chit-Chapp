@@ -84,8 +84,6 @@ handleInput(text) {
   }
 
   render() {
-    
-    console.log(this.props.usersDataBase.users)
     if (this.props.usersDataBase.loading === true) { 
       return <p> Loading...</p>;
     }

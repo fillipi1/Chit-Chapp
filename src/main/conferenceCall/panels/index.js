@@ -101,8 +101,8 @@ class Panels extends Component {
 
 
   render() {
-    console.log(this.props.activeUser)
-    const data = this.props.usersDataBase.users.map(x=> x.name)
+    const active = Object.keys(this.props.activeuser).length ===0 ;
+    console.log(active)
     const { classes, onClose, selectedValue, ...other } = this.props;
       return (
         <div style={{ display: 'flex', overflow: 'hidden', height: 'calc(100vh - 66px)', width: '100%', maxHeight: '100vh' }}>
@@ -141,7 +141,10 @@ class Panels extends Component {
               <GoogleMap />
             </Grid>
             <Grid item sm={9}>
-              <div style={{ backgroundColor: 'black', overflow: 'hidden', height: 'calc(100vh - 60px)',  border: '1px solid grey', borderLeftWidth: '0px'  }}>
+              <div style={{ backgroundColor: 'black', overflow: 'hidden', height: 'calc(100vh - 60px)',  border: '1px solid grey', borderLeftWidth: '0px', display: 'flex'  }}>
+              <div style = {{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+              {active ? <div/> : <Avatar alt={this.props.activeuser.phone} src={`https://api.adorable.io/avatars/255/${this.props.activeuser.phone}@adorable.png`} style={{ alignItems: 'center',justifyContent: 'center', display: 'flex', width: 200, height: 200, margin: 5, marginRight: 20 }}/>}
+              </div>
                 <div>
                   <SimpleDialog
                     open={this.state.open}

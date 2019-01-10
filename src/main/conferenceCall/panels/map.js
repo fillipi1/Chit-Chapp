@@ -9,15 +9,23 @@ export class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-         lat: 'a',
+         lat: '',
          lng: ''
         };
       }
 
        geocode(){
+           function address(){
+               if (this.props.activeUser === null){
+                   return '10 welle rd, crockett CA'
+               } else {
+                   return '241 blue jay way, felton CA'
+               }
+           }
+           const active = this.props.activeUser;
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
-            address: '241 blue jay way, Felton CA' ,
+            address: this.props.activeUser.address,
             key: 'AIzaSyCUiLQOc56ddjRIx_JQpV1nzjaCBb2y-oc'
         }
         }).then((response) =>{

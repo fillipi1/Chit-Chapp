@@ -9,6 +9,7 @@ import Conference from '@material-ui/icons/group';
 class dashBoard extends Component {
 
     render() {
+
         return (
         <div style={{height: '100vh', width: '100vw', backgroundColor: 'white'}}>
             <div style={{backgroundColor: '#2e3d61', width: '100%', height: '9%', display: 'flex', boxShadow: `1px 3px 3px #d2cccc`}} >

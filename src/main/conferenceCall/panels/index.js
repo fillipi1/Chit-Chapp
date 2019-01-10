@@ -76,7 +76,8 @@ class Panels extends Component {
       return (
         <div key={user.id}>
           <ListItem button disableGutters divider 
-            onClick={() => this.props.selectUser(user.user)} style={active ? {backgroundColor:'#39393a'} : {}} >
+            style={active ? {backgroundColor:'#39393a'} : {}} >
+            <div onClick={() => this.props.selectUser(user.user)} style={{display: 'flex'}}>
             <Grid item>
               <Avatar alt={user.user.avatar} src={`https://api.adorable.io/avatars/255/${user.user.phone}@adorable.png`} style={{ width: 45, height: 45, margin: 5, marginRight: 20 }}/>
             </Grid>
@@ -84,9 +85,10 @@ class Panels extends Component {
               <Typography style={{color: 'white'}}>{user.user.name}</Typography>
               <Typography style={{color: 'white'}}>{user.user.phone}</Typography>
             </Grid>
-            <IconButton style={{marginRight: 5, color: 'green'}} onClick={this.makeCall.bind(this)}>
+            <IconButton style={{marginRight: 5, color: 'green', marginLeft: 30}} onClick={this.makeCall.bind(this)}>
               <PhoneIcon  />
             </IconButton>
+            </div>
             <IconButton style={{color: 'red', marginRight: 5}} onClick={this.removeUser.bind(this, user)}>
               <Callend />
             </IconButton> 
@@ -142,9 +144,22 @@ class Panels extends Component {
             </Grid>
             <Grid item sm={9}>
               <div style={{ backgroundColor: 'black', overflow: 'hidden', height: 'calc(100vh - 60px)',  border: '1px solid grey', borderLeftWidth: '0px', display: 'flex'  }}>
-              <div style = {{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-              {active ? <div/> : <Avatar alt={this.props.activeuser.phone} src={`https://api.adorable.io/avatars/255/${this.props.activeuser.phone}@adorable.png`} style={{ alignItems: 'center',justifyContent: 'center', display: 'flex', width: 200, height: 200, margin: 5, marginRight: 20 }}/>}
-              </div>
+                <div style = {{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+                  {active ? <div/> : 
+                  <div style={{ alignItems: 'center',justifyContent: 'center', display: 'flex', flexDirection: 'column'}}>
+                  <Avatar alt={this.props.activeuser.phone} src={`https://api.adorable.io/avatars/255/${this.props.activeuser.phone}@adorable.png`} style={{ width: 200, height: 200, margin: 5, marginRight: 20 }}/>  
+                  <Typography style={{color: 'white', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%'}}>
+                    Name : {this.props.activeuser.name}      
+                  </Typography>
+                  <Typography style={{color: 'white', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%'}}>
+                    Phone : {this.props.activeuser.phone}   
+                  </Typography>
+                  <Typography style={{color: 'white', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%'}}>
+                    Location : San Jose    
+                  </Typography>
+                  </div>
+                  }
+                </div>
                 <div>
                   <SimpleDialog
                     open={this.state.open}
@@ -171,14 +186,12 @@ const styles={
       justifyContent: 'center', 
       display: 'flex', 
       width: '100%',
-      // marginTop: 10,
-      // marginBottom: 20,
   },
   iconContainer2: {
     justifyContent: 'center', 
     display: 'flex', 
     width: '100%',
-    marginTop: '500%',
+    marginTop: '620%',
 },
   icon: {
       color: 'white',

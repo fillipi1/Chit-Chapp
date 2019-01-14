@@ -83,7 +83,7 @@ class Notes extends Component {
     return (
       <Paper style={style.paper} >
         <Grid container style = {{diplsay: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant = 'headline' style = {{padding : 20, height: 27}}> 
+          <Typography variant = 'headline' style = {{padding : 17.5}}> 
             Note
           </Typography>
           <IconButton>

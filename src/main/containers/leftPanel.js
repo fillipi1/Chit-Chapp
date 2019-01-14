@@ -92,7 +92,7 @@ handleInput(text) {
     } else {
       return (
         <div>
-           <div style = {{display: 'flex', alignItems: 'center', padding: 7.5, height: 31}}>
+           <div style = {{display: 'flex', alignItems: 'center', padding: 7.5, height: '5%'}}>
                 <Icon  color= 'disabled'>search</Icon>
                 <TextField
                     id="textarea"

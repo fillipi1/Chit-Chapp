@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Attachment from '@material-ui/icons/attachment';
 import Layers from '@material-ui/icons/layers';
 import Poll from '@material-ui/icons/personadd';
+import faker from 'faker';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Settings from '@material-ui/icons/settings';
@@ -22,7 +23,8 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import Callend from '@material-ui/icons/callend';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import GoogleMap from './map'
+import GoogleMap from './map';
+import Clock from '../../components/Time';
 
 
 
@@ -85,7 +87,7 @@ class Panels extends Component {
               <Typography style={{color: 'white'}}>{user.user.name}</Typography>
               <Typography style={{color: 'white'}}>{user.user.phone}</Typography>
             </Grid>
-            <IconButton style={{marginRight: 5, color: 'green', marginLeft: 30}} onClick={this.makeCall.bind(this)}>
+            <IconButton style={{marginRight: 5, color: 'green', marginLeft: 70}} onClick={this.makeCall.bind(this)}>
               <PhoneIcon  />
             </IconButton>
             </div>
@@ -155,7 +157,7 @@ class Panels extends Component {
                     Phone : {this.props.activeuser.phone}   
                   </Typography>
                   <Typography style={{color: 'white', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%'}}>
-                    Location : San Jose    
+                    Local time:  <Clock />   
                   </Typography>
                   </div>
                   }
